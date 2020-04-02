@@ -1,0 +1,66 @@
+# Use, modification, and distribution are
+# subject to the Boost Software License, Version 1.0. (See accompanying
+# file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#
+# Copyright Rene Rivera 2019.
+
+trigger:
+  branches:
+    include:
+    - master
+
+stages:
+
+- stage: Test
+  jobs:
+
+  - job: 'Linux'
+    strategy:
+      matrix:
+        GCC 9:
+          TOOLSET: gcc
+          CXX: g++-9
+          PACKAGES: g++-9
+          VM_IMAGE: 'ubuntu-18.04'
+    pool:
+      vmImage: $(VM_IMAGE)
+    steps:
+    - bash: |
+        set -e
+        uname -a
+        sudo -E apt-add-repository -y "ppa:ubuntu-toolchain-r/test"
+        if test -n "${LLVM_REPO}" ; then
+          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+          sudo -E apt-add-repository "deb http://apt.llvm.org/xenial/ ${LLVM_REPO} main"
+        fi
+        sudo -E apt-get update
+        sudo -E apt-get -yq --no-install-suggests --no-install-recommends install ${PACKAGES}
+      displayName: Install Toolset
+    - bash: |
+        set -e
+        ${CXX} src/main.cpp
+      displayName: Compile
+
+  - job: 'macOS'
+    strategy:
+      matrix:
+        Xcode 9.4.1:
+          TOOLSET: clang
+          CXX: clang++
+          VM_IMAGE: 'macOS-10.14'
+          XCODE_VERSION: 9.4.1
+    pool:
+      vmImage: $(VM_IMAGE)
+    steps:
+    - bash: |
+        set -e
+        uname -a
+        gem install xcode-install
+        xcversion update
+        xcversion list
+        xcversion install ${XCODE_VERSION}
+      displayName: Install Toolset
+    - bash: |
+        set -e
+        ${CXX} src/main.cpp
+      displayName: Compile

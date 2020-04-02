@@ -1,0 +1,5 @@
+= Continuous Integration Playground
+
+This is "playground" for testing out basic methods to get CI systems working
+with minimal effort. Not just getting CI working, but specifically getting
+C++ to work in CI.
