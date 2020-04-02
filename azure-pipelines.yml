@@ -56,9 +56,12 @@ stages:
         set -e
         uname -a
         gem install xcode-install
+        xcversion installed
         xcversion update
         xcversion list
         xcversion install ${XCODE_VERSION}
+        xcversion installed
+        xcversion list
       displayName: Install Toolset
     - bash: |
         set -e
