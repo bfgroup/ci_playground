@@ -38,6 +38,7 @@ stages:
       displayName: Install Toolset
     - bash: |
         set -e
+        ${CXX} --version
         ${CXX} src/main.cpp
       displayName: Compile
 
@@ -49,6 +50,11 @@ stages:
           CXX: clang++
           VM_IMAGE: 'macOS-10.14'
           XCODE_VERSION: 9.4.1
+        Xcode 8.3.3:
+          TOOLSET: clang
+          CXX: clang++
+          VM_IMAGE: 'macOS-10.14'
+          XCODE_VERSION: 8.3.3
     pool:
       vmImage: $(VM_IMAGE)
     variables:
@@ -64,11 +70,13 @@ stages:
         xcversion installed
         xcversion update
         xcversion list
-        xcversion install ${XCODE_VERSION}
+        xcversion --verbose --force install ${XCODE_VERSION}
+        xcversion --verbose --force install-cli-tools
         xcversion installed
         xcversion list
       displayName: Install Toolset
     - bash: |
         set -e
+        ${CXX} --version
         ${CXX} src/main.cpp
       displayName: Compile
