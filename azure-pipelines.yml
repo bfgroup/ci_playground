@@ -48,12 +48,12 @@ stages:
         Xcode 9.4.1:
           TOOLSET: clang
           CXX: clang++
-          VM_IMAGE: 'macOS-10.14'
+          VM_IMAGE: 'macOS-10.15'
           XCODE_VERSION: 9.4.1
         Xcode 8.3.3:
           TOOLSET: clang
           CXX: clang++
-          VM_IMAGE: 'macOS-10.14'
+          VM_IMAGE: 'macOS-10.15'
           XCODE_VERSION: 8.3.3
     pool:
       vmImage: $(VM_IMAGE)
