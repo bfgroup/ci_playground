@@ -70,8 +70,8 @@ stages:
         xcversion installed
         xcversion update
         xcversion list
-        xcversion --verbose --force install ${XCODE_VERSION}
-        xcversion --verbose --force install-cli-tools
+        xcversion --verbose --force --no-progress --no-clean install ${XCODE_VERSION}
+        xcversion --verbose install-cli-tools
         xcversion installed
         xcversion list
       displayName: Install Toolset
