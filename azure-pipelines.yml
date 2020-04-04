@@ -24,9 +24,6 @@ stages:
           VM_IMAGE: 'ubuntu-18.04'
     pool:
       vmImage: $(VM_IMAGE)
-    variables:
-      XCODE_INSTALL_USER: $(DEV_APPLE_USER)
-      XCODE_INSTALL_PASSWORD: $(DEV_APPLE_PASSWORD)
     steps:
     - bash: |
         set -e
@@ -54,6 +51,9 @@ stages:
           XCODE_VERSION: 9.4.1
     pool:
       vmImage: $(VM_IMAGE)
+    variables:
+      XCODE_INSTALL_USER: $(DEV_APPLE_USER)
+      XCODE_INSTALL_PASSWORD: $(DEV_APPLE_PASSWORD)
     steps:
     - bash: |
         set -e
