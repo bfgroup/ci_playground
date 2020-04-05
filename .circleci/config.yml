@@ -1,0 +1,102 @@
+# Use, modification, and distribution are
+# subject to the Boost Software License, Version 1.0. (See accompanying
+# file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#
+# Copyright Rene Rivera 2020.
+
+version: 2.1
+jobs:
+  linux-job:
+    parameters:
+      image:
+        default: "ubuntu-1604:201903-01"
+        type: string
+      llvm_repo:
+        default: ""
+        type: string
+      cxx:
+        default: "c++"
+        type: string
+      packages:
+        default: ""
+        type: string
+    machine:
+      - image: << parameters.image >>
+        environment:
+          LLVM_REPO: << parameters.llvm_repo >>
+          CXX: << parameters.cxx >>
+          PACKAGES: << parameters.packages >>
+    steps:
+      - checkout
+      - run:
+          name: Install Toolset
+          command: |
+            set -e
+            uname -a
+            ./.ci_playground/linux-cxx-install.sh
+      - run:
+          name: Compile
+          command: |
+            set -e
+            ${CXX} --version
+            ${CXX} src/main.cpp
+  xcode-job:
+    parameters:
+      image:
+        type: string
+      xcode_version:
+        default: ""
+        type: string
+      cxx:
+        default: "clang++"
+        type: string
+    macos:
+      xcode: << parameters.image >>
+        environment:
+          XCODE_VERSION: << parameters.xcode_version >>
+          CXX: << parameters.cxx >>
+    steps:
+      - checkout
+      - run:
+          name: Install Toolset
+          command: |
+            set -e
+            uname -a
+            export "XCODE_INSTALL_USER=${DEV_APPLE_USER}"
+            export "XCODE_INSTALL_PASSWORD=${DEV_APPLE_PASSWORD}"
+            ./ci_playground/macos-xcode-install.sh
+      - run:
+          name: Compile
+          command: |
+            set -e
+            ${CXX} --version
+            ${CXX} src/main.cpp
+workflows:
+  workflow:
+    jobs:
+      - linux-job:
+          name: 'Linux GCC 9'
+          cxx: g++-9
+          packages: g++-9
+      - linux-job:
+          name: 'Linux GCC 8'
+          cxx: g++-8
+          packages: g++-8
+      - xcode-job:
+          name: 'macOS Xcode 11.4.0'
+          image: 11.4.0
+          xcode_version: 11.4.0
+      - xcode-job:
+          name: 'macOS Xcode 10.3.0'
+          image: 10.3.0
+          xcode_version: 10.3.0
+      - xcode-job:
+          name: 'macOS Xcode 9.4.1'
+          image: 9.4.1
+          xcode_version: 9.4.1
+          cxx: clang++
+      - xcode-job:
+          name: 'macOS Xcode 8.3.3'
+          image: 9.0.1
+          xcode_version: 8.3.3
+          cxx: clang++
