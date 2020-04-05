@@ -21,11 +21,11 @@ jobs:
         default: ""
         type: string
     machine:
-      - image: << parameters.image >>
-        environment:
-          LLVM_REPO: << parameters.llvm_repo >>
-          CXX: << parameters.cxx >>
-          PACKAGES: << parameters.packages >>
+      image: << parameters.image >>
+    environment:
+      LLVM_REPO: << parameters.llvm_repo >>
+      CXX: << parameters.cxx >>
+      PACKAGES: << parameters.packages >>
     steps:
       - checkout
       - run:
@@ -52,9 +52,9 @@ jobs:
         type: string
     macos:
       xcode: << parameters.image >>
-        environment:
-          XCODE_VERSION: << parameters.xcode_version >>
-          CXX: << parameters.cxx >>
+    environment:
+      XCODE_VERSION: << parameters.xcode_version >>
+      CXX: << parameters.cxx >>
     steps:
       - checkout
       - run:
