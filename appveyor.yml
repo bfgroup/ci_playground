@@ -8,6 +8,11 @@ branches:
   only:
     - /master.*/
 
+skip_commits:
+ files:
+   - '.circleci/*'
+   - azure-pipelines.yml
+
 platform:
   - x86
   - x64
