@@ -33,7 +33,7 @@ before_build:
       %SETUPXX%
 
 build_script:
-  : cmd: |
+  - cmd: |
       echo ">>>>>"
       echo ">>>>> COMPILE .."
       echo ">>>>>"
