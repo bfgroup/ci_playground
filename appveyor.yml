@@ -30,12 +30,12 @@ before_build:
       echo ">>>>>"
       echo ">>>>> INSTALL TOOLSET, Setup .."
       echo ">>>>>"
-      %SETUPXX%
+      "%SETUPXX%"
 
 build_script:
   - cmd: |
       echo ">>>>>"
       echo ">>>>> COMPILE .."
       echo ">>>>>"
-      %CXX% %CXXFLAGS% src/main.cpp
+      "%CXX%" %CXXFLAGS% src/main.cpp
 
