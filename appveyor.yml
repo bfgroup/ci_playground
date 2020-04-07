@@ -1,0 +1,41 @@
+# Use, modification, and distribution are
+# subject to the Boost Software License, Version 1.0. (See accompanying
+# file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#
+# Copyright Rene Rivera 2020.
+
+branches:
+  only:
+    - /master.*/
+
+environment:
+  matrix:
+  - job_name: 'VS 2015'
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    SETUPXX: $(VS140COMNTOOLS)/vcvarsall.bat
+    CXX: cl.exe
+    CXXFLAGS: /nologo /Zi /MT /TP /Feb2 /Ox /GL
+  - job_name: 'VS 2013'
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    SETUPXX: $(VS120COMNTOOLS)/vcvarsall.bat
+    CXX: cl.exe
+    CXXFLAGS: /nologo /Zi /MT /TP /Feb2 /Ox /GL
+
+before_build:
+  - cmd: |
+      echo ">>>>>"
+      echo ">>>>> INSTALL TOOLSET, Environment .."
+      echo ">>>>>"
+      set
+      echo ">>>>>"
+      echo ">>>>> INSTALL TOOLSET, Setup .."
+      echo ">>>>>"
+      %SETUPXX%
+
+build_script:
+  : cmd: |
+      echo ">>>>>"
+      echo ">>>>> COMPILE .."
+      echo ">>>>>"
+      %CXX% %CXXFLAGS% src/main.cpp
+
