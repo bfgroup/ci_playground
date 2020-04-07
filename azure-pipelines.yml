@@ -42,14 +42,14 @@ stages:
   - job: 'macOS'
     strategy:
       matrix:
+        Xcode 11.4:
+          CXX: clang++
+          VM_IMAGE: 'macOS-10.15'
+          XCODE_VERSION: 11.4
         Xcode 9.4.1:
           CXX: clang++
           VM_IMAGE: 'macOS-10.14'
           XCODE_VERSION: 9.4.1
-        Xcode 8.3.3:
-          CXX: clang++
-          VM_IMAGE: 'macOS-10.14'
-          XCODE_VERSION: 8.3.3
     pool:
       vmImage: $(VM_IMAGE)
     steps:
