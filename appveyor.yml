@@ -45,7 +45,7 @@ before_build:
       echo ">>>>>"
       echo ">>>>> INSTALL TOOLSET, Info .."
       echo ">>>>>"
-      "%CXXINFO%" 
+      %CXXINFO%
 
 build_script:
   - cmd: |
