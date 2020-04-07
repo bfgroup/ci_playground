@@ -22,7 +22,7 @@ environment:
   - job_name: 'VS 2017'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     PATH: '$(ProgramFiles)\Microsoft Visual Studio\Installer\vswhere;$(PATH)'
-    SETUPXX: 'vswhere" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -version "[15.0,16.0)"'
+    SETUPXX: 'vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -version "[15.0,16.0)"'
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
   - job_name: 'VS 2015'
