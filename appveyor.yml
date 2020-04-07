@@ -19,6 +19,11 @@ platform:
 
 environment:
   matrix:
+  - job_name: 'VS 2017'
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    SETUPXX: 'for /f "usebackq tokens=*" %%i in (`"%ProgramFiles%\Microsoft Visual Studio\Installer\vswhere" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -version "[15.0,16.0)"`) do ( "%%i\VC\vcvarsall.bat" $(PLATFORM) || exit /B 0 )'
+    CXX: cl.exe
+    CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
   - job_name: 'VS 2015'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     SETUPXX: '"$(VS140COMNTOOLS)..\..\VC\vcvarsall.bat" $(PLATFORM)'
