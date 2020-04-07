@@ -16,22 +16,22 @@ environment:
   matrix:
   - job_name: 'VS 2015'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    SETUPXX: "$(VS140COMNTOOLS)..\..\VC\vcvarsall.bat" $(PLATFORM)
+    SETUPXX: \"$(VS140COMNTOOLS)..\..\VC\vcvarsall.bat\" $(PLATFORM)
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
   - job_name: 'VS 2013'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    SETUPXX: "$(VS120COMNTOOLS)..\..\VC\vcvarsall.bat" $(PLATFORM)
+    SETUPXX: \"$(VS120COMNTOOLS)..\..\VC\vcvarsall.bat\" $(PLATFORM)
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
   - job_name: 'VS 2012'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    SETUPXX: "$(VS110COMNTOOLS)..\..\VC\vcvarsall.bat" $(PLATFORM)
+    SETUPXX: \"$(VS110COMNTOOLS)..\..\VC\vcvarsall.bat\" $(PLATFORM)
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
   - job_name: 'VS 2010'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    SETUPXX: "$(VS100COMNTOOLS)..\..\VC\vcvarsall.bat" $(PLATFORM)
+    SETUPXX: \"$(VS100COMNTOOLS)..\..\VC\vcvarsall.bat\" $(PLATFORM)
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
 
