@@ -14,26 +14,22 @@ environment:
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     SETUPXX: $(VS140COMNTOOLS)..\..\VC\vcvarsall.bat
     CXX: cl.exe
-    CXXFLAGS: /nologo /Zi /MT /TP /Feb2 /Ox /GL /EHsc
-    CXXINFO: cl.exe /HELP
+    CXXFLAGS: /Zi /MT /TP /Feb2 /Ox /GL /EHsc
   - job_name: 'VS 2013'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     SETUPXX: $(VS120COMNTOOLS)..\..\VC\vcvarsall.bat
     CXX: cl.exe
-    CXXFLAGS: /nologo /Zi /MT /TP /Feb2 /Ox /GL /EHsc
-    CXXINFO: cl.exe /HELP
+    CXXFLAGS: /Zi /MT /TP /Feb2 /Ox /GL /EHsc
   - job_name: 'VS 2012'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     SETUPXX: $(VS110COMNTOOLS)..\..\VC\vcvarsall.bat
     CXX: cl.exe
-    CXXFLAGS: /nologo /Zi /MT /TP /Feb2 /Ox /GL /EHsc
-    CXXINFO: cl.exe /HELP
+    CXXFLAGS: /Zi /MT /TP /Feb2 /Ox /GL /EHsc
   - job_name: 'VS 2010'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     SETUPXX: $(VS100COMNTOOLS)..\..\VC\vcvarsall.bat
     CXX: cl.exe
-    CXXFLAGS: /nologo /Zi /MT /TP /Feb2 /Ox /GL /EHsc
-    CXXINFO: cl.exe /HELP
+    CXXFLAGS: /Zi /MT /TP /Feb2 /Ox /GL /EHsc
 
 before_build:
   - cmd: |
@@ -42,10 +38,6 @@ before_build:
       echo ">>>>> INSTALL TOOLSET, Setup .."
       echo ">>>>>"
       "%SETUPXX%"
-      echo ">>>>>"
-      echo ">>>>> INSTALL TOOLSET, Info .."
-      echo ">>>>>"
-      %CXXINFO%
 
 build_script:
   - cmd: |
