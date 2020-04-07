@@ -14,26 +14,31 @@ platform:
 
 environment:
   matrix:
-  - job_name: 'VS 2015'
+  - job_name: 'VS 2015 $(PLATFORM)'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     SETUPXX: '"$(VS140COMNTOOLS)..\..\VC\vcvarsall.bat" $(PLATFORM)'
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
-  - job_name: 'VS 2013'
+  - job_name: 'VS 2013 $(PLATFORM)'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     SETUPXX: '"$(VS120COMNTOOLS)..\..\VC\vcvarsall.bat" $(PLATFORM)'
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
-  - job_name: 'VS 2012'
+  - job_name: 'VS 2012 $(PLATFORM)'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     SETUPXX: '"$(VS110COMNTOOLS)..\..\VC\vcvarsall.bat" $(PLATFORM)'
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
-  - job_name: 'VS 2010'
+  - job_name: 'VS 2010 $(PLATFORM)'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     SETUPXX: '"$(VS100COMNTOOLS)..\..\VC\vcvarsall.bat" $(PLATFORM)'
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
+
+matrix:
+  exclude:
+    - job_name: 'VS 2012 x64'
+    - job_name: 'VS 2010 x64'
 
 before_build:
   - cmd: |
