@@ -50,6 +50,7 @@ stages:
           CXX: clang++
           VM_IMAGE: 'macOS-10.14'
           XCODE_VERSION: 9.4.1
+          MACOSX_DEPLOYMENT_TARGET: 10.13
     pool:
       vmImage: $(VM_IMAGE)
     steps:
