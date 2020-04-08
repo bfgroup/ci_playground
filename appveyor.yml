@@ -59,8 +59,8 @@ before_build:
       echo ">>>>>"
       echo ">>>>> INSTALL TOOLSET, Setup .."
       echo ">>>>>"
-      if not "%VSWHERE_VERSION%"=="" ( for /f "usebackq tokens=*" %%i in (`vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath -version "%VSWHERE_VERSION%"`) do ( "%%i\VC\vcvarsall.bat" %PLATFORM% ) )
-      if not "%SETUPXX%"=="" ( %SETUPXX% )
+      if not "%VSWHERE_VERSION%"=="" ( for /f "usebackq tokens=*" %%i in (`vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath -version "%VSWHERE_VERSION%"`) do ( dir "%%i\VC" ) )
+      if not "%SETUPXX%"=="" ( "%SETUPXX%" )
 
 build_script:
   - cmd: |
