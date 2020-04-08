@@ -10,8 +10,9 @@ branches:
 
 skip_commits:
  files:
-   - '.circleci/*'
+   - .circleci/*
    - azure-pipelines.yml
+   - .semaphore/*
 
 platform:
   - x86

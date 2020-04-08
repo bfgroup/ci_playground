@@ -12,6 +12,7 @@ trigger:
     exclude:
     - .circleci/*
     - appveyor.yml
+    - .semaphore/*
 
 stages:
 
@@ -50,8 +51,7 @@ stages:
           CXX: clang++
           VM_IMAGE: 'macOS-10.14'
           XCODE_VERSION: 9.4.1
-          MACOSX_DEPLOYMENT_TARGET: 10.13
-          CXXFLAGS: -v
+          CXXFLAGS: -v --sysroot /Applications/Xcode_9.4.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
     pool:
       vmImage: $(VM_IMAGE)
     steps:
@@ -61,7 +61,6 @@ stages:
         export 'XCODE_INSTALL_USER=$(DEV_APPLE_USER)'
         export 'XCODE_INSTALL_PASSWORD=$(DEV_APPLE_PASSWORD)'
         ./.ci_playground/macos-xcode-install.sh
-        sudo find / -name "*.sdk" -print
       displayName: Install Toolset
     - bash: |
         set -e
