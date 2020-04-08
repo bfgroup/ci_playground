@@ -21,13 +21,11 @@ environment:
   matrix:
   - job_name: 'VS 2019'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-    # PATH: '$(ProgramFiles)\Microsoft Visual Studio\Installer;$(PATH)'
     VSWHERE_VERSION: '[16.0,17.0)'
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
   - job_name: 'VS 2017'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-    # PATH: '$(ProgramFiles)\Microsoft Visual Studio\Installer;$(PATH)'
     VSWHERE_VERSION: '[15.0,16.0)'
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
