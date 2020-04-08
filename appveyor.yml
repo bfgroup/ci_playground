@@ -19,6 +19,12 @@ platform:
 
 environment:
   matrix:
+  - job_name: 'VS 2019'
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+    PATH: '$(ProgramFiles)\Microsoft Visual Studio\Installer;$(PATH)'
+    VSWHERE_VERSION: '[16.0,17.0)'
+    CXX: cl.exe
+    CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
   - job_name: 'VS 2017'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     PATH: '$(ProgramFiles)\Microsoft Visual Studio\Installer;$(PATH)'
@@ -60,12 +66,10 @@ before_build:
       echo ">>>>>"
       if not "%VSWHERE_VERSION%"=="" ( for /f "usebackq tokens=*" %%i in (`vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath -version "%VSWHERE_VERSION%"`) do ( set "VCVARSALL=%%i\VC\Auxiliary\Build\vcvarsall.bat" ) )
       if not "%VCVARSALL%"=="" ( set SETUP="%VCVARSALL%" %PLATFORM% )
-      set
       %SETUP%
 
 build_script:
   - cmd: |
-      set
       echo ">>>>>"
       echo ">>>>> COMPILE .."
       echo ">>>>>"
