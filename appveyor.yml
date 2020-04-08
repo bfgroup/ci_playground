@@ -55,7 +55,7 @@ matrix:
 
 before_build:
   - cmd: |
-      @echo off
+      set
       echo ">>>>>"
       echo ">>>>> INSTALL TOOLSET, Setup .."
       echo ">>>>>"
@@ -63,7 +63,7 @@ before_build:
 
 build_script:
   - cmd: |
-      @echo off
+      set
       echo ">>>>>"
       echo ">>>>> COMPILE .."
       echo ">>>>>"
