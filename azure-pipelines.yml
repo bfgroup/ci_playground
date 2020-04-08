@@ -61,6 +61,7 @@ stages:
         export 'XCODE_INSTALL_USER=$(DEV_APPLE_USER)'
         export 'XCODE_INSTALL_PASSWORD=$(DEV_APPLE_PASSWORD)'
         ./.ci_playground/macos-xcode-install.sh
+        ls -laF /Library/Developer/CommandLineTools/SDKs/
       displayName: Install Toolset
     - bash: |
         set -e
