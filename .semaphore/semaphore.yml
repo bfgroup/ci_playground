@@ -19,7 +19,16 @@ blocks:
   # We need the fake blocks as teh Semaphore YAML parser doesn't allow custom
   # keys on anything.
 
+  - name: Definitions
+    dependencies: []
+    skip: { when: true }
+    task:
+      jobs:
+        - name: Placeholder
+          commands: []
+
   - name: Linux Install
+    dependencies: ["Definitions"]
     skip: { when: true }
     task:
       jobs: &jobs_linux_install
@@ -31,6 +40,7 @@ blocks:
             - export 'CXXFLAGS=-v'
 
   - name: Compile
+    dependencies: ["Definitions"]
     skip: { when: true }
     task:
       jobs: &jobs_linux_compile
@@ -41,6 +51,7 @@ blocks:
             - ${CXX} ${CXXFLAGS} src/main.cpp
 
   - name: Linux Agent
+    dependencies: ["Definitions"]
     skip: { when: true }
     task:
       agent: &agent_linux
@@ -54,11 +65,13 @@ blocks:
   # Our real blocks..
 
   - name: Linux GCC 9
+    dependencies: []
     task:
       env_vars: [{name: CXX, value: g++-9}, {name: PACKAGES, value: g++-9}]
       jobs: *jobs_linux_install
       agent: *agent_linux
   - name: Linux GCC 8
+    dependencies: []
     task:
       env_vars: [{name: CXX, value: g++-8}, {name: PACKAGES, value: g++-8}]
       jobs: *jobs_linux_install
