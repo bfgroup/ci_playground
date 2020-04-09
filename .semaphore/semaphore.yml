@@ -30,7 +30,7 @@ blocks:
   - name: Linux Definitions
     dependencies: ["Definitions"]
     skip: { when: true }
-    task:
+    task: &linux_task
       prologue: &linux_prologue
         commands:
           - checkout
@@ -38,7 +38,7 @@ blocks:
           - ./.ci_playground/linux-cxx-install.sh
           - export 'CXXFLAGS=-v'
       jobs: &linux_jobs
-        - name: Compile
+        - name: Install+Compile
           commands:
             - export 'CXXFLAGS=-v'
             - ${CXX} --version
@@ -57,17 +57,19 @@ blocks:
       jobs:
         - name: Placeholder
           commands: []
-  - name: Linux GCC 9, Install
+  - name: Linux GCC 9
     dependencies: ["Linux"]
     task:
       env_vars: [{name: CXX, value: g++-9}, {name: PACKAGES, value: g++-9}]
-      prologue: *linux_prologue
-      jobs: *linux_jobs
-      agent: *linux_agent
-  - name: Linux GCC 8, Install
+      <<: *linux_task
+      # prologue: *linux_prologue
+      # jobs: *linux_jobs
+      # agent: *linux_agent
+  - name: Linux GCC 8
     dependencies: ["Linux"]
     task:
       env_vars: [{name: CXX, value: g++-8}, {name: PACKAGES, value: g++-8}]
-      prologue: *linux_prologue
-      jobs: *linux_jobs
-      agent: *linux_agent
+      <<: *linux_task
+      # prologue: *linux_prologue
+      # jobs: *linux_jobs
+      # agent: *linux_agent
