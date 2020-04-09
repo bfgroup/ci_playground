@@ -33,11 +33,12 @@ stages:
         set -e
         uname -a
         ./.ci_playground/linux-cxx-install.sh
+        export 'CXXFLAGS=-v'
       displayName: Install Toolset
     - bash: |
         set -e
         ${CXX} --version
-        ${CXX} src/main.cpp
+        ${CXX} ${CXXFLAGS} src/main.cpp
       displayName: Compile
 
   - job: 'macOS'
@@ -51,7 +52,6 @@ stages:
           CXX: clang++
           VM_IMAGE: 'macOS-10.14'
           XCODE_VERSION: 9.4.1
-          CXXFLAGS: -v --sysroot /Applications/Xcode_9.4.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
     pool:
       vmImage: $(VM_IMAGE)
     steps:
@@ -61,6 +61,7 @@ stages:
         export 'XCODE_INSTALL_USER=$(DEV_APPLE_USER)'
         export 'XCODE_INSTALL_PASSWORD=$(DEV_APPLE_PASSWORD)'
         ./.ci_playground/macos-xcode-install.sh
+        export 'CXXFLAGS=-v --sysroot /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk'
       displayName: Install Toolset
     - bash: |
         set -e
