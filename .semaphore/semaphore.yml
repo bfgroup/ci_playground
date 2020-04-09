@@ -1,27 +1,36 @@
 version: v1.0
 name: C++ Tooling
 
-agent_linux: &agent_linux
-  machine:
-    type: e1-standard-2
-    os_image: ubuntu1804
-
-jobs_linux_install: &jobs_linux_install
-  - name: Install
-    commands:
-      - checkout
-      - uname -a
-      - ./.ci_playground/linux-cxx-install.sh
-      - export 'CXXFLAGS=-v'
-
-jobs_linux_compile: &jobs_linux_compile
-  - name: Compile
-    commands:
-      - export 'CXXFLAGS=-v'
-      - ${CXX} --version
-      - ${CXX} ${CXXFLAGS} src/main.cpp
-
 blocks:
+
+  - name: Linux Install
+    skip: { when: true }
+    task:
+      jobs: &jobs_linux_install
+        - name: Install
+          commands:
+            - checkout
+            - uname -a
+            - ./.ci_playground/linux-cxx-install.sh
+            - export 'CXXFLAGS=-v'
+
+  - name: Compile
+    skip: { when: true }
+    task:
+      jobs: &jobs_linux_compile
+        - name: Compile
+          commands:
+            - export 'CXXFLAGS=-v'
+            - ${CXX} --version
+            - ${CXX} ${CXXFLAGS} src/main.cpp
+
+  - name: Linux Agent
+    task:
+      agent: &agent_linux
+        machine:
+          type: e1-standard-2
+          os_image: ubuntu1804
+
   - name: Linux GCC 9
     task:
       env_vars: [{name: CXX, value: g++-9}, {name: PACKAGES, value: g++-9}]
