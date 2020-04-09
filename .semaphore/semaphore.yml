@@ -1,9 +1,10 @@
 version: v1.0
 name: C++ Tooling
 agent-linux: &agent-linux
-  machine:
-    type: e1-standard-2
-    os_image: ubuntu1804
+  agent:
+    machine:
+      type: e1-standard-2
+      os_image: ubuntu1804
 blocks:
   - name: Linux GCC 9
     dependencies: []
