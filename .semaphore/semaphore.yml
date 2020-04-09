@@ -27,40 +27,27 @@ blocks:
         - name: Placeholder
           commands: []
 
-  - name: Linux Install
+  - name: Linux Definitions
     dependencies: ["Definitions"]
     skip: { when: true }
     task:
-      jobs: &jobs_linux_install
+      prologue: &linux_prologue
         - name: Install
           commands:
             - checkout
             - uname -a
             - ./.ci_playground/linux-cxx-install.sh
             - export 'CXXFLAGS=-v'
-
-  - name: Compile
-    dependencies: ["Definitions"]
-    skip: { when: true }
-    task:
-      jobs: &jobs_linux_compile
+      jobs: &linux_jobs
         - name: Compile
           commands:
             - export 'CXXFLAGS=-v'
             - ${CXX} --version
             - ${CXX} ${CXXFLAGS} src/main.cpp
-
-  - name: Linux Agent
-    dependencies: ["Definitions"]
-    skip: { when: true }
-    task:
-      agent: &agent_linux
+      agent: &linux_agent
         machine:
           type: e1-standard-2
           os_image: ubuntu1804
-      jobs:
-        - name: Placeholder
-          commands: []
 
   # Our real blocks..
 
@@ -75,23 +62,13 @@ blocks:
     dependencies: ["Linux"]
     task:
       env_vars: [{name: CXX, value: g++-9}, {name: PACKAGES, value: g++-9}]
-      jobs: *jobs_linux_install
-      agent: *agent_linux
-  - name: Linux GCC 9, Compile
-    dependencies: ["Linux GCC 9, Install"]
-    task:
-      env_vars: [{name: CXX, value: g++-9}, {name: PACKAGES, value: g++-9}]
-      jobs: *jobs_linux_compile
-      agent: *agent_linux
+      prologue: *linux_prologue
+      jobs: *linux_jobs
+      agent: *linux_agent
   - name: Linux GCC 8, Install
     dependencies: ["Linux"]
     task:
       env_vars: [{name: CXX, value: g++-8}, {name: PACKAGES, value: g++-8}]
-      jobs: *jobs_linux_install
-      agent: *agent_linux
-  - name: Linux GCC 8, Compile
-    dependencies: ["Linux GCC 8, Install"]
-    task:
-      env_vars: [{name: CXX, value: g++-8}, {name: PACKAGES, value: g++-8}]
-      jobs: *jobs_linux_compile
-      agent: *agent_linux
+      prologue: *linux_prologue
+      jobs: *linux_jobs
+      agent: *linux_agent
