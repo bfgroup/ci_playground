@@ -1,7 +1,23 @@
+# Use, modification, and distribution are
+# subject to the Boost Software License, Version 1.0. (See accompanying
+# file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#
+# Copyright Rene Rivera 2020.
+
 version: v1.0
 name: C++ Tooling
 
+# Need a default / placeholder agent as otherwise the fake blocks error in
+# YAML parsing as they don't get an agent.
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
 blocks:
+  # These are fake blocks defining various yaml reusable items.
+  # We need the fake blocks as teh Semaphore YAML parser doesn't allow custom
+  # keys on anything.
 
   - name: Linux Install
     skip: { when: true }
@@ -34,6 +50,8 @@ blocks:
       jobs:
         - name: Placeholder
           commands: []
+
+  # Our real blocks..
 
   - name: Linux GCC 9
     task:
