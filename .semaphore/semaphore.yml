@@ -1,6 +1,6 @@
 version: v1.0
 name: C++ Tooling
-agent:
+agent-linux: &agent-linux
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
@@ -8,11 +8,8 @@ blocks:
   - name: Linux GCC 9
     dependencies: []
     task:
-      env_vars:
-        - name: CXX
-          value: g++-9
-        - name: PACKAGES
-          value: g++-9
+      <<: *agent-linux
+      env_vars: [{name: CXX, value: g++-9}, {name: PACKAGES, value: g++-9}]
       jobs:
         - name: Install
           commands:
@@ -20,7 +17,5 @@ blocks:
             - uname -a
             - ./.ci_playground/linux-cxx-install.sh
             - export 'CXXFLAGS=-v'
-        - name: Compile
-          commands:
             - ${CXX} --version
             - ${CXX} ${CXXFLAGS} src/main.cpp
