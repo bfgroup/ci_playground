@@ -32,12 +32,12 @@ blocks:
     skip: { when: true }
     task:
       prologue: &linux_prologue
-        - name: Install
-          commands:
-            - checkout
-            - uname -a
-            - ./.ci_playground/linux-cxx-install.sh
-            - export 'CXXFLAGS=-v'
+        name: Install
+        commands:
+          - checkout
+          - uname -a
+          - ./.ci_playground/linux-cxx-install.sh
+          - export 'CXXFLAGS=-v'
       jobs: &linux_jobs
         - name: Compile
           commands:
