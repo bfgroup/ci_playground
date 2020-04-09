@@ -18,4 +18,4 @@ blocks:
             - export 'CXXFLAGS=-v'
             - ${CXX} --version
             - ${CXX} ${CXXFLAGS} src/main.cpp
-      <<: *agent_linux
+      agent: *agent_linux
