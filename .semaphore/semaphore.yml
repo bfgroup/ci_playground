@@ -83,7 +83,7 @@ blocks:
       env_vars: [{name: CXX, value: g++-9}, {name: PACKAGES, value: g++-9}]
       jobs: *jobs_linux_compile
       agent: *agent_linux
-  - name: Linux GCC 8
+  - name: Linux GCC 8, Install
     dependencies: ["Linux"]
     task:
       env_vars: [{name: CXX, value: g++-8}, {name: PACKAGES, value: g++-8}]
