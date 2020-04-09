@@ -24,14 +24,14 @@ blocks:
             - ${CXX} --version
             - ${CXX} ${CXXFLAGS} src/main.cpp
 
-  # - name: Linux Agent
-  #   skip: { when: true }
-  #   task:
-  #     agent: &agent_linux
-  #       machine:
-  #         type: e1-standard-2
-  #         os_image: ubuntu1804
-  #     jobs:
+  - name: Linux Agent
+    skip: { when: true }
+    task:
+      agent: &agent_linux
+        machine:
+          type: e1-standard-2
+          os_image: ubuntu1804
+      jobs: []
 
   - name: Linux GCC 9
     task:
