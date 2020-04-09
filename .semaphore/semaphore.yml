@@ -25,6 +25,7 @@ blocks:
             - ${CXX} ${CXXFLAGS} src/main.cpp
 
   - name: Linux Agent
+    skip: { when: true }
     task:
       agent: &agent_linux
         machine:
