@@ -64,15 +64,34 @@ blocks:
 
   # Our real blocks..
 
-  - name: Linux GCC 9
+  - name: Linux
     dependencies: []
+    skip: { when: true }
+    task:
+      jobs:
+        - name: Placeholder
+          commands: []
+  - name: Linux GCC 9, Install
+    dependencies: ["Linux"]
     task:
       env_vars: [{name: CXX, value: g++-9}, {name: PACKAGES, value: g++-9}]
       jobs: *jobs_linux_install
       agent: *agent_linux
+  - name: Linux GCC 9, Compile
+    dependencies: ["Linux GCC 9, Install"]
+    task:
+      env_vars: [{name: CXX, value: g++-9}, {name: PACKAGES, value: g++-9}]
+      jobs: *jobs_linux_compile
+      agent: *agent_linux
   - name: Linux GCC 8
-    dependencies: []
+    dependencies: ["Linux"]
     task:
       env_vars: [{name: CXX, value: g++-8}, {name: PACKAGES, value: g++-8}]
       jobs: *jobs_linux_install
+      agent: *agent_linux
+  - name: Linux GCC 8, Compile
+    dependencies: ["Linux GCC 8, Install"]
+    task:
+      env_vars: [{name: CXX, value: g++-8}, {name: PACKAGES, value: g++-8}]
+      jobs: *jobs_linux_compile
       agent: *agent_linux
