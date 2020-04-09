@@ -31,7 +31,9 @@ blocks:
         machine:
           type: e1-standard-2
           os_image: ubuntu1804
-      jobs: []
+      jobs:
+        - name: Placeholder
+          commands: []
 
   - name: Linux GCC 9
     task:
