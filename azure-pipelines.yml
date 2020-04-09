@@ -33,12 +33,11 @@ stages:
         set -e
         uname -a
         ./.ci_playground/linux-cxx-install.sh
-        export 'CXXFLAGS=-v'
       displayName: Install Toolset
     - bash: |
         set -e
         ${CXX} --version
-        ${CXX} ${CXXFLAGS} src/main.cpp
+        ${CXX} ${CXXFLAGS} -v src/main.cpp
       displayName: Compile
 
   - job: 'macOS'
@@ -61,10 +60,10 @@ stages:
         export 'XCODE_INSTALL_USER=$(DEV_APPLE_USER)'
         export 'XCODE_INSTALL_PASSWORD=$(DEV_APPLE_PASSWORD)'
         ./.ci_playground/macos-xcode-install.sh
-        export 'CXXFLAGS=-v --sysroot /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk'
+        env
       displayName: Install Toolset
     - bash: |
         set -e
         ${CXX} --version
-        ${CXX} ${CXXFLAGS} src/main.cpp
+        ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
       displayName: Compile
