@@ -4,18 +4,27 @@ agent: &agent_linux
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
+jobs: &jobs_linux_install
+  - name: Install
+    commands:
+      - checkout
+      - uname -a
+      - ./.ci_playground/linux-cxx-install.sh
+      - export 'CXXFLAGS=-v'
+jobs: &jobs_linux_compile
+  - name: Compile
+    commands:
+      - export 'CXXFLAGS=-v'
+      - ${CXX} --version
+      - ${CXX} ${CXXFLAGS} src/main.cpp
 blocks:
   - name: Linux GCC 9
-    dependencies: []
     task:
       env_vars: [{name: CXX, value: g++-9}, {name: PACKAGES, value: g++-9}]
-      jobs:
-        - name: Install
-          commands:
-            - checkout
-            - uname -a
-            - ./.ci_playground/linux-cxx-install.sh
-            - export 'CXXFLAGS=-v'
-            - ${CXX} --version
-            - ${CXX} ${CXXFLAGS} src/main.cpp
+      jobs: *jobs_linux_install
+      agent: *agent_linux
+  - name: Linux GCC 8
+    task:
+      env_vars: [{name: CXX, value: g++-8}, {name: PACKAGES, value: g++-8}]
+      jobs: *jobs_linux_install
       agent: *agent_linux
