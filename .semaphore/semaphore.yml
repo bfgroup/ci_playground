@@ -1,22 +1,26 @@
 version: v1.0
 name: C++ Tooling
-agent: &agent_linux
+
+agent_linux: &agent_linux
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
-jobs: &jobs_linux_install
+
+jobs_linux_install: &jobs_linux_install
   - name: Install
     commands:
       - checkout
       - uname -a
       - ./.ci_playground/linux-cxx-install.sh
       - export 'CXXFLAGS=-v'
-jobs: &jobs_linux_compile
+
+jobs_linux_compile: &jobs_linux_compile
   - name: Compile
     commands:
       - export 'CXXFLAGS=-v'
       - ${CXX} --version
       - ${CXX} ${CXXFLAGS} src/main.cpp
+
 blocks:
   - name: Linux GCC 9
     task:
