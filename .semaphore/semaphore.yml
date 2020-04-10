@@ -14,6 +14,8 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 
+- &test { A: 'one', B: 'two '}
+
 blocks:
   # These are fake blocks defining various yaml reusable items.
   # We need the fake blocks as teh Semaphore YAML parser doesn't allow custom
@@ -61,15 +63,13 @@ blocks:
     dependencies: ["Linux"]
     task:
       env_vars: [{name: CXX, value: g++-9}, {name: PACKAGES, value: g++-9}]
-      <<: *linux_task
-      # prologue: *linux_prologue
-      # jobs: *linux_jobs
-      # agent: *linux_agent
+      prologue: *linux_prologue
+      jobs: *linux_jobs
+      agent: *linux_agent
   - name: Linux GCC 8
     dependencies: ["Linux"]
     task:
       env_vars: [{name: CXX, value: g++-8}, {name: PACKAGES, value: g++-8}]
-      <<: *linux_task
-      # prologue: *linux_prologue
-      # jobs: *linux_jobs
-      # agent: *linux_agent
+      prologue: *linux_prologue
+      jobs: *linux_jobs
+      agent: *linux_agent
