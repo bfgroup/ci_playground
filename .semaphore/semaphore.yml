@@ -62,6 +62,8 @@ blocks:
     dependencies: ["Definitions"]
     skip: { when: true }
     task: &xcode_task
+      secrets: &xcode_secrets
+        - name: dev-apple
       prologue: &xcode_prologue
         commands:
           - checkout
@@ -119,7 +121,7 @@ blocks:
     dependencies: ["Xcode"]
     task:
       env_vars: [{name: CXX, value: clang++}, {name: XCODE_VERSION, value: "11.4"}]
-      secrets: [dev-apple]
+      secrets: *xcode_secrets
       prologue: *xcode_prologue
       jobs: *xcode_jobs
       agent: *xcode_agent
