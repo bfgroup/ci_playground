@@ -14,13 +14,12 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 
-- &test { A: 'one', B: 'two '}
-
 blocks:
   # These are fake blocks defining various yaml reusable items.
   # We need the fake blocks as teh Semaphore YAML parser doesn't allow custom
   # keys on anything.
 
+  # Empty block to group the definition sub-blocks.
   - name: Definitions
     dependencies: []
     skip: { when: true }
@@ -29,6 +28,16 @@ blocks:
         - name: Placeholder
           commands: []
 
+  # This single block is a multi-part template for the real Linux blocks below.
+  # It's in parts, as Semaphore doesn't support the map-merge key (<<). There
+  # are only two ways to do sequencing in Semaphore: through the commands
+  # (prologue, jobs, and epilogue) and block chaining. The latter has the
+  # drawback that blocks run in separate VM instances and hence one needs to
+  # save & restore enough context to make that work. The former has the
+  # limitation that it sequences the single prologue, then fans out to multiple
+  # parallel jobs commands, then back to single epilogue. For more complex
+  # builds one is better off writing separate scripts to invoke for the
+  # commands.
   - name: Linux Definitions
     dependencies: ["Definitions"]
     skip: { when: true }
@@ -38,20 +47,41 @@ blocks:
           - checkout
           - uname -a
           - ./.ci_playground/linux-cxx-install.sh
-          - export 'CXXFLAGS=-v'
       jobs: &linux_jobs
         - name: Install+Compile
           commands:
-            - export 'CXXFLAGS=-v'
             - ${CXX} --version
-            - ${CXX} ${CXXFLAGS} src/main.cpp
+            - ${CXX} ${CXXFLAGS} -v src/main.cpp
       agent: &linux_agent
         machine:
           type: e1-standard-2
           os_image: ubuntu1804
 
+  # Common Xcode definition.
+  - name: Xcode Definitions
+    dependencies: ["Definitions"]
+    skip: { when: true }
+    task: &xcode_task
+      prologue: &xcode_prologue
+        commands:
+          - checkout
+          - uname -a
+          - export 'XCODE_INSTALL_USER=${DEV_APPLE_USER}'
+          - export 'XCODE_INSTALL_PASSWORD=${DEV_APPLE_PASSWORD}'
+          - ./.ci_playground/macos-xcode-install.sh
+      jobs: &xcode_jobs
+        - name: Install+Compile
+          commands:
+            - ${CXX} --version
+            - ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode_${XCODE_VERSION}.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
+      agent: &xcode_agent
+        machine:
+          type: a1-standard-4
+          os_image: macos-mojave-xcode11
+
   # Our real blocks..
 
+  # Empty block to group Linux sub-blocks.
   - name: Linux
     dependencies: []
     skip: { when: true }
@@ -59,6 +89,8 @@ blocks:
       jobs:
         - name: Placeholder
           commands: []
+  # Linux sub-blocks.. Set the needed env vars and compose the reused parts
+  # from the definitions above.
   - name: Linux GCC 9
     dependencies: ["Linux"]
     task:
@@ -73,3 +105,21 @@ blocks:
       prologue: *linux_prologue
       jobs: *linux_jobs
       agent: *linux_agent
+
+  # Empty block to group Xcode sub-blocks.
+  - name: Xcode
+    dependencies: []
+    skip: { when: true }
+    task:
+      jobs:
+        - name: Placeholder
+          commands: []
+  # Xcode sub-blocks..
+  - name: Xcode 11.4 
+    dependencies: ["Xcode"]
+    task:
+      env_vars: [{name: CXX, value: clang++}, {name: XCODE_VERSION, value: 11.4}]
+      secrets: dev-apple
+      prologue: *xcode_prologue
+      jobs: *xcode_jobs
+      agent: *xcode_agent
