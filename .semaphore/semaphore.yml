@@ -118,7 +118,7 @@ blocks:
   - name: Xcode 11.4 
     dependencies: ["Xcode"]
     task:
-      env_vars: [{name: CXX, value: clang++}, {name: XCODE_VERSION, value: 11.4}]
+      env_vars: [{name: CXX, value: clang++}, {name: XCODE_VERSION, value: "11.4"}]
       secrets: [dev-apple]
       prologue: *xcode_prologue
       jobs: *xcode_jobs
