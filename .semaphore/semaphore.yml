@@ -44,13 +44,18 @@ blocks:
     task: &linux_task
       prologue: &linux_prologue
         commands:
-          - checkout
+          # Some debug information.
           - uname -a
+          # Checkout our source repo.
+          - checkout
+          # Install the gcc or clang version we desire.
           - ./.ci_playground/linux-cxx-install.sh
       jobs: &linux_jobs
         - name: Install+Compile
           commands:
+            # Some debug information.
             - ${CXX} --version
+            # Compile the minimal C++ file.
             - ${CXX} ${CXXFLAGS} -v src/main.cpp
       agent: &linux_agent
         machine:
@@ -66,13 +71,20 @@ blocks:
         - name: dev-apple
       prologue: &xcode_prologue
         commands:
-          - export "CACHE_RESTORED=0"
-          - cache restore "${SEMAPHORE_PROJECT_NAME}-xcode-${XCODE_VERSION}" && export "CACHE_RESTORED=1"
-          - checkout
+          # Some debug information.
           - uname -a
-          - export "XCODE_INSTALL_USER=${DEV_APPLE_USER}"
-          - export "XCODE_INSTALL_PASSWORD=${DEV_APPLE_PASSWORD}"
-          - ./.ci_playground/macos-xcode-install.sh
+          # Checkout our source repo.
+          - checkout
+          # Attempt to restore the cached xcode install.
+          - |
+            export "CACHE_RESTORED=0"
+            cache restore "${SEMAPHORE_PROJECT_NAME}-xcode-${XCODE_VERSION}" && export "CACHE_RESTORED=1"
+          # Install the desired Xcode version.
+          - |
+            export "XCODE_INSTALL_USER=${DEV_APPLE_USER}"
+            export "XCODE_INSTALL_PASSWORD=${DEV_APPLE_PASSWORD}"
+            ./.ci_playground/macos-xcode-install.sh
+          # Cache the installed xcode, if we just installed it.
           - |
             if test ! ${CACHE_RESTORED} ; then
               cache store "${SEMAPHORE_PROJECT_NAME}-xcode-${XCODE_VERSION}" "/Applications/Xcode_${XCODE_VERSION}.app"
@@ -80,7 +92,10 @@ blocks:
       jobs: &xcode_jobs
         - name: Install+Compile
           commands:
+            # Some debug information.
             - ${CXX} --version
+            # Compile the minimal C++ file. For Xcode we force it to use the
+            # macOS SDK in the installed Xcode.
             - ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode_${XCODE_VERSION}.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
       agent: &xcode_agent
         machine:
