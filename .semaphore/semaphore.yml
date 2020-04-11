@@ -73,7 +73,10 @@ blocks:
           - export "XCODE_INSTALL_USER=${DEV_APPLE_USER}"
           - export "XCODE_INSTALL_PASSWORD=${DEV_APPLE_PASSWORD}"
           - ./.ci_playground/macos-xcode-install.sh
-          - test ! ${CACHE_RESTORED} && cache store "${SEMAPHORE_PROJECT_NAME}-xcode-${XCODE_VERSION}" "/Applications/Xcode_${XCODE_VERSION}.app"
+          - |
+            if test ! ${CACHE_RESTORED} ; then
+              cache store "${SEMAPHORE_PROJECT_NAME}-xcode-${XCODE_VERSION}" "/Applications/Xcode_${XCODE_VERSION}.app"
+            fi
       jobs: &xcode_jobs
         - name: Install+Compile
           commands:
