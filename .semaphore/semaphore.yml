@@ -97,7 +97,7 @@ blocks:
             - ${CXX} --version
             # Compile the minimal C++ file. For Xcode we force it to use the
             # macOS SDK in the installed Xcode.
-            - ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode-${XCODE_VERSION}.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
+            - ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
       agent: &xcode_agent
         machine:
           type: a1-standard-4

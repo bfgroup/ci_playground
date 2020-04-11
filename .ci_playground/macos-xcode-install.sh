@@ -16,10 +16,12 @@ echo ">>>>>"
 echo ">>>>> INSTALLL: Xcode ${XCODE_VERSION}.."
 echo ">>>>>"
 xcversion --verbose --no-progress --no-clean --no-show-release-notes install ${XCODE_VERSION}
+echo ""
 echo ">>>>>"
 echo ">>>>> INSTALL: CLI Tools.."
 echo ">>>>>"
 xcversion --verbose install-cli-tools
+echo ""
 echo ">>>>>"
 echo ">>>>> AVAILABLE.."
 echo ">>>>>"
