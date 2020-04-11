@@ -81,6 +81,7 @@ blocks:
             if cache restore "${SEMAPHORE_PROJECT_NAME}-xcode-${XCODE_VERSION}" ; then
               export "CACHE_RESTORED=0"
             fi
+            echo "CACHE_RESTORED == ${CACHE_RESTORED}"
           # Install the desired Xcode version.
           - |
             export "XCODE_INSTALL_USER=${DEV_APPLE_USER}"
@@ -88,6 +89,7 @@ blocks:
             ./.ci_playground/macos-xcode-install.sh
           # Cache the installed xcode, if we just installed it.
           - |
+            echo "CACHE_RESTORED == ${CACHE_RESTORED}"
             if test ${CACHE_RESTORED} -ne 0 ; then
               cache store "${SEMAPHORE_PROJECT_NAME}-xcode-${XCODE_VERSION}" "/Applications/Xcode_${XCODE_VERSION}.app"
             fi
