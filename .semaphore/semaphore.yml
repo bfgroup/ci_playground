@@ -89,8 +89,7 @@ blocks:
             ./.ci_playground/macos-xcode-install.sh
           # Cache the installed xcode, if we just installed it.
           - |
-            echo "CACHE_RESTORED == ${CACHE_RESTORED}"
-            if test ${CACHE_RESTORED} -ne 0 ; then
+            if test ${CACHE_RESTORED} -eq 0 ; then
               cache store "${SEMAPHORE_PROJECT_NAME}-xcode-${XCODE_VERSION}" "/Applications/Xcode_${XCODE_VERSION}.app"
             fi
       jobs: &xcode_jobs
