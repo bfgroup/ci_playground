@@ -77,10 +77,8 @@ blocks:
           - checkout
           # Attempt to restore the cached xcode install.
           - |
-            export "CACHE_RESTORED=1"
-            if cache restore "${SEMAPHORE_PROJECT_NAME}-xcode-${XCODE_VERSION}" ; then
-              export "CACHE_RESTORED=0"
-            fi
+            cache restore "${SEMAPHORE_PROJECT_NAME}-xcode-${XCODE_VERSION}"
+            export "CACHE_RESTORED=$?"
             echo "CACHE_RESTORED == ${CACHE_RESTORED}"
           # Install the desired Xcode version.
           - |
@@ -90,7 +88,7 @@ blocks:
           # Cache the installed xcode, if we just installed it.
           - |
             if test ${CACHE_RESTORED} -eq 0 ; then
-              cache store "${SEMAPHORE_PROJECT_NAME}-xcode-${XCODE_VERSION}" "/Applications/Xcode_${XCODE_VERSION}.app"
+              cache store "${SEMAPHORE_PROJECT_NAME}-xcode-${XCODE_VERSION}" "/Applications/Xcode-${XCODE_VERSION}.app"
             fi
       jobs: &xcode_jobs
         - name: Install+Compile
@@ -99,7 +97,7 @@ blocks:
             - ${CXX} --version
             # Compile the minimal C++ file. For Xcode we force it to use the
             # macOS SDK in the installed Xcode.
-            - ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode_${XCODE_VERSION}.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
+            - ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode-${XCODE_VERSION}.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
       agent: &xcode_agent
         machine:
           type: a1-standard-4

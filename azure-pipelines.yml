@@ -64,5 +64,5 @@ stages:
     - bash: |
         set -e
         ${CXX} --version
-        ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
+        ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode-$(XCODE_VERSION).app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
       displayName: Compile
