@@ -75,21 +75,11 @@ blocks:
           - uname -a
           # Checkout our source repo.
           - checkout
-          # Attempt to restore the cached xcode install.
-          - |
-            cache restore "${SEMAPHORE_PROJECT_NAME}-xcode-${XCODE_VERSION}"
-            export "CACHE_RESTORED=$?"
-            echo "CACHE_RESTORED == ${CACHE_RESTORED}"
           # Install the desired Xcode version.
           - |
             export "XCODE_INSTALL_USER=${DEV_APPLE_USER}"
             export "XCODE_INSTALL_PASSWORD=${DEV_APPLE_PASSWORD}"
             ./.ci_playground/macos-xcode-install.sh
-          # Cache the installed xcode, if we just installed it.
-          - |
-            if test ${CACHE_RESTORED} -eq 0 ; then
-              cache store "${SEMAPHORE_PROJECT_NAME}-xcode-${XCODE_VERSION}" "/Applications/Xcode-${XCODE_VERSION}.app"
-            fi
       jobs: &xcode_jobs
         - name: Install+Compile
           commands:
