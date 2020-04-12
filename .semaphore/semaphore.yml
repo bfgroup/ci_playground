@@ -145,11 +145,3 @@ blocks:
       prologue: *xcode_prologue
       jobs: *xcode_jobs
       agent: *xcode_agent
-  - name: Xcode 8.3.3
-    dependencies: ["Xcode"]
-    task:
-      env_vars: [{name: CXX, value: clang++}, {name: XCODE_VERSION, value: "8.3.3"}]
-      secrets: *xcode_secrets
-      prologue: *xcode_prologue
-      jobs: *xcode_jobs
-      agent: *xcode_agent
