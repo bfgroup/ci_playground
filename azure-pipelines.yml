@@ -90,9 +90,9 @@ stages:
           if not "%VSWHERE_VERSION%"=="" choco install vswhere
           if not "%VSWHERE_VERSION%"=="" ( for /f "usebackq tokens=*" %%i in (`vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath -version "%VSWHERE_VERSION%"`) do ( set "VCVARSALL=%%i\VC\Auxiliary\Build\vcvarsall.bat" ) )
           if not "%VCVARSALL%"=="" ( set SETUP="%VCVARSALL%" %PLATFORM% )
-          %SETUP%
         displayName: Install Toolset
       - script: |
+          %SETUP%
           echo ">>>>>"
           echo ">>>>> COMPILE .."
           echo ">>>>>"
