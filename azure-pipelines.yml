@@ -86,6 +86,7 @@ stages:
       vmImage: $(VM_IMAGE)
     steps:
     - script: |
+        @echo ON
         echo ">>>>>"
         echo ">>>>> INSTALL TOOLSET, Setup .."
         echo ">>>>>"
