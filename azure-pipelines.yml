@@ -66,3 +66,35 @@ stages:
         ${CXX} --version
         ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
       displayName: Compile
+
+  - job: 'Visual Studio'
+    strategy:
+      matrix:
+        VS 2019:
+          VSWHERE_VERSION: '[16.0,17.0)'
+          CXX: cl.exe
+          CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
+          VM_IMAGE: 'windows-2019'
+        VS 2017:
+          VSWHERE_VERSION: '[15.0,16.0)'
+          CXX: cl.exe
+          CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
+          VM_IMAGE: 'vs2017-win2016'
+    pool:
+      vmImage: $(VM_IMAGE)
+    steps:
+      - displayName: Install Toolset
+        script: |
+          echo ">>>>>"
+          echo ">>>>> INSTALL TOOLSET, Setup .."
+          echo ">>>>>"
+          if not "%VSWHERE_VERSION%"=="" choco install vswhere
+          if not "%VSWHERE_VERSION%"=="" ( for /f "usebackq tokens=*" %%i in (`vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath -version "%VSWHERE_VERSION%"`) do ( set "VCVARSALL=%%i\VC\Auxiliary\Build\vcvarsall.bat" ) )
+          if not "%VCVARSALL%"=="" ( set SETUP="%VCVARSALL%" %PLATFORM% )
+          %SETUP%
+      - displayName: Compile
+        script: |
+          echo ">>>>>"
+          echo ">>>>> COMPILE .."
+          echo ">>>>>"
+          "%CXX%" %CXXFLAGS% src/main.cpp
