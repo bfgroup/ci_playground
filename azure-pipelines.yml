@@ -83,8 +83,7 @@ stages:
     pool:
       vmImage: $(VM_IMAGE)
     steps:
-      - displayName: Install Toolset
-        script: |
+      - script: |
           echo ">>>>>"
           echo ">>>>> INSTALL TOOLSET, Setup .."
           echo ">>>>>"
@@ -92,9 +91,10 @@ stages:
           if not "%VSWHERE_VERSION%"=="" ( for /f "usebackq tokens=*" %%i in (`vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath -version "%VSWHERE_VERSION%"`) do ( set "VCVARSALL=%%i\VC\Auxiliary\Build\vcvarsall.bat" ) )
           if not "%VCVARSALL%"=="" ( set SETUP="%VCVARSALL%" %PLATFORM% )
           %SETUP%
-      - displayName: Compile
-        script: |
+        displayName: Install Toolset
+      - script: |
           echo ">>>>>"
           echo ">>>>> COMPILE .."
           echo ">>>>>"
           "%CXX%" %CXXFLAGS% src/main.cpp
+        displayName: Compile
