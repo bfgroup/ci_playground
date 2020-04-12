@@ -67,7 +67,7 @@ stages:
         ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
       displayName: Compile
 
-  - job: 'Visual Studio'
+  - job: 'Windows'
     strategy:
       matrix:
         VS 2019:
