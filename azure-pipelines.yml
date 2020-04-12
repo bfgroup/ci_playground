@@ -99,7 +99,6 @@ stages:
         if not "%CHOCO_VS_PACKAGE%"=="" choco install %CHOCO_VS_PACKAGE%
         if not "%VSWHERE_VERSION%"=="" choco install vswhere
       displayName: Install
-    steps:
     - script: |
         echo ">>>>>"
         echo ">>>>> COMPILE, Setup .."
