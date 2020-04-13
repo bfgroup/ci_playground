@@ -84,7 +84,7 @@ build_script:
       if ($env:VCVARSALL) { $SETUP = "$env:VCVARSALL", "$env:PLATFORM" }
       if (!($SETUP)) { $SETUP = $env:SETUP }
       if (!($SETUP)) { $SETUP = "Write-Output", "No setup available" }
-      & $SETUP
+      & $SETUP[0] $SETUP[1..]
       ">>>>>"
       ">>>>> COMPILE .."
       ">>>>>"
