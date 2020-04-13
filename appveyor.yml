@@ -81,10 +81,10 @@ build_script:
         $installationPath = vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath -version "$env:VSWHERE_VERSION"
         if ($installationPath) { $env:VCVARSALL = "$installationPath\VC\Auxiliary\Build\vcvarsall.bat" }
       }
-      if ($env:VCVARSALL) { $env:SETUP = "$env:VCVARSALL" $env:PLATFORM }
+      if ($env:VCVARSALL) { $env:SETUP = "`"$env:VCVARSALL`" $env:PLATFORM" }
       if ($env:SETUP) { $env:SETUP = "No setup available" }
-      %SETUP%
+      $env:SETUP
       ">>>>>"
       ">>>>> COMPILE .."
       ">>>>>"
-      "$env:CXX" $env:CXXFLAGS src/main.cpp
+      $env:CXX $env:CXXFLAGS src/main.cpp
