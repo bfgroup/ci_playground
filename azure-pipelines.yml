@@ -82,13 +82,13 @@ stages:
           CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
           PLATFORM: x64
           VM_IMAGE: 'vs2017-win2016'
-        VS 2015:
-          VSWHERE_LEGACY: '[14.0,15.0)'
-          CXX: cl.exe
-          CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
-          PLATFORM: x64
-          CHOCO_VS_PACKAGE: VisualStudio2015Community
-          VM_IMAGE: 'windows-latest'
+        # VS 2015:
+        #   VSWHERE_LEGACY: '[14.0,15.0)'
+        #   CXX: cl.exe
+        #   CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
+        #   PLATFORM: x64
+        #   CHOCO_VS_PACKAGE: VisualStudio2015Community
+        #   VM_IMAGE: 'windows-latest'
     pool:
       vmImage: $(VM_IMAGE)
     steps:
