@@ -59,24 +59,32 @@ matrix:
       platform: x64
 
 before_build:
-  - cmd: |
-      echo ">>>>>"
-      echo ">>>>> INSTALL TOOLSET .."
-      echo ">>>>>"
-      if not "%CHOCO_VS_PACKAGE%"=="" choco install %CHOCO_VS_PACKAGE% -packageParameters "--AdminFile .ci_playground/%CHOCO_VS_PACKAGE%.xml"
+  - ps: |
+      ">>>>>"
+      ">>>>> INSTALL TOOLSET .."
+      ">>>>>"
+      if ($env:CHOCO_VS_PACKAGE) {
+        choco install $env:CHOCO_VS_PACKAGE -packageParameters "--AdminFile .ci_playground/$env:CHOCO_VS_PACKAGE.xml"
+      }
       choco install vswhere
 
 build_script:
-  - cmd: |
-      echo ">>>>>"
-      echo ">>>>> COMPILE, Setup .."
-      echo ">>>>>"
-      if not "%VSWHERE_LEGACY%"=="" ( for /f "usebackq tokens=*" %%i in (`vswhere -legacy -latest -property installationPath -version "%VSWHERE_LEGACY%"`) do ( set "VCVARSALL=%%i\VC\vcvarsall.bat" ) )
-      if not "%VSWHERE_VERSION%"=="" ( for /f "usebackq tokens=*" %%i in (`vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath -version "%VSWHERE_VERSION%"`) do ( set "VCVARSALL=%%i\VC\Auxiliary\Build\vcvarsall.bat" ) )
-      if not "%VCVARSALL%"=="" ( set SETUP="%VCVARSALL%" %PLATFORM% )
-      if not "%SETUP%"=="" ( set SETUP="echo No setup available" )
+  - ps: |
+      ">>>>>"
+      ">>>>> COMPILE, Setup .."
+      ">>>>>"
+      if ($env:VSWHERE_LEGACY) {
+        $installationPath = vswhere -legacy -latest -property installationPath -version "$env:VSWHERE_LEGACY"
+        if ($installationPath) { $env:VCVARSALL = "$installationPath\VC\vcvarsall.bat" }
+      }
+      if ($env:VSWHERE_VERSION) {
+        $installationPath = vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath -version "$env:VSWHERE_VERSION"
+        if ($installationPath) { $env:VCVARSALL = "$installationPath\VC\Auxiliary\Build\vcvarsall.bat" }
+      }
+      if ($env:VCVARSALL) { $env:SETUP = "$env:VCVARSALL" $env:PLATFORM }
+      if ($env:SETUP) { $env:SETUP = "No setup available" }
       %SETUP%
-      echo ">>>>>"
-      echo ">>>>> COMPILE .."
-      echo ">>>>>"
-      "%CXX%" %CXXFLAGS% src/main.cpp
+      ">>>>>"
+      ">>>>> COMPILE .."
+      ">>>>>"
+      "$env:CXX" $env:CXXFLAGS src/main.cpp
