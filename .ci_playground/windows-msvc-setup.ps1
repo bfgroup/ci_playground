@@ -28,5 +28,5 @@ if (!($setup))
 }
 $setup
 $setup_cmd = $setup[0]
-$setup_args = $setup[1..-1]
+$setup_args = $setup[1..$setup.Length]
 & $setup_cmd $setup_args
