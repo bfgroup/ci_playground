@@ -83,7 +83,7 @@ stages:
           PLATFORM: x64
           VM_IMAGE: 'vs2017-win2016'
         VS 2015:
-          VSWHERE_VERSION: '[14.0,15.0)'
+          VSWHERE_LEGACY: '[14.0,15.0)'
           CXX: cl.exe
           CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
           PLATFORM: x64
@@ -97,15 +97,16 @@ stages:
         echo ">>>>> INSTALL TOOLSET .."
         echo ">>>>>"
         if not [%CHOCO_VS_INSTALL%]==[] choco install %CHOCO_VS_INSTALL%
-        if not "%VSWHERE_VERSION%"=="" choco install vswhere
+        choco install vswhere
       displayName: Install
     - script: |
         echo ">>>>>"
         echo ">>>>> COMPILE, Setup .."
         echo ">>>>>"
-        if not "%VSWHERE_VERSION%"=="" ( for /f "usebackq tokens=*" %%i in (`vswhere -legacy -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath -version "%VSWHERE_VERSION%"`) do ( set "VCVARSALL=%%i\VC\Auxiliary\Build\vcvarsall.bat" ) )
-        if not "%VCVARSALL%"=="" ( set SETUP="%VCVARSALL%" %PLATFORM% )
-        if not "%SETUP%"=="" ( set SETUP="echo No setup available" )
+        if not [%VSWHERE_LEGACY%]==[] ( for /f "usebackq tokens=*" %%i in (`vswhere -legacy -latest -property installationPath -version "%VSWHERE_LEGACY%"`) do ( set "VCVARSALL=%%i\VC\vcvarsall.bat" ) )
+        if not [%VSWHERE_VERSION%]==[] ( for /f "usebackq tokens=*" %%i in (`vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath -version "%VSWHERE_VERSION%"`) do ( set "VCVARSALL=%%i\VC\Auxiliary\Build\vcvarsall.bat" ) )
+        if not [%VCVARSALL%]==[] ( set SETUP="%VCVARSALL%" %PLATFORM% )
+        if not [%SETUP%]==[] ( set SETUP="echo No setup available" )
         %SETUP%
         echo ">>>>>"
         echo ">>>>> COMPILE .."
