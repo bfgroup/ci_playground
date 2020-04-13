@@ -29,4 +29,4 @@ if (!($setup))
 $setup
 $setup_cmd = $setup[0]
 $setup_args = $setup[1..-1]
-& "$setup_cmd" $setup_args
+& $setup_cmd $setup_args
