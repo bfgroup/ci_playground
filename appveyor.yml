@@ -82,7 +82,7 @@ build_script:
         if ($installationPath) { $env:VCVARSALL = "$installationPath\VC\Auxiliary\Build\vcvarsall.bat" }
       }
       if ($env:VCVARSALL) { $env:SETUP = "`"$env:VCVARSALL`" $env:PLATFORM" }
-      if ($env:SETUP) { $env:SETUP = "No setup available" }
+      if (!($env:SETUP)) { $env:SETUP = "No setup available" }
       $env:SETUP
       ">>>>>"
       ">>>>> COMPILE .."
