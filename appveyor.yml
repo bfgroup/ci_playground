@@ -87,4 +87,4 @@ build_script:
       ">>>>>"
       ">>>>> COMPILE .."
       ">>>>>"
-      $env:CXX $env:CXXFLAGS src/main.cpp
+      & $env:CXX $env:CXXFLAGS src/main.cpp
