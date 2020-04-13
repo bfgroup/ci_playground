@@ -26,7 +26,4 @@ if (!($setup))
 {
 	$setup = @("Write-Output", "No setup available")
 }
-$setup
-$setup_cmd = $setup[0]
-$setup_args = $setup[1..$setup.Length]
-& $setup_cmd $setup_args
+& $setup[0] $setup[1..$setup.Length]

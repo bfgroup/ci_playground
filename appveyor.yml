@@ -73,7 +73,7 @@ build_script:
       ">>>>>"
       ">>>>> COMPILE, Setup .."
       ">>>>>"
-      & .ci_playground/windows-msvc-setup.ps1
+      . .ci_playground/windows-msvc-setup.ps1
       ">>>>>"
       ">>>>> COMPILE .."
       ">>>>>"
