@@ -87,7 +87,7 @@ stages:
           CXX: cl.exe
           CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
           PLATFORM: x64
-          CHOCO_VS_PACKAGE: VisualStudio2015Community -packageParameters "--AdminFile .ci_playground/vs2015community.xml"
+          CHOCO_VS_INSTALL: 'VisualStudio2015Community -packageParameters "--AdminFile .ci_playground/vs2015community.xml"'
           VM_IMAGE: 'windows-latest'
     pool:
       vmImage: $(VM_IMAGE)
@@ -96,7 +96,7 @@ stages:
         echo ">>>>>"
         echo ">>>>> INSTALL TOOLSET .."
         echo ">>>>>"
-        if not "%CHOCO_VS_PACKAGE%"=="" choco install %CHOCO_VS_PACKAGE%
+        if not [%CHOCO_VS_INSTALL%]==[] choco install %CHOCO_VS_INSTALL%
         if not "%VSWHERE_VERSION%"=="" choco install vswhere
       displayName: Install
     - script: |
