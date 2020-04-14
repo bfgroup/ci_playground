@@ -75,7 +75,7 @@ install:
       echo ">>>>>"
       echo ">>>>> INSTALL TOOLSET .."
       echo ">>>>>"
-      if not [%CHOCO_VS_PACKAGE%]==[] (
+      if not "%CHOCO_VS_PACKAGE%"=="" (
         choco install %CHOCO_VS_PACKAGE% -packageParameters "--AdminFile .ci_playground/%CHOCO_VS_PACKAGE%.xml"
       )
       choco install vswhere
