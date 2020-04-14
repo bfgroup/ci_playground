@@ -39,17 +39,17 @@ environment:
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
   - job_name: 'VS 2013'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    VCVARSALL: '$(VS120COMNTOOLS)..\..\VC\vcvarsall.bat'
+    VSWHERE_LEGACY: '[12.0,13.0)'
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
   - job_name: 'VS 2012'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    VCVARSALL: '$(VS110COMNTOOLS)..\..\VC\vcvarsall.bat'
+    VSWHERE_LEGACY: '[11.0,12.0)'
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
   - job_name: 'VS 2010'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    VCVARSALL: '$(VS100COMNTOOLS)..\..\VC\vcvarsall.bat'
+    VSWHERE_LEGACY: '[10.0,11.0)'
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
 
