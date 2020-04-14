@@ -34,7 +34,7 @@ environment:
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
   - job_name: 'VS 2015'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    VCVARSALL: '$(VS140COMNTOOLS)..\..\VC\vcvarsall.bat'
+    VSWHERE_LEGACY: '[14.0,15.0)'
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
   - job_name: 'VS 2013'
