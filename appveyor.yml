@@ -59,22 +59,22 @@ matrix:
       platform: x64
 
 before_build:
-  - ps: |
-      ">>>>>"
-      ">>>>> INSTALL TOOLSET .."
-      ">>>>>"
-      if ($env:CHOCO_VS_PACKAGE) {
-        choco install $env:CHOCO_VS_PACKAGE -packageParameters "--AdminFile .ci_playground/$env:CHOCO_VS_PACKAGE.xml"
-      }
+  - script: |
+      echo ">>>>>"
+      echo ">>>>> INSTALL TOOLSET .."
+      echo ">>>>>"
+      if not [%CHOCO_VS_PACKAGE%]==[] (
+        choco install %CHOCO_VS_PACKAGE% -packageParameters "--AdminFile .ci_playground/%CHOCO_VS_PACKAGE%.xml"
+      )
       choco install vswhere
 
 build_script:
-  - ps: |
-      ">>>>>"
-      ">>>>> COMPILE, Setup .."
-      ">>>>>"
-        .ci_playground/windows-msvc-setup.cmd
-      ">>>>>"
-      ">>>>> COMPILE .."
-      ">>>>>"
-      & $env:CXX $env:CXXFLAGS src/main.cpp
+  - script: |
+      echo ">>>>>"
+      echo ">>>>> COMPILE, Setup .."
+      echo ">>>>>"
+      CALL .ci_playground/windows-msvc-setup.cmd
+      echo ">>>>>"
+      echo ">>>>> COMPILE .."
+      echo ">>>>>"
+      "%CXX%" %CXXFLAGS% src/main.cpp
