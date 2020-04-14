@@ -4,20 +4,22 @@
 #
 # Copyright Rene Rivera 2020.
 
+# Configuration for https://www.appveyor.com/.
+
+# We filter when we run to specific branches.
 branches:
   only:
     - /master.*/
 
+# And we also filter to avoid running when config files for other CIs change.
 skip_commits:
  files:
    - .circleci/*
    - azure-pipelines.yml
    - .semaphore/*
 
-platform:
-  - x86
-  - x64
-
+# Since we are interested in running on specific compilers we list them
+# individually.
 environment:
   matrix:
   - job_name: 'VS 2019'
@@ -51,6 +53,12 @@ environment:
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
 
+# We specify a single job matrix expansion for the platform type.
+platform:
+  - x86
+  - x64
+
+# But with some exclusions where it's not possible.
 matrix:
   exclude:
     - job_name: 'VS 2012'
@@ -58,7 +66,11 @@ matrix:
     - job_name: 'VS 2010'
       platform: x64
 
-before_build:
+# Appveyor has a specific set of steps that it combines into a single sequence.
+# This one we use for installing VS version (if desired). Although doing so is
+# not practical as it takes a large amount of time to do so. And Appveyor is
+# singular in the large number of VS versions is maintains.
+install:
   - script: |
       echo ">>>>>"
       echo ">>>>> INSTALL TOOLSET .."
@@ -68,6 +80,7 @@ before_build:
       )
       choco install vswhere
 
+# The build itself sets up which VS to use and compiles with it.
 build_script:
   - script: |
       echo ">>>>>"

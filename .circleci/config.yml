@@ -4,19 +4,30 @@
 #
 # Copyright Rene Rivera 2020.
 
+# Configuration for https://circleci.com/.
+
 version: 2.1
 jobs:
+  # This defines a common parameterized job template function. This is used
+  # in the workflows to stamp out the install and compile steps for each
+  # job variation.
   linux-job:
     parameters:
+      # The, optional, Linux OS image to run in.
       image:
         default: "ubuntu-1604:201903-01"
         type: string
+      # The, optional, LLVM repo to obtain clang builds from. This needs to
+      # match the Linux OS image.
       llvm_repo:
         default: ""
         type: string
+      # The compiler executable name to use. The default value of "c++" is
+      # only useful for system default compilers.
       cxx:
         default: "c++"
         type: string
+      # APT packages from LLVM_REPO to install for the compiler.
       packages:
         default: ""
         type: string
@@ -40,6 +51,10 @@ jobs:
             set -e
             ${CXX} --version
             ${CXX} src/main.cpp
+
+# We only have one workflow in the set as we only have the single task of
+# running the same install+compile job in different environments. And hence
+# no need for dependency specification between jobs.
 workflows:
   workflow:
     jobs:

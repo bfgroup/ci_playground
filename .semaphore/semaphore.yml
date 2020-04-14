@@ -4,6 +4,8 @@
 #
 # Copyright Rene Rivera 2020.
 
+# Configuration for https://semaphoreci.com/.
+
 version: v1.0
 name: C++ Tooling
 

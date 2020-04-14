@@ -4,6 +4,10 @@
 #
 # Copyright Rene Rivera 2020.
 
+# Configuration for https://azure.microsoft.com/en-us/services/devops/pipelines/.
+
+# We limit when to run the builds to specific branches. And also limit to avoid
+# building when CI files from other services change.
 trigger:
   branches:
     include:
@@ -14,11 +18,17 @@ trigger:
     - appveyor.yml
     - .semaphore/*
 
+# There are many arrangements possible with Azure Pipelines stages. But our
+# experimental needs are rather simple. Hence we only have a single stage
+# to do our test builds in.
+
 stages:
 
 - stage: Test
   jobs:
 
+  # We group the jobs based on platform as the scripts are usually specific
+  # to the platform and not the compiler.
   - job: 'Linux'
     strategy:
       matrix:
@@ -26,14 +36,22 @@ stages:
           CXX: g++-9
           PACKAGES: g++-9
           VM_IMAGE: 'ubuntu-18.04'
+        GCC 7:
+          CXX: g++-7
+          PACKAGES: g++-7
+          VM_IMAGE: 'ubuntu-18.04'
     pool:
       vmImage: $(VM_IMAGE)
     steps:
+    # Two simple steps.. The install runs a helper script to do the install
+    # and any setup.
     - bash: |
         set -e
         uname -a
         ./.ci_playground/linux-cxx-install.sh
       displayName: Install Toolset
+    # And the compiler step just calls the compiler as specified in the
+    # matrix.
     - bash: |
         set -e
         ${CXX} --version
