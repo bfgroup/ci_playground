@@ -75,9 +75,7 @@ install:
       echo ">>>>>"
       echo ">>>>> INSTALL TOOLSET .."
       echo ">>>>>"
-      if not "%CHOCO_VS_PACKAGE%"=="" (
-        choco install %CHOCO_VS_PACKAGE% -packageParameters "--AdminFile .ci_playground/%CHOCO_VS_PACKAGE%.xml"
-      )
+      if not "%CHOCO_VS_PACKAGE%"=="" choco install %CHOCO_VS_PACKAGE% -packageParameters "--AdminFile .ci_playground/%CHOCO_VS_PACKAGE%.xml"
       choco install vswhere
 
 # The build itself sets up which VS to use and compiles with it.
