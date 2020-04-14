@@ -71,7 +71,7 @@ matrix:
 # not practical as it takes a large amount of time to do so. And Appveyor is
 # singular in the large number of VS versions is maintains.
 install:
-  - script: |
+  - cmd: |
       echo ">>>>>"
       echo ">>>>> INSTALL TOOLSET .."
       echo ">>>>>"
@@ -82,7 +82,7 @@ install:
 
 # The build itself sets up which VS to use and compiles with it.
 build_script:
-  - script: |
+  - cmd: |
       echo ">>>>>"
       echo ">>>>> COMPILE, Setup .."
       echo ">>>>>"
