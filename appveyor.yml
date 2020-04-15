@@ -73,10 +73,10 @@ environment:
     CXX: clang++
     APPVEYOR_BUILD_WORKER_IMAGE: macos
     XCODE_VERSION: 11.3.1
-  - job_name: 'Xcode 10.3'
+  - job_name: 'Xcode 9.4.1'
     CXX: clang++
     APPVEYOR_BUILD_WORKER_IMAGE: macos-mojave
-    XCODE_VERSION: 10.3
+    XCODE_VERSION: 9.4.1
 
 # We specify a single job matrix expansion for the platform type.
 platform:
@@ -131,25 +131,30 @@ for:
         ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
 
 # Windows job steps.
-install:
-  # Appveyor has a specific set of steps that it combines into a single sequence.
-  # This one we use for installing VS version (if desired). Although doing so is
-  # not practical as it takes a large amount of time to do so. And Appveyor is
-  # singular in the large number of VS versions is maintains.
-  - cmd: |
-      echo ">>>>>"
-      echo ">>>>> INSTALL TOOLSET .."
-      echo ">>>>>"
-      if not "%CHOCO_VS_PACKAGE%"=="" choco install %CHOCO_VS_PACKAGE% -packageParameters "--AdminFile .ci_playground/%CHOCO_VS_PACKAGE%.xml"
-      choco install vswhere
-build_script:
-  # The build itself sets up which VS to use and compiles with it.
-  - cmd: |
-      echo ">>>>>"
-      echo ">>>>> COMPILE, Setup .."
-      echo ">>>>>"
-      CALL .ci_playground/windows-msvc-setup.cmd
-      echo ">>>>>"
-      echo ">>>>> COMPILE .."
-      echo ">>>>>"
-      "%CXX%" %CXXFLAGS% src/main.cpp
+- matrix:
+    only:
+      - APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2019'
+      - APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2017'
+      - APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015'
+  install:
+    # Appveyor has a specific set of steps that it combines into a single sequence.
+    # This one we use for installing VS version (if desired). Although doing so is
+    # not practical as it takes a large amount of time to do so. And Appveyor is
+    # singular in the large number of VS versions is maintains.
+    - cmd: |
+        echo ">>>>>"
+        echo ">>>>> INSTALL TOOLSET .."
+        echo ">>>>>"
+        if not "%CHOCO_VS_PACKAGE%"=="" choco install %CHOCO_VS_PACKAGE% -packageParameters "--AdminFile .ci_playground/%CHOCO_VS_PACKAGE%.xml"
+        choco install vswhere
+  build_script:
+    # The build itself sets up which VS to use and compiles with it.
+    - cmd: |
+        echo ">>>>>"
+        echo ">>>>> COMPILE, Setup .."
+        echo ">>>>>"
+        CALL .ci_playground/windows-msvc-setup.cmd
+        echo ">>>>>"
+        echo ">>>>> COMPILE .."
+        echo ">>>>>"
+        "%CXX%" %CXXFLAGS% src/main.cpp
