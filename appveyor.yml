@@ -97,17 +97,12 @@ matrix:
     - platform: x86
       APPVEYOR_BUILD_WORKER_IMAGE: macos-mojave
 
-# We use scripts only. Disable msbuild default.
-build: off
-
 for:
 
 # Linux job steps.
 - matrix:
     only:
-      - image: 'Ubuntu'
-    except:
-      - platform: x86
+      - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
   install:
     - sh: |
         set -e
@@ -122,10 +117,8 @@ for:
 # macOS job steps.
 - matrix:
     only:
-      - image: 'macos'
-      - image: 'macos-mojave'
-    except:
-      - platform: x86
+      - APPVEYOR_BUILD_WORKER_IMAGE: macos
+      - APPVEYOR_BUILD_WORKER_IMAGE: macos-mojave
   install:
     - sh: |
         set -e
