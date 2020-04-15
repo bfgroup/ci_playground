@@ -65,6 +65,10 @@ environment:
     CXX: clang++-9
     PACKAGES: clang-9
     LLVM_REPO: llvm-toolchain-xenial-9
+  - job_name 'Xcode 11.3.1'
+    CXX: clang++
+    APPVEYOR_BUILD_WORKER_IMAGE: 'macos'
+    XCODE_VERSION: 11.3.1
 
 # We specify a single job matrix expansion for the platform type.
 platform:
@@ -96,11 +100,17 @@ install:
       echo ">>>>>"
       if not "%CHOCO_VS_PACKAGE%"=="" choco install %CHOCO_VS_PACKAGE% -packageParameters "--AdminFile .ci_playground/%CHOCO_VS_PACKAGE%.xml"
       choco install vswhere
-  # Linux install.
+  # Linux or Mac install.
   - sh: |
       set -e
       uname -a
-      ./.ci_playground/linux-cxx-install.sh
+      if test $(APPVEYOR_BUILD_WORKER_IMAGE) == "Ubuntu" ; then
+        ./.ci_playground/linux-cxx-install.sh
+      else
+        export 'XCODE_INSTALL_USER=$(DEV_APPLE_USER)'
+        export 'XCODE_INSTALL_PASSWORD=$(DEV_APPLE_PASSWORD)'
+        ./.ci_playground/macos-xcode-install.sh
+      fi
 
 build_script:
   # The build itself sets up which VS to use and compiles with it.
@@ -113,8 +123,12 @@ build_script:
       echo ">>>>> COMPILE .."
       echo ">>>>>"
       "%CXX%" %CXXFLAGS% src/main.cpp
-  # Linux build.
+  # Linux or Mac build.
   - sh: |
       set -e
       ${CXX} --version
-      ${CXX} ${CXXFLAGS} -v src/main.cpp
+      if test $(APPVEYOR_BUILD_WORKER_IMAGE) == "Ubuntu" ; then
+        ${CXX} ${CXXFLAGS} -v src/main.cpp
+      else
+        ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
+      fi
