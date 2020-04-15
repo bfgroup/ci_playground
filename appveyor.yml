@@ -69,6 +69,8 @@ environment:
     CXX: clang++
     APPVEYOR_BUILD_WORKER_IMAGE: macos
     XCODE_VERSION: 11.3.1
+    XCODE_INSTALL_USER: { secure: 8iaSThocSvqXSaSZiH2G2E1XoHhLmpFmrexfMvwVbcg= }
+    XCODE_INSTALL_PASSWORD: { secure: YXiD2orrN565ZnNeLFcha2k6KDuf1i8D1KwlepOvD1Q= }
 
 # We specify a single job matrix expansion for the platform type.
 platform:
@@ -109,8 +111,6 @@ install:
       if test ${APPVEYOR_BUILD_WORKER_IMAGE} == "Ubuntu" ; then
         ./.ci_playground/linux-cxx-install.sh
       else
-        export 'XCODE_INSTALL_USER=$(DEV_APPLE_USER)'
-        export 'XCODE_INSTALL_PASSWORD=$(DEV_APPLE_PASSWORD)'
         sudo ./.ci_playground/macos-xcode-install.sh
       fi
 
