@@ -21,8 +21,8 @@ skip_commits:
 # Since we are interested in running on specific compilers we list them
 # individually.
 environment:
-  XCODE_INSTALL_USER: { secure: 8iaSThocSvqXSaSZiH2G2E1XoHhLmpFmrexfMvwVbcg= }
-  XCODE_INSTALL_PASSWORD: { secure: YXiD2orrN565ZnNeLFcha2k6KDuf1i8D1KwlepOvD1Q= }
+  DEV_APPLE_USER: { secure: 8iaSThocSvqXSaSZiH2G2E1XoHhLmpFmrexfMvwVbcg= }
+  DEV_APPLE_PASSWORD: { secure: YXiD2orrN565ZnNeLFcha2k6KDuf1i8D1KwlepOvD1Q= }
   matrix:
   - job_name: 'VS 2019'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
@@ -111,6 +111,8 @@ install:
       if test ${APPVEYOR_BUILD_WORKER_IMAGE} == "Ubuntu" ; then
         ./.ci_playground/linux-cxx-install.sh
       else
+        export "XCODE_INSTALL_USER=${DEV_APPLE_USER}"
+        export "XCODE_INSTALL_PASSWORD=${DEV_APPLE_PASSWORD}"
         sudo ./.ci_playground/macos-xcode-install.sh
       fi
 
