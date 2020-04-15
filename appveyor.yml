@@ -52,6 +52,10 @@ environment:
     VSWHERE_LEGACY: '[10.0,11.0)'
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
+  - job_name: 'Linux GCC 9'
+    APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+    CXX: g++-9
+    PACKAGES: g++-9
 
 # We specify a single job matrix expansion for the platform type.
 platform:
@@ -65,21 +69,28 @@ matrix:
       platform: x64
     - job_name: 'VS 2010'
       platform: x64
+    - job_name: 'Linux GCC 9'
+      platform: x32
 
-# Appveyor has a specific set of steps that it combines into a single sequence.
-# This one we use for installing VS version (if desired). Although doing so is
-# not practical as it takes a large amount of time to do so. And Appveyor is
-# singular in the large number of VS versions is maintains.
 install:
+  # Appveyor has a specific set of steps that it combines into a single sequence.
+  # This one we use for installing VS version (if desired). Although doing so is
+  # not practical as it takes a large amount of time to do so. And Appveyor is
+  # singular in the large number of VS versions is maintains.
   - cmd: |
       echo ">>>>>"
       echo ">>>>> INSTALL TOOLSET .."
       echo ">>>>>"
       if not "%CHOCO_VS_PACKAGE%"=="" choco install %CHOCO_VS_PACKAGE% -packageParameters "--AdminFile .ci_playground/%CHOCO_VS_PACKAGE%.xml"
       choco install vswhere
+  # Linux install.
+  - sh: |
+      set -e
+      uname -a
+      ./.ci_playground/linux-cxx-install.sh
 
-# The build itself sets up which VS to use and compiles with it.
 build_script:
+  # The build itself sets up which VS to use and compiles with it.
   - cmd: |
       echo ">>>>>"
       echo ">>>>> COMPILE, Setup .."
@@ -89,3 +100,8 @@ build_script:
       echo ">>>>> COMPILE .."
       echo ">>>>>"
       "%CXX%" %CXXFLAGS% src/main.cpp
+  # Linux build.
+  - sh:
+      set -e
+      ${CXX} --version
+      ${CXX} ${CXXFLAGS} -v src/main.cpp
