@@ -21,6 +21,8 @@ skip_commits:
 # Since we are interested in running on specific compilers we list them
 # individually.
 environment:
+  XCODE_INSTALL_USER: { secure: 8iaSThocSvqXSaSZiH2G2E1XoHhLmpFmrexfMvwVbcg= }
+  XCODE_INSTALL_PASSWORD: { secure: YXiD2orrN565ZnNeLFcha2k6KDuf1i8D1KwlepOvD1Q= }
   matrix:
   - job_name: 'VS 2019'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
@@ -69,8 +71,6 @@ environment:
     CXX: clang++
     APPVEYOR_BUILD_WORKER_IMAGE: macos
     XCODE_VERSION: 11.3.1
-    XCODE_INSTALL_USER: { secure: 8iaSThocSvqXSaSZiH2G2E1XoHhLmpFmrexfMvwVbcg= }
-    XCODE_INSTALL_PASSWORD: { secure: YXiD2orrN565ZnNeLFcha2k6KDuf1i8D1KwlepOvD1Q= }
 
 # We specify a single job matrix expansion for the platform type.
 platform:
