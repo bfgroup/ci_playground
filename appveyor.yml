@@ -115,7 +115,7 @@ install:
       else
         export "XCODE_INSTALL_USER=${DEV_APPLE_USER}"
         export "XCODE_INSTALL_PASSWORD=${DEV_APPLE_PASSWORD}"
-        sudo ./.ci_playground/macos-xcode-install.sh
+        ./.ci_playground/macos-xcode-install.sh
       fi
 
 build_script:

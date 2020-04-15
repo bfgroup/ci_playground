@@ -6,7 +6,7 @@
 # XCODE_INSTALL_PASSWORD = Password for that account.
 
 set -e
-gem install xcode-install
+sudo gem install xcode-install
 xcversion update
 echo ">>>>>"
 echo ">>>>> AVAILABLE.."
