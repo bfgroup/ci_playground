@@ -88,6 +88,8 @@ matrix:
       platform: x86
     - job_name: 'Linux Clang 9'
       platform: x86
+    - job_name: 'Xcode 11.3.1'
+      platform: x86
 
 install:
   # Appveyor has a specific set of steps that it combines into a single sequence.
