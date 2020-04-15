@@ -101,69 +101,68 @@ matrix:
     # - job_name: 'Xcode 10.3'
     #   platform: x86
 
-# Linux job steps.
 for:
-  - matrix:
-      only:
-        - image: 'Ubuntu'
-      except:
-        - platform: x86
-    install:
-      - sh: |
-          set -e
-          uname -a
-          ./.ci_playground/linux-cxx-install.sh
-    build_script:
-      - sh: |
-          set -e
-          ${CXX} --version
-          ${CXX} ${CXXFLAGS} -v src/main.cpp
+
+# Linux job steps.
+- matrix:
+    only:
+      - image: 'Ubuntu'
+    except:
+      - platform: x86
+  install:
+    - sh: |
+        set -e
+        uname -a
+        ./.ci_playground/linux-cxx-install.sh
+  build_script:
+    - sh: |
+        set -e
+        ${CXX} --version
+        ${CXX} ${CXXFLAGS} -v src/main.cpp
 
 # macOS job steps.
-for:
-  - matrix:
-      only:
-        - image: 'macos'
-        - image: 'macos-mojave'
-      except:
-        - platform: x86
-    install:
-      - sh: |
-          set -e
-          uname -a
-          ./.ci_playground/macos-xcode-install.sh
-    build_script:
-      - sh: |
-          set -e
-          ${CXX} --version
-          ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
+- matrix:
+    only:
+      - image: 'macos'
+      - image: 'macos-mojave'
+    except:
+      - platform: x86
+  install:
+    - sh: |
+        set -e
+        uname -a
+        ./.ci_playground/macos-xcode-install.sh
+  build_script:
+    - sh: |
+        set -e
+        ${CXX} --version
+        ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
 
 # Windows job steps.
-for:
-  - matrix:
-      only:
-        - image: 'Visual Studio 2019'
-        - image: 'Visual Studio 2017'
-        - image: 'Visual Studio 2015'
-    install:
-      # Appveyor has a specific set of steps that it combines into a single sequence.
-      # This one we use for installing VS version (if desired). Although doing so is
-      # not practical as it takes a large amount of time to do so. And Appveyor is
-      # singular in the large number of VS versions is maintains.
-      - cmd: |
-          echo ">>>>>"
-          echo ">>>>> INSTALL TOOLSET .."
-          echo ">>>>>"
-          if not "%CHOCO_VS_PACKAGE%"=="" choco install %CHOCO_VS_PACKAGE% -packageParameters "--AdminFile .ci_playground/%CHOCO_VS_PACKAGE%.xml"
-          choco install vswhere
-    build_script:
-      # The build itself sets up which VS to use and compiles with it.
-      - cmd: |
-          echo ">>>>>"
-          echo ">>>>> COMPILE, Setup .."
-          echo ">>>>>"
-          CALL .ci_playground/windows-msvc-setup.cmd
-          echo ">>>>>"
-          echo ">>>>> COMPILE .."
-          echo ">>>>>"
-          "%CXX%" %CXXFLAGS% src/main.cpp
+- matrix:
+    only:
+      - image: 'Visual Studio 2019'
+      - image: 'Visual Studio 2017'
+      - image: 'Visual Studio 2015'
+  install:
+    # Appveyor has a specific set of steps that it combines into a single sequence.
+    # This one we use for installing VS version (if desired). Although doing so is
+    # not practical as it takes a large amount of time to do so. And Appveyor is
+    # singular in the large number of VS versions is maintains.
+    - cmd: |
+        echo ">>>>>"
+        echo ">>>>> INSTALL TOOLSET .."
+        echo ">>>>>"
+        if not "%CHOCO_VS_PACKAGE%"=="" choco install %CHOCO_VS_PACKAGE% -packageParameters "--AdminFile .ci_playground/%CHOCO_VS_PACKAGE%.xml"
+        choco install vswhere
+  build_script:
+    # The build itself sets up which VS to use and compiles with it.
+    - cmd: |
+        echo ">>>>>"
+        echo ">>>>> COMPILE, Setup .."
+        echo ">>>>>"
+        CALL .ci_playground/windows-msvc-setup.cmd
+        echo ">>>>>"
+        echo ">>>>> COMPILE .."
+        echo ">>>>>"
+        "%CXX%" %CXXFLAGS% src/main.cpp
