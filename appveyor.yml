@@ -90,16 +90,15 @@ matrix:
       platform: x64
     - job_name: 'VS 2010'
       platform: x64
-    # - job_name: 'Linux GCC 9'
-    #   platform: x86
-    # - job_name: 'Linux GCC 6'
-    #   platform: x86
-    # - job_name: 'Linux Clang 9'
-    #   platform: x86
-    # - job_name: 'Xcode 11.3.1'
-    #   platform: x86
-    # - job_name: 'Xcode 10.3'
-    #   platform: x86
+    - image: 'Ubuntu'
+      platform: x86
+    - image: 'macos'
+      platform: x86
+    - image: 'macos-mojave'
+      platform: x86
+
+# We use scripts only. Disable msbuild default.
+build: off
 
 for:
 
