@@ -105,7 +105,7 @@ matrix:
 for:
   - matrix:
       only:
-        - image: Ubuntu
+        - image: 'Ubuntu'
       except:
         - platform: x86
     install:
@@ -123,8 +123,8 @@ for:
 for:
   - matrix:
       only:
-        - image: macos
-          image: macos-mojave
+        - image: 'macos'
+        - image: 'macos-mojave'
       except:
         - platform: x86
     install:
@@ -143,8 +143,8 @@ for:
   - matrix:
       only:
         - image: 'Visual Studio 2019'
-          image: 'Visual Studio 2017'
-          image: 'Visual Studio 2015'
+        - image: 'Visual Studio 2017'
+        - image: 'Visual Studio 2015'
     install:
       # Appveyor has a specific set of steps that it combines into a single sequence.
       # This one we use for installing VS version (if desired). Although doing so is
