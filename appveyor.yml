@@ -70,7 +70,7 @@ matrix:
     - job_name: 'VS 2010'
       platform: x64
     - job_name: 'Linux GCC 9'
-      platform: x32
+      platform: x86
 
 install:
   # Appveyor has a specific set of steps that it combines into a single sequence.
