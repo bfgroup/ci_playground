@@ -56,6 +56,15 @@ environment:
     APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
     CXX: g++-9
     PACKAGES: g++-9
+  - job_name: 'Linux GCC 6'
+    APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+    CXX: g++-6
+    PACKAGES: g++-6
+  - job_name: 'Linux Clang 9'
+    APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+    CXX: clang++-9
+    PACKAGES: clang-9
+    LLVM_REPO: llvm-toolchain-xenial-9
 
 # We specify a single job matrix expansion for the platform type.
 platform:
@@ -70,6 +79,10 @@ matrix:
     - job_name: 'VS 2010'
       platform: x64
     - job_name: 'Linux GCC 9'
+      platform: x86
+    - job_name: 'Linux GCC 6'
+      platform: x86
+    - job_name: 'Linux Clang 9'
       platform: x86
 
 install:
@@ -101,7 +114,7 @@ build_script:
       echo ">>>>>"
       "%CXX%" %CXXFLAGS% src/main.cpp
   # Linux build.
-  - sh:
+  - sh: |
       set -e
       ${CXX} --version
       ${CXX} ${CXXFLAGS} -v src/main.cpp
