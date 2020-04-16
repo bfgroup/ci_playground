@@ -33,14 +33,9 @@ stages:
   - job: 'Linux'
     strategy:
       matrix:
-        GCC 9:
-          CXX: g++-9
-          PACKAGES: g++-9
-          VM_IMAGE: 'ubuntu-18.04'
-        GCC 7:
-          CXX: g++-7
-          PACKAGES: g++-7
-          VM_IMAGE: 'ubuntu-18.04'
+        GCC 9: { CXX: g++-9, PACKAGES: g++-9, VM_IMAGE: 'ubuntu-18.04' }
+        GCC 7: { CXX: g++-7, PACKAGES: g++-7, VM_IMAGE: 'ubuntu-18.04' }
+        Clang 9: { CXX: clang-9, PACKAGES: clang-9, LLVM_REPO: llvm-toolchain-bionic-9, VM_IMAGE: 'ubuntu-18.04' }
     pool:
       vmImage: $(VM_IMAGE)
     steps:
@@ -62,14 +57,9 @@ stages:
   - job: 'macOS'
     strategy:
       matrix:
-        Xcode 11.4:
-          CXX: clang++
-          VM_IMAGE: 'macOS-10.15'
-          XCODE_VERSION: 11.4
-        Xcode 9.4.1:
-          CXX: clang++
-          VM_IMAGE: 'macOS-10.14'
-          XCODE_VERSION: 9.4.1
+        Xcode 11.4: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 11.4 }
+        Xcode 9.4.1: { CXX: clang++, VM_IMAGE: 'macOS-10.14', XCODE_VERSION: 9.4.1 }
+
     pool:
       vmImage: $(VM_IMAGE)
     steps:

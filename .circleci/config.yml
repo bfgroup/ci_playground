@@ -14,23 +14,15 @@ jobs:
   linux-job:
     parameters:
       # The, optional, Linux OS image to run in.
-      image:
-        default: "ubuntu-1604:201903-01"
-        type: string
+      image: { default: "ubuntu-1604:201903-01", type: string }
       # The, optional, LLVM repo to obtain clang builds from. This needs to
       # match the Linux OS image.
-      llvm_repo:
-        default: ""
-        type: string
+      llvm_repo: { default: "", type: string }
       # The compiler executable name to use. The default value of "c++" is
       # only useful for system default compilers.
-      cxx:
-        default: "c++"
-        type: string
+      cxx: { default: "c++", type: string }
       # APT packages from LLVM_REPO to install for the compiler.
-      packages:
-        default: ""
-        type: string
+      packages: { default: "", type: string }
     machine:
       image: << parameters.image >>
     environment:
@@ -58,11 +50,5 @@ jobs:
 workflows:
   workflow:
     jobs:
-      - linux-job:
-          name: 'Linux GCC 9'
-          cxx: g++-9
-          packages: g++-9
-      - linux-job:
-          name: 'Linux GCC 8'
-          cxx: g++-8
-          packages: g++-8
+      - linux-job: { name: 'Linux GCC 9', cxx: g++-9, packages: g++-9 }
+      - linux-job: { name: 'Linux GCC 8', cxx: g++-8, packages: g++-8 }

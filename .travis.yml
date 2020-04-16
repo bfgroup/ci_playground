@@ -42,6 +42,8 @@ jobs:
       osx_image: xcode8.3
       env: [ 'CXX=clang++', 'XCODE_VERSION=8.3.3' ]
 
+# We need to handle the various OSs in the one install step ourselves.
+# For each OS we run our utility scripts that does all the work.
 install:
   - |
       set -e
@@ -54,6 +56,10 @@ install:
         ./.ci_playground/macos-xcode-install.sh
       fi
 
+# We also need to handle multiple OSs in the script step. Note, that for
+# Xcode the extra --sysroot option relies on the xcode-install utility
+# that creates a single /Applications/Xcode.app symlink to the currently
+# selected toolset.
 script:
   - |
       set -e
