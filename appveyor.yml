@@ -74,10 +74,10 @@ environment:
     CXX: clang++
     APPVEYOR_BUILD_WORKER_IMAGE: macos
     XCODE_VERSION: 11.3.1
-  - job_name: 'Xcode 11.2.1'
-    CXX: clang++
-    APPVEYOR_BUILD_WORKER_IMAGE: macos-mojave
-    XCODE_VERSION: 11.2.1
+  # - job_name: 'Xcode 11.2.1'
+  #   CXX: clang++
+  #   APPVEYOR_BUILD_WORKER_IMAGE: macos-mojave
+  #   XCODE_VERSION: 11.2.1
 
 # We specify a single job matrix expansion for the platform type.
 platform:
