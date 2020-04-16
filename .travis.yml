@@ -30,8 +30,8 @@ jobs:
       dist: bionic
       env: [ 'CXX=clang-10', 'PACKAGES=clang-10', 'LLVM_REPO=llvm-toolchain-bionic-10' ]
     - os: linux
-      dist: bionic
-      env: [ 'CXX=clang-9', 'PACKAGES=clang-9', 'LLVM_REPO=llvm-toolchain-bionic-9' ]
+      dist: xenial
+      env: [ 'CXX=clang-9', 'PACKAGES=clang-9', 'LLVM_REPO=llvm-toolchain-xenial-9' ]
     - os: osx
       osx_image: xcode11.3
       env: [ 'CXX=clang++', 'XCODE_VERSION=11.3.1' ]
@@ -49,8 +49,8 @@ install:
       if [ "$TRAVIS_OS_NAME" = "linux" ]; then
         ./.ci_playground/linux-cxx-install.sh
       else
-        export 'XCODE_INSTALL_USER=$(DEV_APPLE_USER)'
-        export 'XCODE_INSTALL_PASSWORD=$(DEV_APPLE_PASSWORD)'
+        export "XCODE_INSTALL_USER=${DEV_APPLE_USER}"
+        export "XCODE_INSTALL_PASSWORD=${DEV_APPLE_PASSWORD}"
         ./.ci_playground/macos-xcode-install.sh
       fi
 
