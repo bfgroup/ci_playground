@@ -27,8 +27,8 @@ jobs:
       dist: bionic
       env: [ 'CXX=g++-9', 'PACKAGES=g++-9' ]
     - os: linux
-      dist: bionic
-      env: [ 'CXX=clang-10', 'PACKAGES=clang-10', 'LLVM_REPO=llvm-toolchain-bionic-10' ]
+      dist: xenial
+      env: [ 'CXX=clang-10', 'PACKAGES=clang-10', 'LLVM_REPO=llvm-toolchain-xenial-10' ]
     - os: linux
       dist: xenial
       env: [ 'CXX=clang-9', 'PACKAGES=clang-9', 'LLVM_REPO=llvm-toolchain-xenial-9' ]
