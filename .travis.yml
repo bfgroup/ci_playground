@@ -1,0 +1,65 @@
+# Use, modification, and distribution are
+# subject to the Boost Software License, Version 1.0. (See accompanying
+# file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#
+# Copyright Rene Rivera 2020.
+
+# Configuration for https://travis-ci.com/.
+
+branches:
+  only:
+    - master
+
+# We specify a generic language instead of C++ as Travis sets up
+# additional environment vars that point to its default toolset
+# instead of the one we install. The extra env doesn't interfere,
+# but at the same time it's misleading. So to avoid confusion and
+# possible unseen side effects we stick with no C++ default setup.
+language: generic
+
+# Because we install our own toolsets and other software we need
+# to run the sudo support.
+sudo: required
+
+jobs:
+  include:
+    - os: linux
+      dist: bionic
+      env: [ 'CXX=g++-9', 'PACKAGES=g++-9' ]
+    - os: linux
+      dist: bionic
+      env: [ 'CXX=clang-10', 'PACKAGES=clang-10', 'LLVM_REPO=llvm-toolchain-bionic-10' ]
+    - os: linux
+      dist: bionic
+      env: [ 'CXX=clang-9', 'PACKAGES=clang-9', 'LLVM_REPO=llvm-toolchain-bionic-9' ]
+    - os: osx
+      osx_image: xcode11.3
+      env: [ 'CXX=clang++', 'XCODE_VERSION=11.3.1' ]
+    - os: osx
+      osx_image: xcode9.4
+      env: [ 'CXX=clang++', 'XCODE_VERSION=9.4.1' ]
+    - os: osx
+      osx_image: xcode8.3
+      env: [ 'CXX=clang++', 'XCODE_VERSION=8.3.3' ]
+
+install:
+  - |
+      set -e
+      uname -a
+      if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+        ./.ci_playground/linux-cxx-install.sh
+      else
+        export 'XCODE_INSTALL_USER=$(DEV_APPLE_USER)'
+        export 'XCODE_INSTALL_PASSWORD=$(DEV_APPLE_PASSWORD)'
+        ./.ci_playground/macos-xcode-install.sh
+      fi
+
+script:
+  - |
+      set -e
+      ${CXX} --version
+      if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+        ${CXX} ${CXXFLAGS} -v src/main.cpp
+      else
+        ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
+      fi
