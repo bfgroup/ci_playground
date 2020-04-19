@@ -16,11 +16,11 @@ on:
       'azure-pipelines.yml' ]
 
 jobs:
-  strategy:
-    matrix:
-      include:
-        - { name: 'GCC 9', cxx: 'g++-9', packages: 'g++-9', os: 'ubuntu-18.04' }
   linux:
+    strategy:
+      matrix:
+        include:
+          - { name: 'GCC 9', cxx: 'g++-9', packages: 'g++-9', os: 'ubuntu-18.04' }
     name: Linux ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     env:
