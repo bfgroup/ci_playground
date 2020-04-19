@@ -158,4 +158,5 @@ jobs:
           echo ">>>>>"
           echo ">>>>> COMPILE .."
           echo ">>>>>"
-          "%CXX%" %CXXFLAGS% src/main.cpp
+          "%CXX%" --version
+          "%CXX%" %CXXFLAGS% -v src/main.cpp
