@@ -32,6 +32,7 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
+        with: { submodules: true }
       - name: 'Install Toolset'
         run: |
           set -e
@@ -69,6 +70,7 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
+        with: { submodules: true }
       - name: 'Install Toolset'
         run: |
           echo ">>>>>"
