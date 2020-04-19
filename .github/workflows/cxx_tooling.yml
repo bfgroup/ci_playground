@@ -8,6 +8,8 @@
 
 name: C++ Tooling
 
+# We limit when to run the builds to specific branches. And also limit to avoid
+# building when CI files from other services change.
 on:
   push:
     branches: [ 'master' ]
@@ -15,13 +17,17 @@ on:
       '.circleci/**', '.semaphore/**', '.travis.yml', 'appveyor.yml',
       'azure-pipelines.yml' ]
 
+# We group the jobs based on platform as the scripts are usually specific
+# to the platform and not the compiler.
 jobs:
   linux:
     strategy:
       matrix:
         include:
           - { name: 'GCC 9', cxx: 'g++-9', packages: 'g++-9', os: 'ubuntu-18.04' }
+          - { name: 'GCC 8', cxx: 'g++-8', packages: 'g++-8', os: 'ubuntu-18.04' }
           - { name: 'Clang 9', cxx: 'clang-9', packages: 'clang-9',llvm_repo: 'llvm-toolchain-xenial-9', os: 'ubuntu-16.04' }
+          - { name: 'Clang 8', cxx: 'clang-8', packages: 'clang-8',llvm_repo: 'llvm-toolchain-xenial-8', os: 'ubuntu-16.04' }
     name: Linux ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     env:
@@ -30,14 +36,21 @@ jobs:
       PACKAGES: ${{ matrix.packages }}
       LLVM_REPO: ${{ matrix.llvm_repo }}
     steps:
+      # GitHub actions doesn't checkout your code by default. Instead we need
+      # to call an external action to do the checkout. We use the 'naster'
+      # branch of that external action to automatically get fixes.
       - name: 'Checkout'
         uses: actions/checkout@master
         with: { submodules: true }
+      # Two simple steps.. The install runs a helper script to do the install
+      # and any setup.
       - name: 'Install Toolset'
         run: |
           set -e
           uname -a
           ./.ci_playground/linux-cxx-install.sh
+      # And the compiler step just calls the compiler as specified in the
+      # matrix.
       - name: 'Compile'
         run: |
           set -e
@@ -47,7 +60,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - { name: 'Xcode 11.4', cxx: 'clang++', xcode_version: '11.4', os: 'macOS-10.15' }
+          - { name: 'Xcode 11.4.1', cxx: 'clang++', xcode_version: '11.4.1', os: 'macOS-10.15' }
+          - { name: 'Xcode 11.3.1', cxx: 'clang++', xcode_version: '11.3.1', os: 'macOS-10.15' }
+          - { name: 'Xcode 11.2.1', cxx: 'clang++', xcode_version: '11.2.1', os: 'macOS-10.15' }
           - { name: 'Xcode 10.3', cxx: 'clang++', xcode_version: '10.3', os: 'macOS-10.15' }
     name: macOS ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
@@ -112,6 +127,33 @@ jobs:
           echo ">>>>> COMPILE, Setup .."
           echo ">>>>>"
           .ci_playground/windows-msvc-setup.cmd
+          echo ">>>>>"
+          echo ">>>>> COMPILE .."
+          echo ">>>>>"
+          "%CXX%" %CXXFLAGS% src/main.cpp
+  windows-mingw:
+    strategy:
+      matrix:
+        include:
+          - name: 'Mingw'
+            cxx: 'g++.exe'
+    defaults: { run: { shell: cmd } }
+    name: Windows ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    env:
+      CXX: ${{ matrix.cxx }}
+      CXXFLAGS: ${{ matrix.cxxflags }}
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+        with: { submodules: true }
+      - name: 'Install Toolset'
+        run: |
+          echo ">>>>>"
+          echo ">>>>> INSTALL TOOLSET .."
+          echo ">>>>>"
+      - name: 'Compile'
+        run: |
           echo ">>>>>"
           echo ">>>>> COMPILE .."
           echo ">>>>>"
