@@ -48,7 +48,7 @@ jobs:
       matrix:
         include:
           - { name: 'Xcode 11.4', cxx: 'clang++', xcode_version: '11.4', os: 'macOS-10.15' }
-          - { name: 'Xcode 9.4.1', cxx: 'clang++', xcode_version: '9.4.1', os: 'macOS-10.14' }
+          - { name: 'Xcode 10.3', cxx: 'clang++', xcode_version: '10.3', os: 'macOS-10.15' }
     name: macOS ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     env:
