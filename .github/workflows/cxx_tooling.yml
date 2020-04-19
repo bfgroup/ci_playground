@@ -52,6 +52,13 @@ jobs:
             cxxflags: '/Zi /MT /TP /Femain /Ox /GL /EHsc'
             platform: 'x64'
             os: 'windows-2019'
+          - name: 'VS 2017'
+            vswhere_version: '[15.0,16.0)'
+            cxx: 'cl.exe'
+            cxxflags: '/Zi /MT /TP /Femain /Ox /GL /EHsc'
+            platform: 'x64'
+            os: 'vs2017-win2016'
+    defaults: { run: { shell: cmd } }
     name: Windows ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     env:
