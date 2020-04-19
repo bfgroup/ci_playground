@@ -137,6 +137,7 @@ jobs:
         include:
           - name: 'Mingw'
             cxx: 'g++.exe'
+            os: 'windows-2019'
     defaults: { run: { shell: cmd } }
     name: Windows ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
