@@ -14,10 +14,11 @@ trigger:
     - master
   paths:
     exclude:
-    - appveyor.yml
     - .circleci/*
+    - .github/workflows/*
     - .semaphore/*
     - .travis.yml
+    - appveyor.yml
 
 # There are many arrangements possible with Azure Pipelines stages. But our
 # experimental needs are rather simple. Hence we only have a single stage

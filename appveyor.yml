@@ -13,11 +13,12 @@ branches:
 
 # And we also filter to avoid running when config files for other CIs change.
 skip_commits:
- files:
-   - azure-pipelines.yml
-   - .circleci/*
-   - .semaphore/*
-   - .travis.yml
+  files:
+    - .circleci/*
+    - .github/workflows/*
+    - .semaphore/*
+    - .travis.yml
+    - azure-pipelines.yml
 
 # Since we are interested in running on specific compilers we list them
 # individually.

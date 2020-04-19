@@ -1,0 +1,31 @@
+# Use, modification, and distribution are
+# subject to the Boost Software License, Version 1.0. (See accompanying
+# file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#
+# Copyright Rene Rivera 2020.
+
+# Configuration for https://help.github.com/en/actions.
+
+name: Linux
+
+on:
+  push:
+    branches: [ 'master' ]
+    paths-ignore: [
+      '.circleci/**', '.semaphore/**', '.travis.yml', 'appveyor.yml', 'azure-pipelines.yml' ]
+
+jobs:
+  linux:
+    name: 'Linux'
+    runs-on: 'ubuntu-18.04'
+    steps:
+      - name: 'Install Toolset'
+        run: |
+          set -e
+          uname -a
+          ./.ci_playground/linux-cxx-install.sh
+      - name: 'Compile'
+        run: |
+          set -e
+          ${CXX} --version
+          ${CXX} ${CXXFLAGS} -v src/main.cpp
