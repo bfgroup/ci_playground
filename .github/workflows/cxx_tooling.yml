@@ -31,7 +31,7 @@ jobs:
       LLVM_REPO: ${{ matrix.llvm_repo }}
     steps:
       - name: 'Checkout'
-        uses: actions/checkout@v2
+        uses: actions/checkout@master
       - name: 'Install Toolset'
         run: |
           set -e
@@ -42,7 +42,7 @@ jobs:
           set -e
           ${CXX} --version
           ${CXX} ${CXXFLAGS} -v src/main.cpp
-  windows:
+  windows-vs:
     strategy:
       matrix:
         include:
@@ -68,7 +68,7 @@ jobs:
       PLATFORM: ${{ matrix.platform }}
     steps:
       - name: 'Checkout'
-        uses: actions/checkout@v2
+        uses: actions/checkout@master
       - name: 'Install Toolset'
         run: |
           echo ">>>>>"
