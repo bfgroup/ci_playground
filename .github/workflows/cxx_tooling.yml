@@ -43,6 +43,34 @@ jobs:
           set -e
           ${CXX} --version
           ${CXX} ${CXXFLAGS} -v src/main.cpp
+  macos-xcode:
+    strategy:
+      matric:
+        include:
+          - { name: 'Xcode 11.4', cxx: 'clang++', xcode_version: '11.4', os: 'macOS-10.15' }
+          - { name: 'Xcode 9.4.1', cxx: 'clang++', xcode_version: '9.4.1', os: 'macOS-10.14' }
+    name: macOS ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    env:
+      CXX: ${{ matrix.cxx }}
+      CXXFLAGS: ${{ matrix.cxxflags }}
+      XCODE_VERSION: ${{ matrix.xcode_version }}
+      XCODE_INSTALL_USER: ${{ secrets.dev_apple_user }}
+      XCODE_INSTALL_PASSWORD: $ {{ secrets.dev_apple_password }}
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+        with: { submodules: true }
+      - name: 'Install Toolset'
+        run: |
+          set -e
+          uname -a
+          ./.ci_playground/macos-xcode-install.sh
+      - name: 'Compile'
+        run: |
+          set -e
+          ${CXX} --version
+          ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
   windows-vs:
     strategy:
       matrix:
