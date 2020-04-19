@@ -12,13 +12,25 @@ on:
   push:
     branches: [ 'master' ]
     paths-ignore: [
-      '.circleci/**', '.semaphore/**', '.travis.yml', 'appveyor.yml', 'azure-pipelines.yml' ]
+      '.circleci/**', '.semaphore/**', '.travis.yml', 'appveyor.yml',
+      'azure-pipelines.yml' ]
 
 jobs:
+  strategy:
+    matrix:
+      include:
+        - { name: 'GCC 9', cxx: 'g++-9', packages: 'g++-9', os: 'ubuntu-18.04' }
   linux:
-    name: 'Linux'
-    runs-on: 'ubuntu-18.04'
+    name: Linux ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    env:
+      CXX: ${{ matrix.cxx }}
+      CXXFLAGS: ${{ matrix.cxxflags }}
+      PACKAGES: ${{ matrix.packages }}
+      LLVM_REPO: ${{ matrix.llvm_repo }}
     steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
       - name: 'Install Toolset'
         run: |
           set -e
