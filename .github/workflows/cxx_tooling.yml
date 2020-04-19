@@ -42,3 +42,40 @@ jobs:
           set -e
           ${CXX} --version
           ${CXX} ${CXXFLAGS} -v src/main.cpp
+  windows:
+    strategy:
+      matrix:
+        include:
+          - name: 'VS 2019'
+            vswhere_version: '[16.0,17.0)'
+            cxx: 'cl.exe'
+            cxxflags: '/Zi /MT /TP /Femain /Ox /GL /EHsc'
+            platform: 'x64'
+            os: 'windows-2019'
+    name: Windows ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    env:
+      CXX: ${{ matrix.cxx }}
+      CXXFLAGS: ${{ matrix.cxxflags }}
+      VSWHERE_VERSION: ${{ matrix.vswhere_version }}
+      PLATFORM: ${{ matrix.platform }}
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+      - name: 'Install Toolset'
+        run: |
+          echo ">>>>>"
+          echo ">>>>> INSTALL TOOLSET .."
+          echo ">>>>>"
+          if not "%CHOCO_VS_PACKAGE%"=="" choco install %CHOCO_VS_PACKAGE% -packageParameters "--AdminFile .ci_playground/%CHOCO_VS_PACKAGE%.xml"
+          choco install vswhere
+      - name: 'Compile'
+        run: |
+          echo ">>>>>"
+          echo ">>>>> COMPILE, Setup .."
+          echo ">>>>>"
+          .ci_playground/windows-msvc-setup.cmd
+          echo ">>>>>"
+          echo ">>>>> COMPILE .."
+          echo ">>>>>"
+          "%CXX%" %CXXFLAGS% src/main.cpp
