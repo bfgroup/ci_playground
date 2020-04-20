@@ -14,7 +14,11 @@ on:
   push:
     branches: [ 'master' ]
     paths-ignore: [
-      '.circleci/**', '.semaphore/**', '.travis.yml', 'appveyor.yml',
+      '.circleci/**',
+      '.drone.*',
+      '.semaphore/**',
+      '.travis.yml',
+      'appveyor.yml',
       'azure-pipelines.yml' ]
 
 # We group the jobs based on platform as the scripts are usually specific

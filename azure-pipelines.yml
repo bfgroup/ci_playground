@@ -15,6 +15,7 @@ trigger:
   paths:
     exclude:
     - .circleci/*
+    - .drone.*
     - .github/workflows/*
     - .semaphore/*
     - .travis.yml
