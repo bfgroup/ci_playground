@@ -23,6 +23,7 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64"):
       "os": "linux",
       "arch": arch
     },
+    # Create env vars per generation arguments.
     "environment": {
       "CXX": cxx,
       "CXXFLAGS": cxxflags,
@@ -30,6 +31,8 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64"):
       "LLVM_REPO": llvm_repo
     },
     "steps": [
+      # Two simple steps.. The install runs a helper script to do the install
+      # and any setup.
       {
         "name": "Install Toolset",
         "commands": [
@@ -37,6 +40,7 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64"):
           "./.ci_playground/linux-cxx-install.sh"
         ]
       },
+      # And the compiler step just calls the compiler.
       {
         "name": "Install Toolset",
         "commands": [
