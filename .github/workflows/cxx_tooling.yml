@@ -15,7 +15,7 @@ on:
     branches: [ 'master' ]
     paths-ignore: [
       '.circleci/**',
-      '.drone.*',
+      '.drone.star',
       '.semaphore/**',
       '.travis.yml',
       'appveyor.yml',
