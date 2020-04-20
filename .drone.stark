@@ -11,6 +11,7 @@ def main(ctx):
     linux_cxx("GCC 9", "g++9", packages="g++-9")
   ]
 
+# Generate pipeline for Linux platform compilers.
 def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64"):
   return {
     "name": "Linux %s" % name,
