@@ -17,11 +17,11 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64"):
     "name": "Linux %s" % name,
     "kind": "pipeline",
     "type": "exec",
-    "trigger": { "branch": [ "master" ] },
-    "platform": {
-      "os": "linux",
-      "arch": arch
-    },
+    # "trigger": { "branch": [ "master" ] },
+    # "platform": {
+    #   "os": "linux",
+    #   "arch": arch
+    # },
     # "environment": {
     #   "CXX": cxx,
     #   "CXXFLAGS": cxxflags,
