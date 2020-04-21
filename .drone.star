@@ -33,8 +33,9 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64", i
     "steps": [
       # Two simple steps.. The install runs a helper script to do the install
       # and any setup.
+      # And the compiler step just calls the compiler.
       {
-        "name": "Install Toolset",
+        "name": "Fubar",
         "image": image,
         "commands": [
           "uname -a",
@@ -42,13 +43,6 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64", i
           "echo PATH=$${PATH}",
           "apt-get update && apt-get install -y sudo software-properties-common && rm -rf /var/lib/apt/lists/*",
           "./.ci_playground/linux-cxx-install.sh"
-        ]
-      },
-      # And the compiler step just calls the compiler.
-      {
-        "name": "Compile",
-        "image": image,
-        "commands": [
           "$${CXX} --version",
           "$${CXX} $${CXXFLAGS} -v src/main.cpp"
         ]
