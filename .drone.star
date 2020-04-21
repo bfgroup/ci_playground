@@ -31,19 +31,30 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64", i
       "LLVM_REPO": llvm_repo
     },
     "steps": [
-      # Two simple steps.. The install runs a helper script to do the install
-      # and any setup.
-      # And the compiler step just calls the compiler.
+      # Need some extra container setup.
       {
-        "name": "Fubar",
+        "name": "Container Setup",
+        "image": image,
+        "commands": [
+          "apt-get update && apt-get install -y sudo software-properties-common && rm -rf /var/lib/apt/lists/*",
+        ]
+      },
+      # The install runs a helper script to do the install and any setup.
+      {
+        "name": "Install Toolset",
         "image": image,
         "commands": [
           "uname -a",
           "id",
-          "echo PATH=$${PATH}",
-          "apt-get update && apt-get install -y sudo software-properties-common && rm -rf /var/lib/apt/lists/*",
           "./.ci_playground/linux-cxx-install.sh",
           "find / -name \"$${CXX}\" -print",
+        ]
+      },
+      # And the compiler step just calls the compiler.
+      {
+        "name": "Compile",
+        "image": image,
+        "commands": [
           "$${CXX} --version",
           "$${CXX} $${CXXFLAGS} -v src/main.cpp"
         ]
