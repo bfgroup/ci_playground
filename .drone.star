@@ -38,7 +38,7 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64", i
         "image": image,
         "commands": [
           "uname -a",
-          "apt-get -yq --no-install-suggests --no-install-recommends install sudo",
+          "apt-get -yq --no-install-suggests --no-install-recommends install sudo-ldap",
           "./.ci_playground/linux-cxx-install.sh"
         ]
       },
