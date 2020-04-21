@@ -8,8 +8,8 @@
 
 def main(ctx):
   return [
-    linux_cxx("GCC 9", "/usr/bin/g++9", packages="g++-9"),
-    linux_cxx("GCC 8", "/usr/bin/g++8", packages="g++-8"),
+    linux_cxx("GCC 9", "g++9", packages="g++-9"),
+    linux_cxx("GCC 8", "g++8", packages="g++-8"),
   ]
 
 # Generate pipeline for Linux platform compilers.
@@ -43,8 +43,9 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64", i
           "echo PATH=$${PATH}",
           "apt-get update && apt-get install -y sudo software-properties-common && rm -rf /var/lib/apt/lists/*",
           "./.ci_playground/linux-cxx-install.sh",
-          "$${CXX} --version",
-          "$${CXX} $${CXXFLAGS} -v src/main.cpp"
+          "find / -name '${cxx}' -print",
+          "${cxx} --version",
+          "${cxx} $${cxxflags} -v src/main.cpp"
         ]
       }
     ]
