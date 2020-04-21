@@ -47,7 +47,7 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64", i
           "uname -a",
           "id",
           "./.ci_playground/linux-cxx-install.sh",
-          "find / -name \"$${CXX}\" -print",
+          "find / -name $${CXX} -print",
         ]
       },
       # And the compiler step just calls the compiler.
