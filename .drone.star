@@ -47,8 +47,8 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64", i
         "name": "Compile",
         "image": image,
         "commands": [
-          "${CXX} --version",
-          "${CXX} ${CXXFLAGS} -v src/main.cpp"
+          "$${CXX} --version",
+          "$${CXX} $${CXXFLAGS} -v src/main.cpp"
         ]
       }
     ]
