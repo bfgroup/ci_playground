@@ -38,7 +38,7 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64", i
         "image": image,
         "commands": [
           "uname -a",
-          "alias sudo time",
+          "alias 'sudo=time'",
           "./.ci_playground/linux-cxx-install.sh"
         ]
       },
