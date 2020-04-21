@@ -42,7 +42,7 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64", i
           "id",
           "echo PATH=$${PATH}",
           "apt-get update && apt-get install -y sudo software-properties-common && rm -rf /var/lib/apt/lists/*",
-          "./.ci_playground/linux-cxx-install.sh"
+          "./.ci_playground/linux-cxx-install.sh",
           "$${CXX} --version",
           "$${CXX} $${CXXFLAGS} -v src/main.cpp"
         ]
