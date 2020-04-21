@@ -42,7 +42,7 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64"):
       },
       # And the compiler step just calls the compiler.
       {
-        "name": "Install Toolset",
+        "name": "Compile",
         "commands": [
           "${CXX} --version",
           "${CXX} ${CXXFLAGS} -v src/main.cpp"
