@@ -13,7 +13,7 @@ def main(ctx):
   ]
 
 # Generate pipeline for Linux platform compilers.
-def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64"):
+def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64", image="ubuntu:18.04"):
   return {
     "name": "Linux %s" % name,
     "kind": "pipeline",
@@ -35,6 +35,7 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64"):
       # and any setup.
       {
         "name": "Install Toolset",
+        "image": image,
         "commands": [
           "uname -a",
           "./.ci_playground/linux-cxx-install.sh"
@@ -43,6 +44,7 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64"):
       # And the compiler step just calls the compiler.
       {
         "name": "Compile",
+        "image": image,
         "commands": [
           "${CXX} --version",
           "${CXX} ${CXXFLAGS} -v src/main.cpp"
