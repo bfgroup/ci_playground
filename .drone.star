@@ -17,7 +17,7 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64"):
   return {
     "name": "Linux %s" % name,
     "kind": "pipeline",
-    "type": "exec",
+    "type": "docker",
     "trigger": { "branch": [ "master" ] },
     "platform": {
       "os": "linux",
