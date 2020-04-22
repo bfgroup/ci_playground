@@ -32,7 +32,7 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64", i
     },
     "steps": [
       {
-        "name": "FUBAR",
+        "name": "Everything",
         "image": image,
         "commands": [
           # Need some extra container setup.
@@ -41,9 +41,7 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64", i
           # The install runs a helper script to do the install and any setup.
           "echo '==================================> INSTALL TOOLSET'",
           "uname -a",
-          "id",
           "./.ci_playground/linux-cxx-install.sh",
-          "find / -name $${CXX} -print",
           # And the compiler step just calls the compiler.
           "echo '==================================> COMPILE'",
           "$${CXX} --version",
