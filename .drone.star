@@ -39,7 +39,7 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_repo="", arch="amd64", i
         "commands": [
           # Need some extra container setup.
           "echo '==================================> SETUP'",
-          "apt-get update && apt-get install -y sudo software-properties-common && rm -rf /var/lib/apt/lists/*",
+          "apt-get update && apt-get install -y sudo software-properties-common wget && rm -rf /var/lib/apt/lists/*",
           # The install runs a helper script to do the install and any setup.
           "echo '==================================> INSTALL TOOLSET'",
           "uname -a",
