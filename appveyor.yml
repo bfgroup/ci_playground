@@ -33,32 +33,32 @@ environment:
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
     VSWHERE_VERSION: '[16.0,17.0)'
     CXX: cl.exe
-    CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
+    CXXFLAGS: /Zi /MT /TP /Femain /O2 /GL /EHsc
   - job_name: 'VS 2017'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     VSWHERE_VERSION: '[15.0,16.0)'
     CXX: cl.exe
-    CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
+    CXXFLAGS: /Zi /MT /TP /Femain /O2 /GL /EHsc
   - job_name: 'VS 2015'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     VSWHERE_LEGACY: '[14.0,15.0)'
     CXX: cl.exe
-    CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
+    CXXFLAGS: /Zi /MT /TP /Femain /O2 /GL /EHsc
   - job_name: 'VS 2013'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     VSWHERE_LEGACY: '[12.0,13.0)'
     CXX: cl.exe
-    CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
+    CXXFLAGS: /Zi /MT /TP /Femain /O2 /GL /EHsc
   - job_name: 'VS 2012'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     VSWHERE_LEGACY: '[11.0,12.0)'
     CXX: cl.exe
-    CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
+    CXXFLAGS: /Zi /MT /TP /Femain /O2 /GL /EHsc
   - job_name: 'VS 2010'
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     VSWHERE_LEGACY: '[10.0,11.0)'
     CXX: cl.exe
-    CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
+    CXXFLAGS: /Zi /MT /TP /Femain /O2 /GL /EHsc
   - job_name: 'Linux GCC 9'
     APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
     CXX: g++-9

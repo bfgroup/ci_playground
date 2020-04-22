@@ -32,6 +32,18 @@ jobs:
     - os: linux
       dist: bionic
       env: [ 'CXX=clang-9', 'PACKAGES=clang-9', 'LLVM_OS=bionic', 'LLVM_VER=9' ]
+    - os: linux
+      dist: bionic
+      env: [ 'CXX=clang-8', 'PACKAGES=clang-8', 'LLVM_OS=bionic', 'LLVM_VER=8' ]
+    - os: linux
+      dist: bionic
+      env: [ 'CXX=clang-7', 'PACKAGES=clang-7', 'LLVM_OS=bionic', 'LLVM_VER=7' ]
+    - os: linux
+      dist: bionic
+      env: [ 'CXX=clang-6.0', 'PACKAGES=clang-6.0', 'LLVM_OS=bionic', 'LLVM_VER=6.0' ]
+    - os: linux
+      dist: bionic
+      env: [ 'CXX=clang-5.0', 'PACKAGES=clang-5.0', 'LLVM_OS=bionic', 'LLVM_VER=5.0' ]
     - os: osx
       osx_image: xcode11.3
       env: [ 'CXX=clang++', 'XCODE_VERSION=11.3.1' ]

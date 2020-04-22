@@ -30,8 +30,12 @@ jobs:
         include:
           - { name: 'GCC 9', cxx: 'g++-9', packages: 'g++-9', os: 'ubuntu-18.04' }
           - { name: 'GCC 8', cxx: 'g++-8', packages: 'g++-8', os: 'ubuntu-18.04' }
-          - { name: 'Clang 9', cxx: 'clang-9', packages: 'clang-9', llvm_os: 'xenial', llvm_ver: '9', os: 'ubuntu-16.04' }
-          - { name: 'Clang 8', cxx: 'clang-8', packages: 'clang-8', llvm_os: 'xenial', llvm_ver: '8', os: 'ubuntu-16.04' }
+          - { name: 'Clang 10', cxx: 'clang-10', packages: 'clang-10', llvm_os: 'bionic', llvm_ver: '10', os: 'ubuntu-18.04' }
+          - { name: 'Clang 9', cxx: 'clang-9', packages: 'clang-9', llvm_os: 'bionic', llvm_ver: '9', os: 'ubuntu-18.04' }
+          - { name: 'Clang 8', cxx: 'clang-8', packages: 'clang-8', llvm_os: 'bionic', llvm_ver: '8', os: 'ubuntu-18.04' }
+          - { name: 'Clang 7', cxx: 'clang-7', packages: 'clang-7', llvm_os: 'bionic', llvm_ver: '7', os: 'ubuntu-18.04' }
+          - { name: 'Clang 6.0', cxx: 'clang-6.0', packages: 'clang-6.0', llvm_os: 'bionic', llvm_ver: '6.0', os: 'ubuntu-18.04' }
+          - { name: 'Clang 5.0', cxx: 'clang-5.0', packages: 'clang-5.0', llvm_os: 'bionic', llvm_ver: '5.0', os: 'ubuntu-18.04' }
     name: Linux ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     env:
@@ -98,13 +102,13 @@ jobs:
           - name: 'VS 2019'
             vswhere_version: '[16.0,17.0)'
             cxx: 'cl.exe'
-            cxxflags: '/Zi /MT /TP /Femain /Ox /GL /EHsc'
+            cxxflags: '/Zi /MT /TP /Femain /O2 /GL /EHsc'
             platform: 'x64'
             os: 'windows-2019'
           - name: 'VS 2017'
             vswhere_version: '[15.0,16.0)'
             cxx: 'cl.exe'
-            cxxflags: '/Zi /MT /TP /Femain /Ox /GL /EHsc'
+            cxxflags: '/Zi /MT /TP /Femain /O2 /GL /EHsc'
             platform: 'x64'
             os: 'vs2017-win2016'
     defaults: { run: { shell: cmd } }

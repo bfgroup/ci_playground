@@ -37,7 +37,12 @@ stages:
       matrix:
         GCC 9: { CXX: g++-9, PACKAGES: g++-9, VM_IMAGE: 'ubuntu-18.04' }
         GCC 7: { CXX: g++-7, PACKAGES: g++-7, VM_IMAGE: 'ubuntu-18.04' }
-        Clang 9: { CXX: clang-9, PACKAGES: clang-9, LLVM_OS: xenial, LLVM_VER: 9, VM_IMAGE: 'ubuntu-16.04' }
+        Clang 10: { CXX: clang-10, PACKAGES: clang-10, LLVM_OS: bionic, LLVM_VER: 10, VM_IMAGE: 'ubuntu-18.04' }
+        Clang 9: { CXX: clang-9, PACKAGES: clang-9, LLVM_OS: bionic, LLVM_VER: 9, VM_IMAGE: 'ubuntu-18.04' }
+        Clang 8: { CXX: clang-8, PACKAGES: clang-8, LLVM_OS: bionic, LLVM_VER: 8, VM_IMAGE: 'ubuntu-18.04' }
+        Clang 7: { CXX: clang-7, PACKAGES: clang-7, LLVM_OS: bionic, LLVM_VER: 7, VM_IMAGE: 'ubuntu-18.04' }
+        Clang 6.0: { CXX: clang-6.0, PACKAGES: clang-6.0, LLVM_OS: bionic, LLVM_VER: 6.0, VM_IMAGE: 'ubuntu-18.04' }
+        Clang 5.0: { CXX: clang-5.0, PACKAGES: clang-5.0, LLVM_OS: bionic, LLVM_VER: 5.0, VM_IMAGE: 'ubuntu-18.04' }
     pool:
       vmImage: $(VM_IMAGE)
     steps:
@@ -84,19 +89,19 @@ stages:
         VS 2019:
           VSWHERE_VERSION: '[16.0,17.0)'
           CXX: cl.exe
-          CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
+          CXXFLAGS: /Zi /MT /TP /Femain /O2 /GL /EHsc
           PLATFORM: x64
           VM_IMAGE: 'windows-2019'
         VS 2017:
           VSWHERE_VERSION: '[15.0,16.0)'
           CXX: cl.exe
-          CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
+          CXXFLAGS: /Zi /MT /TP /Femain /O2 /GL /EHsc
           PLATFORM: x64
           VM_IMAGE: 'vs2017-win2016'
         # VS 2015:
         #   VSWHERE_LEGACY: '[14.0,15.0)'
         #   CXX: cl.exe
-        #   CXXFLAGS: /Zi /MT /TP /Femain /Ox /GL /EHsc
+        #   CXXFLAGS: /Zi /MT /TP /Femain /O2 /GL /EHsc
         #   PLATFORM: x64
         #   CHOCO_VS_PACKAGE: VisualStudio2015Community
         #   VM_IMAGE: 'windows-latest'
