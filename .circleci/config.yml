@@ -37,13 +37,13 @@ jobs:
       PACKAGES: << parameters.packages >>
     steps:
       - checkout
-      - run:
-          name: Setup
-          command: |
-            set -e
-            apt-get update
-            apt-get install -y sudo software-properties-common wget apt-transport-https
-            rm -rf /var/lib/apt/lists/*
+      # - run:
+      #     name: Setup
+      #     command: |
+      #       set -e
+      #       apt-get update
+      #       apt-get install -y sudo software-properties-common wget apt-transport-https
+      #       rm -rf /var/lib/apt/lists/*
       - run:
           name: Install Toolset
           command: |
