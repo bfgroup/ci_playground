@@ -37,7 +37,7 @@ stages:
       matrix:
         GCC 9: { CXX: g++-9, PACKAGES: g++-9, VM_IMAGE: 'ubuntu-18.04' }
         GCC 7: { CXX: g++-7, PACKAGES: g++-7, VM_IMAGE: 'ubuntu-18.04' }
-        Clang 9: { CXX: clang-9, PACKAGES: clang-9, LLVM_REPO: llvm-toolchain-xenial-9, VM_IMAGE: 'ubuntu-16.04' }
+        Clang 9: { CXX: clang-9, PACKAGES: clang-9, LLVM_OS: xenial, VM_IMAGE: 'ubuntu-16.04' }
     pool:
       vmImage: $(VM_IMAGE)
     steps:

@@ -71,7 +71,7 @@ environment:
     APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
     CXX: clang++-9
     PACKAGES: clang-9
-    LLVM_REPO: llvm-toolchain-xenial-9
+    LLVM_OS: xenial
   - job_name: 'Xcode 11.3.1'
     CXX: clang++
     APPVEYOR_BUILD_WORKER_IMAGE: macos
