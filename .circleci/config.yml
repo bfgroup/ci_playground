@@ -65,9 +65,9 @@ workflows:
     jobs:
       - linux-job: { name: 'Linux GCC 9', cxx: g++-9, packages: g++-9 }
       - linux-job: { name: 'Linux GCC 8', cxx: g++-8, packages: g++-8 }
-      - linux-job: { name: 'Linux Clang 10', cxx: clang-10, packages: clang-10, llvm_os: bionic, llvm_ver: 10, image: 'ubuntu:18.04' }
-      - linux-job: { name: 'Linux Clang 9', cxx: clang-9, packages: clang-9, llvm_os: bionic, llvm_ver: 9, image: 'ubuntu:18.04' }
-      - linux-job: { name: 'Linux Clang 8', cxx: clang-8, packages: clang-8, llvm_os: bionic, llvm_ver: 8, image: 'ubuntu:18.04' }
-      - linux-job: { name: 'Linux Clang 7', cxx: clang-7, packages: clang-7, llvm_os: bionic, llvm_ver: 7, image: 'ubuntu:18.04' }
-      - linux-job: { name: 'Linux Clang 6.0', cxx: clang-6.0, packages: clang-6.0, llvm_os: bionic, llvm_ver: 6.0, image: 'ubuntu:18.04' }
-      - linux-job: { name: 'Linux Clang 5.0', cxx: clang-5.0, packages: clang-5.0, llvm_os: bionic, llvm_ver: 5.0, image: 'ubuntu:18.04' }
+      - linux-job: { name: 'Linux Clang 10', cxx: clang-10, packages: clang-10, llvm_os: bionic, llvm_ver: '10', image: 'ubuntu:18.04' }
+      - linux-job: { name: 'Linux Clang 9', cxx: clang-9, packages: clang-9, llvm_os: bionic, llvm_ver: '9', image: 'ubuntu:18.04' }
+      - linux-job: { name: 'Linux Clang 8', cxx: clang-8, packages: clang-8, llvm_os: bionic, llvm_ver: '8', image: 'ubuntu:18.04' }
+      - linux-job: { name: 'Linux Clang 7', cxx: clang-7, packages: clang-7, llvm_os: bionic, llvm_ver: '7', image: 'ubuntu:18.04' }
+      - linux-job: { name: 'Linux Clang 6.0', cxx: clang-6.0, packages: clang-6.0, llvm_os: bionic, llvm_ver: '6.0', image: 'ubuntu:18.04' }
+      - linux-job: { name: 'Linux Clang 5.0', cxx: clang-5.0, packages: clang-5.0, llvm_os: bionic, llvm_ver: '5.0', image: 'ubuntu:18.04' }
