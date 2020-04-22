@@ -28,10 +28,10 @@ jobs:
       env: [ 'CXX=g++-9', 'PACKAGES=g++-9' ]
     - os: linux
       dist: bionic
-      env: [ 'CXX=clang-10', 'PACKAGES=clang-10', 'LLVM_OS=bionic' ]
+      env: [ 'CXX=clang-10', 'PACKAGES=clang-10', 'LLVM_OS=bionic', 'LLVM_VER=10' ]
     - os: linux
       dist: bionic
-      env: [ 'CXX=clang-9', 'PACKAGES=clang-9', 'LLVM_OS=bionic' ]
+      env: [ 'CXX=clang-9', 'PACKAGES=clang-9', 'LLVM_OS=bionic', 'LLVM_VER=9' ]
     - os: osx
       osx_image: xcode11.3
       env: [ 'CXX=clang++', 'XCODE_VERSION=11.3.1' ]

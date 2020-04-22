@@ -72,6 +72,7 @@ environment:
     CXX: clang++-9
     PACKAGES: clang-9
     LLVM_OS: xenial
+    LLVM_VER: 9
   - job_name: 'Xcode 11.3.1'
     CXX: clang++
     APPVEYOR_BUILD_WORKER_IMAGE: macos

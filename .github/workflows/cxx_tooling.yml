@@ -30,8 +30,8 @@ jobs:
         include:
           - { name: 'GCC 9', cxx: 'g++-9', packages: 'g++-9', os: 'ubuntu-18.04' }
           - { name: 'GCC 8', cxx: 'g++-8', packages: 'g++-8', os: 'ubuntu-18.04' }
-          - { name: 'Clang 9', cxx: 'clang-9', packages: 'clang-9',llvm_os: 'xenial', os: 'ubuntu-16.04' }
-          - { name: 'Clang 8', cxx: 'clang-8', packages: 'clang-8',llvm_os: 'xenial', os: 'ubuntu-16.04' }
+          - { name: 'Clang 9', cxx: 'clang-9', packages: 'clang-9', llvm_os: 'xenial', llvm_ver: '9', os: 'ubuntu-16.04' }
+          - { name: 'Clang 8', cxx: 'clang-8', packages: 'clang-8', llvm_os: 'xenial', llvm_ver: '8', os: 'ubuntu-16.04' }
     name: Linux ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     env:
@@ -39,6 +39,7 @@ jobs:
       CXXFLAGS: ${{ matrix.cxxflags }}
       PACKAGES: ${{ matrix.packages }}
       LLVM_OS: ${{ matrix.llvm_os }}
+      LLVM_VER: ${{ matrix.llvm_ver }}
     steps:
       # GitHub actions doesn't checkout your code by default. Instead we need
       # to call an external action to do the checkout. We use the 'naster'

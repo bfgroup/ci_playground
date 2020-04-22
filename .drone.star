@@ -10,12 +10,12 @@ def main(ctx):
   return [
     linux_cxx("GCC 9", "g++-9", packages="g++-9"),
     linux_cxx("GCC 8", "g++-8", packages="g++-8"),
-    linux_cxx("Clang 9", "clang-9", packages="clang-9", llvm_os="xenial", image="ubuntu:16.04"),
-    linux_cxx("Clang 8", "clang-8", packages="clang-8", llvm_os="xenial", image="ubuntu:16.04")
+    linux_cxx("Clang 9", "clang-9", packages="clang-9", llvm_os="xenial", llvm_ver="9", image="ubuntu:16.04"),
+    linux_cxx("Clang 8", "clang-8", packages="clang-8", llvm_os="xenial", llvm_ver="8", image="ubuntu:16.04")
   ]
 
 # Generate pipeline for Linux platform compilers.
-def linux_cxx(name, cxx, cxxflags="", packages="", llvm_os="", arch="amd64", image="ubuntu:18.04"):
+def linux_cxx(name, cxx, cxxflags="", packages="", llvm_os="", llvm_ver="", arch="amd64", image="ubuntu:18.04"):
   return {
     "name": "Linux %s" % name,
     "kind": "pipeline",
@@ -30,7 +30,8 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_os="", arch="amd64", ima
       "CXX": cxx,
       "CXXFLAGS": cxxflags,
       "PACKAGES": packages,
-      "LLVM_OS": llvm_os
+      "LLVM_OS": llvm_os,
+      "LLVM_VER": llvm_ver
     },
     "steps": [
       {

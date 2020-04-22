@@ -15,19 +15,25 @@ jobs:
     parameters:
       # The, optional, Linux OS image to run in.
       image: { default: "ubuntu-1604:201903-01", type: string }
-      # The, optional, LLVM repo to obtain clang builds from. This needs to
+      # The, optional, LLVM OS to obtain clang builds for. This needs to
       # match the Linux OS image.
-      llvm_repo: { default: "", type: string }
+      llvm_os: { default: "", type: string }
+      # The version of LLVM to get the package for.
+      llvm_ver: { default: "", type: string }
       # The compiler executable name to use. The default value of "c++" is
       # only useful for system default compilers.
       cxx: { default: "c++", type: string }
+      # Custom options to use for compiling.
+      cxxflags: { default: "", type: string }
       # APT packages from LLVM_REPO to install for the compiler.
       packages: { default: "", type: string }
     machine:
       image: << parameters.image >>
     environment:
-      LLVM_REPO: << parameters.llvm_repo >>
+      LLVM_OS: << parameters.llvm_os >>
+      LLVM_VER: << parameters.llvm_ver >>
       CXX: << parameters.cxx >>
+      CXXFLAGS: << parameters.cxxflags >>
       PACKAGES: << parameters.packages >>
     steps:
       - checkout
