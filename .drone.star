@@ -8,8 +8,8 @@
 
 def main(ctx):
   return [
-    linux_cxx("GCC 9", "g++9", packages="g++-9"),
-    linux_cxx("GCC 8", "g++8", packages="g++-8"),
+    linux_cxx("GCC 9", "g++-9", packages="g++-9"),
+    linux_cxx("GCC 8", "g++-8", packages="g++-8"),
   ]
 
 # Generate pipeline for Linux platform compilers.
