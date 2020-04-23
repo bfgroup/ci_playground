@@ -59,20 +59,18 @@ environment:
     VSWHERE_LEGACY: '[10.0,11.0)'
     CXX: cl.exe
     CXXFLAGS: /Zi /MT /TP /Femain /O2 /GL /EHsc
-  - job_name: 'Linux GCC 9'
-    APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    CXX: g++-9
-    PACKAGES: g++-9
-  - job_name: 'Linux GCC 6'
-    APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    CXX: g++-6
-    PACKAGES: g++-6
-  - job_name: 'Linux Clang 9'
-    APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    CXX: clang++-9
-    PACKAGES: clang-9
-    LLVM_OS: xenial
-    LLVM_VER: 9
+  - { job_name: 'Linux GCC 10', CXX: 'g++-10', PACKAGES: 'g++-10', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
+  - { job_name: 'Linux GCC 9', CXX: 'g++-9', PACKAGES: 'g++-9', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
+  - { job_name: 'Linux GCC 8', CXX: 'g++-8', PACKAGES: 'g++-8', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
+  - { job_name: 'Linux GCC 7', CXX: 'g++-7', PACKAGES: 'g++-7', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
+  - { job_name: 'Linux GCC 6', CXX: 'g++-6', PACKAGES: 'g++-6', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
+  - { job_name: 'Linux GCC 5', CXX: 'g++-5', PACKAGES: 'g++-5', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
+  - { job_name: 'Linux Clang 10', CXX: 'clang++-10', PACKAGES: 'clang-10', LLVM_OS: 'xenial', LLVM_VER: '10', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
+  - { job_name: 'Linux Clang 9', CXX: 'clang++-9', PACKAGES: 'clang-9', LLVM_OS: 'xenial', LLVM_VER: '9', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
+  - { job_name: 'Linux Clang 8', CXX: 'clang++-8', PACKAGES: 'clang-8', LLVM_OS: 'xenial', LLVM_VER: '8', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
+  - { job_name: 'Linux Clang 7', CXX: 'clang++-7', PACKAGES: 'clang-7', LLVM_OS: 'xenial', LLVM_VER: '7', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
+  - { job_name: 'Linux Clang 6.0', CXX: 'clang++-6.0', PACKAGES: 'clang-6.0', LLVM_OS: 'xenial', LLVM_VER: '6.0', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
+  - { job_name: 'Linux Clang 5.0', CXX: 'clang++-5.0', PACKAGES: 'clang-5.0', LLVM_OS: 'xenial', LLVM_VER: '5.0', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
   - job_name: 'Xcode 11.3.1'
     CXX: clang++
     APPVEYOR_BUILD_WORKER_IMAGE: macos
