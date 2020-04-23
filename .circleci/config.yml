@@ -65,6 +65,9 @@ workflows:
     jobs:
       - linux-job: { name: 'Linux GCC 9', cxx: g++-9, packages: g++-9 }
       - linux-job: { name: 'Linux GCC 8', cxx: g++-8, packages: g++-8 }
+      - linux-job: { name: 'Linux GCC 7', cxx: g++-7, packages: g++-7 }
+      - linux-job: { name: 'Linux GCC 6', cxx: g++-6, packages: g++-6 }
+      - linux-job: { name: 'Linux GCC 5', cxx: g++-5, packages: g++-5 }
       - linux-job: { name: 'Linux Clang 10', cxx: clang-10, packages: clang-10, llvm_os: xenial, llvm_ver: '10' }
       - linux-job: { name: 'Linux Clang 9', cxx: clang-9, packages: clang-9, llvm_os: xenial, llvm_ver: '9' }
       - linux-job: { name: 'Linux Clang 8', cxx: clang-8, packages: clang-8, llvm_os: xenial, llvm_ver: '8' }

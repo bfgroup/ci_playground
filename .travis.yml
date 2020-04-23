@@ -28,6 +28,18 @@ jobs:
       env: [ 'CXX=g++-9', 'PACKAGES=g++-9' ]
     - os: linux
       dist: bionic
+      env: [ 'CXX=g++-8', 'PACKAGES=g++-8' ]
+    - os: linux
+      dist: bionic
+      env: [ 'CXX=g++-7', 'PACKAGES=g++-7' ]
+    - os: linux
+      dist: bionic
+      env: [ 'CXX=g++-6', 'PACKAGES=g++-6' ]
+    - os: linux
+      dist: bionic
+      env: [ 'CXX=g++-5', 'PACKAGES=g++-5' ]
+    - os: linux
+      dist: bionic
       env: [ 'CXX=clang-10', 'PACKAGES=clang-10', 'LLVM_OS=bionic', 'LLVM_VER=10' ]
     - os: linux
       dist: bionic
