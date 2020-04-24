@@ -64,7 +64,7 @@ matrix:
     - { platform: x86, COMPILER: 'LINUX-GCC' }
     - { platform: x86, COMPILER: 'LINUX-CLANG' }
     - { platform: x86, COMPILER: 'XCODE' }
-    - { platform: x86, COMPILER: 'WIN_MINGW' }
+    - { platform: x86, COMPILER: 'WIN-MINGW' }
 
 for:
 
