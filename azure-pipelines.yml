@@ -6,12 +6,12 @@
 
 # Configuration for https://azure.microsoft.com/en-us/services/devops/pipelines/.
 
-# We limit when to run the builds to specific branches. And also limit to avoid
-# building when CI files from other services change.
 trigger:
+  # We limit when to run the builds to specific branches.
   branches:
     include:
     - master
+  # And also limit to avoid building when CI files from other services change.
   paths:
     exclude:
     - .circleci/*
@@ -74,6 +74,8 @@ stages:
     pool:
       vmImage: $(VM_IMAGE)
     steps:
+    # The setup step on macOS includes reflecting the Apple developer
+    # credentials to the install script.
     - bash: |
         set -e
         uname -a
@@ -81,6 +83,9 @@ stages:
         export 'XCODE_INSTALL_PASSWORD=$(DEV_APPLE_PASSWORD)'
         ./.ci_playground/macos-xcode-install.sh
       displayName: Install Toolset
+    # For consistent Xcode building we specify the sysroot to point to the
+    # symlink that xcode-install utility created. This was we always build
+    # with the specific SDK for the compiler being used.
     - bash: |
         set -e
         ${CXX} --version
@@ -93,25 +98,30 @@ stages:
         VS 2019:
           VSWHERE_VERSION: '[16.0,17.0)'
           CXX: cl.exe
-          CXXFLAGS: /Zi /MT /TP /Femain /O2 /GL /EHsc
+          CXXFLAGS: /Femain
           PLATFORM: x64
           VM_IMAGE: 'windows-2019'
         VS 2017:
           VSWHERE_VERSION: '[15.0,16.0)'
           CXX: cl.exe
-          CXXFLAGS: /Zi /MT /TP /Femain /O2 /GL /EHsc
+          CXXFLAGS: /Femain
           PLATFORM: x64
           VM_IMAGE: 'vs2017-win2016'
+        # Installing VS in general takes forever. But this is here as an
+        # example of what to specify for using choco to install VS.
         # VS 2015:
         #   VSWHERE_LEGACY: '[14.0,15.0)'
         #   CXX: cl.exe
-        #   CXXFLAGS: /Zi /MT /TP /Femain /O2 /GL /EHsc
+        #   CXXFLAGS: /Femain
         #   PLATFORM: x64
         #   CHOCO_VS_PACKAGE: VisualStudio2015Community
         #   VM_IMAGE: 'windows-latest'
     pool:
       vmImage: $(VM_IMAGE)
     steps:
+    # For Visual Studio it's usually already install in CI. Which means that
+    # we usually don't need to install it. But in case we do we can use
+    # choco to do this.
     - script: |
         echo ">>>>>"
         echo ">>>>> INSTALL TOOLSET .."
@@ -119,6 +129,8 @@ stages:
         if not "%CHOCO_VS_PACKAGE%"=="" choco install %CHOCO_VS_PACKAGE% -packageParameters "--AdminFile .ci_playground/%CHOCO_VS_PACKAGE%.xml"
         choco install vswhere
       displayName: Install
+    # To compile we need to set up the CLI environment using the vcvarsall.bat
+    # script provided by Visual Studio.
     - script: |
         echo ">>>>>"
         echo ">>>>> COMPILE, Setup .."
