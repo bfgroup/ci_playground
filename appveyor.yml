@@ -66,6 +66,10 @@ matrix:
     - { platform: x86, COMPILER: 'XCODE' }
     - { platform: x86, COMPILER: 'WIN-MINGW' }
 
+# These are the various per platform and compiler scripts. We use the COMPILER
+# env tag to select which one is used. This provides a nice separation between
+# declaring what we build with vs. how they are built. And allows reuse of the
+# steps.
 for:
 
 # Linux job steps.
@@ -129,7 +133,7 @@ for:
 # Windows MinGW job steps.
 - matrix:
     only:
-      - COMPILER: 'MSVC'
+      - COMPILER: 'WIN-MINGW'
   install:
     # Currently we only use the pre-installed MinGW. Hence nothing to do.
     - cmd: |
