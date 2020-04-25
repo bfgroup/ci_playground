@@ -140,11 +140,12 @@ for:
         echo ">>>>>"
         echo ">>>>> INSTALL TOOLSET .."
         echo ">>>>>"
-        set PATH=%PATH%;%CXXPATH%
+        set PATH=%CXXPATH%;%PATH%
   build_script:
     # The build itself just calls the compiler directly.
     - cmd: |
         echo ">>>>>"
         echo ">>>>> COMPILE .."
         echo ">>>>>"
+        %CXX% --version
         %CXX% %CXXFLAGS% src/main.cpp
