@@ -52,7 +52,6 @@ environment:
   - { job_name: 'MinGW-w64 8.1', COMPILER: "WIN-MINGW", CXX: 'g++.exe', CXXPATH: 'C:\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin', APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015'}
   - { job_name: 'MinGW-w64 7.3', COMPILER: "WIN-MINGW", CXX: 'g++.exe', CXXPATH: 'C:\\mingw-w64\\x86_64-7.3.0-posix-seh-rt_v5-rev0\\mingw64\\bin', APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015'}
   - { job_name: 'MinGW-w64 6.3', COMPILER: "WIN-MINGW", CXX: 'g++.exe', CXXPATH: 'C:\\mingw-w64\\x86_64-6.3.0-posix-seh-rt_v5-rev1\\mingw64\\bin', APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015'}
-  - { job_name: 'MinGW-w64 5.3', COMPILER: "WIN-MINGW", CXX: 'g++.exe', CXXPATH: 'C:\\mingw-w64\\i686-5.3.0-posix-dwarf-rt_v4-rev0\\mingw64\\bin', APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015'}
 
 # We specify a single job matrix expansion for the platform type.
 platform:
