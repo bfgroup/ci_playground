@@ -49,7 +49,7 @@ environment:
   - { job_name: 'Linux Clang 5.0', COMPILER: "LINUX-CLANG", CXX: 'clang++-5.0', PACKAGES: 'clang-5.0', LLVM_OS: 'xenial', LLVM_VER: '5.0', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
   - { job_name: 'Xcode 11.3.1', COMPILER: "XCODE", CXX: clang++, XCODE_VERSION: 11.3.1, APPVEYOR_BUILD_WORKER_IMAGE: macos }
   # - { job_name: 'Xcode 11.2.1'', COMPILER: "XCODE", CXX: clang++, XCODE_VERSION: 11.2.1, APPVEYOR_BUILD_WORKER_IMAGE: macos }
-  - { job_name: 'MinGW-w64 8.1', COMPILER: "WIN-MINGW", CXX: 'C:\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin\\g++.exe', APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015'}
+  - { job_name: 'MinGW-w64 8.1', COMPILER: "WIN-MINGW", CXX: 'g++.exe', CXXPATH: 'C:\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin', APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015'}
 
 # We specify a single job matrix expansion for the platform type.
 platform:
@@ -140,10 +140,11 @@ for:
         echo ">>>>>"
         echo ">>>>> INSTALL TOOLSET .."
         echo ">>>>>"
+        set PATH=%PATH%;%CXXPATH%
   build_script:
     # The build itself just calls the compiler directly.
     - cmd: |
         echo ">>>>>"
         echo ">>>>> COMPILE .."
         echo ">>>>>"
-        "%CXX%" %CXXFLAGS% src/main.cpp
+        %CXX% %CXXFLAGS% src/main.cpp
