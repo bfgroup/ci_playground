@@ -109,88 +109,75 @@ blocks:
   # from the definitions above.
   - name: Linux GCC 10
     dependencies: ["Linux"]
-    task:
-      env_vars: [{name: CXX, value: g++-10}, {name: PACKAGES, value: g++-10}]
-      prologue: *linux_prologue
-      jobs: *linux_jobs
-      agent: *linux_agent
+    task: {
+      env_vars: [{name: CXX, value: g++-10}, {name: PACKAGES, value: g++-10}],
+      prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
   - name: Linux GCC 9
     dependencies: ["Linux"]
-    task:
-      env_vars: [{name: CXX, value: g++-9}, {name: PACKAGES, value: g++-9}]
-      prologue: *linux_prologue
-      jobs: *linux_jobs
-      agent: *linux_agent
+    task: {
+      env_vars: [{name: CXX, value: g++-9}, {name: PACKAGES, value: g++-9}],
+      prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
   - name: Linux GCC 8
     dependencies: ["Linux"]
-    task:
-      env_vars: [{name: CXX, value: g++-8}, {name: PACKAGES, value: g++-8}]
-      prologue: *linux_prologue
-      jobs: *linux_jobs
-      agent: *linux_agent
+    task: {
+      env_vars: [{name: CXX, value: g++-8}, {name: PACKAGES, value: g++-8}],
+      prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
   - name: Linux GCC 7
     dependencies: ["Linux"]
-    task:
-      env_vars: [{name: CXX, value: g++-7}, {name: PACKAGES, value: g++-7}]
-      prologue: *linux_prologue
-      jobs: *linux_jobs
-      agent: *linux_agent
+    task: {
+      env_vars: [{name: CXX, value: g++-7}, {name: PACKAGES, value: g++-7}],
+      prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
   - name: Linux GCC 6
     dependencies: ["Linux"]
-    task:
-      env_vars: [{name: CXX, value: g++-6}, {name: PACKAGES, value: g++-6}]
-      prologue: *linux_prologue
-      jobs: *linux_jobs
-      agent: *linux_agent
+    task: {
+      env_vars: [{name: CXX, value: g++-6}, {name: PACKAGES, value: g++-6}],
+      prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
   - name: Linux GCC 5
     dependencies: ["Linux"]
-    task:
-      env_vars: [{name: CXX, value: g++-5}, {name: PACKAGES, value: g++-5}]
-      prologue: *linux_prologue
-      jobs: *linux_jobs
-      agent: *linux_agent
-  # Fails to install for some unknown reason.
-  # - name: Linux Clang 10
-  #   dependencies: ["Linux"]
-  #   task: {
-  #     env_vars: [
-  #       {name: CXX, value: clang-10}, {name: PACKAGES, value: clang-10},
-  #       {name: llvm_ver, value: '10'}, {name: llvm_os, value: bionic}],
-  #     prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
+    task: {
+      env_vars: [{name: CXX, value: g++-5}, {name: PACKAGES, value: g++-5}],
+      prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
+  - name: Linux Clang 10
+    dependencies: ["Linux"]
+    task: {
+      env_vars: [
+        {name: CXX, value: clang-10}, {name: PACKAGES, value: clang-10},
+        {name: LLVM_VER, value: '10'}, {name: LLVM_OS, value: bionic}],
+      prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
   - name: Linux Clang 9
     dependencies: ["Linux"]
     task: {
       env_vars: [
         {name: CXX, value: clang-9}, {name: PACKAGES, value: clang-9},
-        {name: llvm_ver, value: '9'}, {name: llvm_os, value: bionic}],
+        {name: LLVM_VER, value: '9'}, {name: LLVM_OS, value: bionic}],
       prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
   - name: Linux Clang 8
     dependencies: ["Linux"]
     task: {
       env_vars: [
         {name: CXX, value: clang-8}, {name: PACKAGES, value: clang-8},
-        {name: llvm_ver, value: '8'}, {name: llvm_os, value: bionic}],
+        {name: LLVM_VER, value: '8'}, {name: LLVM_OS, value: bionic}],
       prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
   - name: Linux Clang 7
     dependencies: ["Linux"]
     task: {
       env_vars: [
         {name: CXX, value: clang-7}, {name: PACKAGES, value: clang-7},
-        {name: llvm_ver, value: '7'}, {name: llvm_os, value: bionic}],
+        {name: LLVM_VER, value: '7'}, {name: LLVM_OS, value: bionic}],
       prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
   - name: Linux Clang 6.0
     dependencies: ["Linux"]
     task: {
       env_vars: [
         {name: CXX, value: clang-6.0}, {name: PACKAGES, value: clang-6.0},
-        {name: llvm_ver, value: '6.0'}, {name: llvm_os, value: bionic}],
+        {name: LLVM_VER, value: '6.0'}, {name: LLVM_OS, value: bionic}],
       prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
   - name: Linux Clang 5.0
     dependencies: ["Linux"]
     task: {
       env_vars: [
         {name: CXX, value: clang-5.0}, {name: PACKAGES, value: clang-5.0},
-        {name: llvm_ver, value: '5.0'}, {name: llvm_os, value: bionic}],
+        {name: LLVM_VER, value: '5.0'}, {name: LLVM_OS, value: bionic}],
       prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
 
   # Empty block to group Xcode sub-blocks.
