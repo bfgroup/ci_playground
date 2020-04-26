@@ -6,8 +6,13 @@
 
 # Configuration for https://cloud.drone.io/.
 
+# For Drone CI we use the Starlark scripting language to reduce duplication.
+# As the yaml syntax for Drone CI is rather limited.
+
 def main(ctx):
   return [
+    # All the GCC's and Clang's available for our default of Ubuntu Bionic.
+    linux_cxx("GCC 10", "g++-10", packages="g++-10"),
     linux_cxx("GCC 9", "g++-9", packages="g++-9"),
     linux_cxx("GCC 8", "g++-8", packages="g++-8"),
     linux_cxx("GCC 7", "g++-7", packages="g++-7"),
