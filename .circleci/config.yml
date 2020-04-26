@@ -36,20 +36,16 @@ jobs:
       CXXFLAGS: << parameters.cxxflags >>
       PACKAGES: << parameters.packages >>
     steps:
+      # Circle CI has a separate checkout step for the repo.
       - checkout
-      # - run:
-      #     name: Setup
-      #     command: |
-      #       set -e
-      #       apt-get update
-      #       apt-get install -y sudo software-properties-common wget apt-transport-https
-      #       rm -rf /var/lib/apt/lists/*
+      # Install toolset from apt.
       - run:
           name: Install Toolset
           command: |
             set -e
             uname -a
             ./.ci_playground/linux-cxx-install.sh
+      # Version info and test compile.
       - run:
           name: Compile
           command: |
@@ -63,6 +59,7 @@ jobs:
 workflows:
   workflow:
     jobs:
+      # All the GCC's and Clang's available for Ubuntu Xenial.
       - linux-job: { name: 'Linux GCC 9', cxx: g++-9, packages: g++-9 }
       - linux-job: { name: 'Linux GCC 8', cxx: g++-8, packages: g++-8 }
       - linux-job: { name: 'Linux GCC 7', cxx: g++-7, packages: g++-7 }
