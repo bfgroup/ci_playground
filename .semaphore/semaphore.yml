@@ -191,17 +191,11 @@ blocks:
   # Xcode sub-blocks..
   - name: Xcode 11.3.1
     dependencies: ["Xcode"]
-    task:
-      env_vars: [{name: CXX, value: clang++}, {name: XCODE_VERSION, value: "11.3.1"}]
-      secrets: *xcode_secrets
-      prologue: *xcode_prologue
-      jobs: *xcode_jobs
-      agent: *xcode_agent
+    task: {
+      env_vars: [{name: CXX, value: clang++}, {name: XCODE_VERSION, value: "11.3.1"}],
+      secrets: *xcode_secrets, prologue: *xcode_prologue, jobs: *xcode_jobs, agent: *xcode_agent}
   - name: Xcode 9.4.1
     dependencies: ["Xcode"]
-    task:
-      env_vars: [{name: CXX, value: clang++}, {name: XCODE_VERSION, value: "9.4.1"}]
-      secrets: *xcode_secrets
-      prologue: *xcode_prologue
-      jobs: *xcode_jobs
-      agent: *xcode_agent
+    task: {
+      env_vars: [{name: CXX, value: clang++}, {name: XCODE_VERSION, value: "9.4.1"}],
+      secrets: *xcode_secrets, prologue: *xcode_prologue, jobs: *xcode_jobs, agent: *xcode_agent}
