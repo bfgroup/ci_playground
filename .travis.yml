@@ -23,6 +23,10 @@ sudo: required
 
 jobs:
   include:
+    # The various GCC's and Clang's available for Ubuntu Bionic.
+    - os: linux
+      dist: bionic
+      env: [ 'CXX=g++-10', 'PACKAGES=g++-10' ]
     - os: linux
       dist: bionic
       env: [ 'CXX=g++-9', 'PACKAGES=g++-9' ]
@@ -56,6 +60,7 @@ jobs:
     - os: linux
       dist: bionic
       env: [ 'CXX=clang-5.0', 'PACKAGES=clang-5.0', 'LLVM_OS=bionic', 'LLVM_VER=5.0' ]
+    # Key Xcode versions pre-installed on TravisCI images.
     - os: osx
       osx_image: xcode11.3
       env: [ 'CXX=clang++', 'XCODE_VERSION=11.3.1' ]
