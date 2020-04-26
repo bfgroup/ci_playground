@@ -21,10 +21,10 @@ on:
       'appveyor.yml',
       'azure-pipelines.yml' ]
 
-# We group the jobs based on platform as the scripts are usually specific
-# to the platform and not the compiler.
+# We group the jobs based on platform and compiler.
 jobs:
-  linux:
+  # This handles GCC and Clang on Linux platforms (Ubuntu apt based).
+  linux-gcc-clang:
     strategy:
       matrix:
         include:
@@ -50,7 +50,7 @@ jobs:
       LLVM_VER: ${{ matrix.llvm_ver }}
     steps:
       # GitHub actions doesn't checkout your code by default. Instead we need
-      # to call an external action to do the checkout. We use the 'naster'
+      # to call an external action to do the checkout. We use the 'master'
       # branch of that external action to automatically get fixes.
       - name: 'Checkout'
         uses: actions/checkout@master
@@ -69,13 +69,16 @@ jobs:
           set -e
           ${CXX} --version
           ${CXX} ${CXXFLAGS} -v src/main.cpp
-  macos-xcode:
+  # This handles Xcode on macOS.
+  xcode:
     strategy:
       matrix:
         include:
+          # WARNING: 11.4.1 is not pre-installed. We install it which takes considerable time.
           - { name: 'Xcode 11.4.1', cxx: 'clang++', xcode_version: '11.4.1', os: 'macOS-10.15' }
           - { name: 'Xcode 11.3.1', cxx: 'clang++', xcode_version: '11.3.1', os: 'macOS-10.15' }
           - { name: 'Xcode 11.2.1', cxx: 'clang++', xcode_version: '11.2.1', os: 'macOS-10.15' }
+          # WARNING: 10.3 is not pre-installed. We install it which takes considerable time.
           - { name: 'Xcode 10.3', cxx: 'clang++', xcode_version: '10.3', os: 'macOS-10.15' }
     name: macOS ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
@@ -99,6 +102,7 @@ jobs:
           set -e
           ${CXX} --version
           ${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp
+  # These are for Visual Studio on Windows.
   windows-vs:
     strategy:
       matrix:
@@ -106,13 +110,13 @@ jobs:
           - name: 'VS 2019'
             vswhere_version: '[16.0,17.0)'
             cxx: 'cl.exe'
-            cxxflags: '/Zi /MT /TP /Femain /O2 /GL /EHsc'
+            cxxflags: '/Femain'
             platform: 'x64'
             os: 'windows-2019'
           - name: 'VS 2017'
             vswhere_version: '[15.0,16.0)'
             cxx: 'cl.exe'
-            cxxflags: '/Zi /MT /TP /Femain /O2 /GL /EHsc'
+            cxxflags: '/Femain'
             platform: 'x64'
             os: 'vs2017-win2016'
     defaults: { run: { shell: cmd } }
@@ -122,11 +126,13 @@ jobs:
       CXX: ${{ matrix.cxx }}
       CXXFLAGS: ${{ matrix.cxxflags }}
       VSWHERE_VERSION: ${{ matrix.vswhere_version }}
+      VSWHERE_LEGACY: ${{ matrix.vswhere_legacy }}
       PLATFORM: ${{ matrix.platform }}
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
         with: { submodules: true }
+      # Can install VS from a choco package.
       - name: 'Install Toolset'
         run: |
           echo ">>>>>"
@@ -134,6 +140,7 @@ jobs:
           echo ">>>>>"
           if not "%CHOCO_VS_PACKAGE%"=="" choco install %CHOCO_VS_PACKAGE% -packageParameters "--AdminFile .ci_playground/%CHOCO_VS_PACKAGE%.xml"
           choco install vswhere
+      # Will setup the environment with vcvarsall.bat and call the compiler.
       - name: 'Compile'
         run: |
           echo ">>>>>"
@@ -144,11 +151,13 @@ jobs:
           echo ">>>>> COMPILE .."
           echo ">>>>>"
           "%CXX%" %CXXFLAGS% src/main.cpp
+  # MinGW on Windows toolsets.
   windows-mingw:
     strategy:
       matrix:
+        # GitHub Actions only comes with one MinGW install.
         include:
-          - name: 'Mingw'
+          - name: 'MinGW 8.1'
             cxx: 'g++.exe'
             os: 'windows-2019'
     defaults: { run: { shell: cmd } }
@@ -161,11 +170,15 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@master
         with: { submodules: true }
+      # Currently we only use the pre-installed MinGW. Hence nothing to do.
+      # This works for MinGW on GitHub Actions because there's only one
+      # available and it's in the PATH.
       - name: 'Install Toolset'
         run: |
           echo ">>>>>"
           echo ">>>>> INSTALL TOOLSET .."
           echo ">>>>>"
+      # The build itself just calls the compiler directly.
       - name: 'Compile'
         run: |
           echo ">>>>>"

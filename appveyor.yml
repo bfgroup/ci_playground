@@ -29,12 +29,14 @@ environment:
   XCODE_INSTALL_PASSWORD:
     secure: YXiD2orrN565ZnNeLFcha2k6KDuf1i8D1KwlepOvD1Q=
   matrix:
+  # All the Visual Studio installs available on Appveyor
   - { job_name: 'VS 2019', COMPILER: "MSVC", CXX: cl.exe, CXXFLAGS: '/Femain', VSWHERE_VERSION: '[16.0,17.0)', APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2019' }
   - { job_name: 'VS 2017', COMPILER: "MSVC", CXX: cl.exe, CXXFLAGS: '/Femain', VSWHERE_VERSION: '[15.0,16.0)', APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2017'}
   - { job_name: 'VS 2015', COMPILER: "MSVC", CXX: cl.exe, CXXFLAGS: '/Femain', VSWHERE_LEGACY: '[14.0,15.0)', APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015' }
   - { job_name: 'VS 2013', COMPILER: "MSVC", CXX: cl.exe, CXXFLAGS: '/Femain', VSWHERE_LEGACY: '[12.0,13.0)', APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015' }
   - { job_name: 'VS 2012', COMPILER: "MSVC", CXX: cl.exe, CXXFLAGS: '/Femain', VSWHERE_LEGACY: '[11.0,12.0)', APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015' }
   - { job_name: 'VS 2010', COMPILER: "MSVC",CXX: cl.exe, CXXFLAGS: '/Femain', VSWHERE_LEGACY: '[10.0,11.0)', APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015' }
+  # The GCC and Clang variations available for Linux Xenial.
   - { job_name: 'Linux GCC 10', COMPILER: "LINUX-GCC", CXX: 'g++-10', PACKAGES: 'g++-10', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
   - { job_name: 'Linux GCC 9', COMPILER: "LINUX-GCC", CXX: 'g++-9', PACKAGES: 'g++-9', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
   - { job_name: 'Linux GCC 8', COMPILER: "LINUX-GCC", CXX: 'g++-8', PACKAGES: 'g++-8', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
@@ -47,8 +49,12 @@ environment:
   - { job_name: 'Linux Clang 7', COMPILER: "LINUX-CLANG", CXX: 'clang++-7', PACKAGES: 'clang-7', LLVM_OS: 'xenial', LLVM_VER: '7', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
   - { job_name: 'Linux Clang 6.0', COMPILER: "LINUX-CLANG", CXX: 'clang++-6.0', PACKAGES: 'clang-6.0', LLVM_OS: 'xenial', LLVM_VER: '6.0', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
   - { job_name: 'Linux Clang 5.0', COMPILER: "LINUX-CLANG", CXX: 'clang++-5.0', PACKAGES: 'clang-5.0', LLVM_OS: 'xenial', LLVM_VER: '5.0', APPVEYOR_BUILD_WORKER_IMAGE: 'Ubuntu' }
+  # Only one Xcode available by default on Appveyor.
   - { job_name: 'Xcode 11.3.1', COMPILER: "XCODE", CXX: clang++, XCODE_VERSION: 11.3.1, APPVEYOR_BUILD_WORKER_IMAGE: macos }
+  # Installing Xcode's on Appveyor fails for some reasons. Hence this
+  # is disabled.
   # - { job_name: 'Xcode 11.2.1'', COMPILER: "XCODE", CXX: clang++, XCODE_VERSION: 11.2.1, APPVEYOR_BUILD_WORKER_IMAGE: macos }
+  # The "recent" MinGW installs available on Appveyor.
   - { job_name: 'MinGW-w64 8.1', COMPILER: "WIN-MINGW", CXX: 'g++.exe', CXXPATH: 'C:\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin', APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015'}
   - { job_name: 'MinGW-w64 7.3', COMPILER: "WIN-MINGW", CXX: 'g++.exe', CXXPATH: 'C:\\mingw-w64\\x86_64-7.3.0-posix-seh-rt_v5-rev0\\mingw64\\bin', APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015'}
   - { job_name: 'MinGW-w64 6.3', COMPILER: "WIN-MINGW", CXX: 'g++.exe', CXXPATH: 'C:\\mingw-w64\\x86_64-6.3.0-posix-seh-rt_v5-rev1\\mingw64\\bin', APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015'}
@@ -137,7 +143,8 @@ for:
     only:
       - COMPILER: 'WIN-MINGW'
   install:
-    # Currently we only use the pre-installed MinGW. Hence nothing to do.
+    # MinGW needs to be int he path and have the libraries it depends on also
+    # be in the path. This just sets the PATH to the bin location.
     - cmd: |
         echo ">>>>>"
         echo ">>>>> INSTALL TOOLSET .."
