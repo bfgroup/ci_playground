@@ -1,5 +1,41 @@
 = Continuous Integration Playground
 
-This is "playground" for testing out basic methods to get CI systems working
-with minimal effort. Not just getting CI working, but specifically getting
-C++ to work in CI.
+This is a "playground" for testing out basic methods to get Cloud CI systems
+working with minimal effort. Not just getting any CI working, but specifically
+getting C+\+ to work in CI.
+
+== Goals
+
+This project is of limited scope. In particular it follows these goals:
+
+*C+\+*: Sufficient support to install and use a C+\+ toolset to compile and
+run C++ programs.
+
+*Free*: We only consider services that are available to use for free to some
+capacity. This usually means that the compute resources and features are
+limited.
+
+*Simple*: The configurations are as simple as possible to get specific toolsets
+working and nothing more. This means there is no build system setup. And the
+few small scripts used are there to minimize duplication.
+
+== Services
+
+=== AppVeyor
+
+=== Azure Pipelines
+
+=== CircleCI
+
+=== Drone
+
+=== GitHub Actions
+
+=== Semaphore
+
+=== Travis CI
+
+== Copyright
+
+This work is Copyright Rene Rivera 2020. And distributed, abd subject to,
+the Boost Software License, Version 1.0.

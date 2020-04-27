@@ -1,1 +1,1 @@
-*.bat        text svneol=crlf#text/plain
+*.bat        text eol=crlf#text/plain
