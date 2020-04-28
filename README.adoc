@@ -2,13 +2,13 @@
 
 This is a "playground" for testing out basic methods to get Cloud CI systems
 working with minimal effort. Not just getting any CI working, but specifically
-getting C+\+ to work in CI.
+getting C++ to work in CI.
 
 == Goals
 
 This project is of limited scope. In particular it follows these goals:
 
-*C+\+*: Sufficient support to install and use a C+\+ toolset to compile and
+*C+\+*: Sufficient support to install and use a C\++ toolset to compile and
 run C++ programs.
 
 *Free*: We only consider services that are available to use for free to some
@@ -21,19 +21,26 @@ few small scripts used are there to minimize duplication.
 
 == Services
 
-=== AppVeyor
+https://www.appveyor.com/[AppVeyor]::
+image:https://ci.appveyor.com/api/projects/status/hac4wso6ouhxdho3/branch/master?svg=true["Build Status", link="https://ci.appveyor.com/project/grafikrobot/ci-playground"]
 
-=== Azure Pipelines
+https://azure.microsoft.com/en-us/services/devops/pipelines/[Azure Pipelines]::
+image:https://dev.azure.com/grafikrobot/CI%20Playground/_apis/build/status/bfgroup.ci_playground?branchName=master["Build Status", link="https://dev.azure.com/grafikrobot/CI%20Playground/_build/latest?definitionId=11&branchName=master"]
 
-=== CircleCI
+https://circleci.com/[CircleCI]::
+image:https://circleci.com/gh/bfgroup/ci_playground/tree/master.svg?style=shield["Build Status", link="https://circleci.com/gh/bfgroup/ci_playground/tree/master"]
 
-=== Drone
+https://cloud.drone.io/[Drone]::
+image:https://cloud.drone.io/api/badges/bfgroup/ci_playground/status.svg?ref=refs/heads/master["Build Status", link="https://cloud.drone.io/bfgroup/ci_playground"]
 
-=== GitHub Actions
+https://help.github.com/en/actions[GitHub Actions]::
+image:https://github.com/bfgroup/ci_playground/workflows/C++%20Tooling/badge.svg?branch=master&event=push["Build Status", link="https://app.circleci.com/pipelines/github/bfgroup/ci_playground?branch=master"]
 
-=== Semaphore
+https://semaphoreci.com/[Semaphore]::
+image:https://bfgroup.semaphoreci.com/badges/ci_playground/branches/master.svg?style=shields["Build Status", link="https://bfgroup.semaphoreci.com/branches/9a7e94b0-124b-47b8-a0e3-3d633533753a"]
 
-=== Travis CI
+https://azure.microsoft.com/en-us/services/devops/pipelines/[Travis CI]::
+image:https://travis-ci.com/bfgroup/ci_playground.svg?branch=master["Build Status", link="https://travis-ci.com/bfgroup/ci_playground"]
 
 == Copyright
 
