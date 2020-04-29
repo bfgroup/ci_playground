@@ -44,7 +44,7 @@ link:.ci_playground/macos-xcode-install.sh[<root>/.ci_playground/macos-xcode-ins
 	in the `XCODE_VERSION` environment variable. See below for additional
 	setup needed for the install to work.
 
-link:.ci_playground/windows-msvc-setup.sh[<root>/.ci_playground/windows-msvc-setup.sh]::
+link:.ci_playground/windows-msvc-setup.cmd[<root>/.ci_playground/windows-msvc-setup.cmd]::
 	Uses the link:https://github.com/Microsoft/vswhere[`vswhere`] utility to
 	find the indicated, in the `VSWHERE_VERSION` or `VSWHERE_LEGACY`
 	environment variables, and run the the `vcvarsall.bat` setup script. The
