@@ -19,28 +19,55 @@ limited.
 working and nothing more. This means there is no build system setup. And the
 few small scripts used are there to minimize duplication.
 
+== General Configuration
+
+=== macOS Xcode
+
+For Xcode we make use of the great work of the Fastlane developers and the
+https://github.com/xcpretty/xcode-install[`xcode-install`] tool. It makes setting
+up consistent Xcode install easy. Additionally it makes it possible to fresh
+install a full Xcode and command line tools.
+
+Without any additional configuration we use `xcode-install` to select which
+Xcode version to use. But, by setting up Apple Developer credentials we can use
+it to download and install additional Xcode versions (within the limits of
+macOS and Xcode compatibility constraints). The setup amounts to setting two
+environment variables:
+
+`XCODE_INSTALL_USER`:: User name for Apple Developer account.
+`XCODE_INSTALL_PASSWORD`:: Password, or token, for the account.
+
+Check below for how those variables are defined for specific services.
+
 == Services
 
-https://www.appveyor.com/[AppVeyor]::
-image:https://ci.appveyor.com/api/projects/status/hac4wso6ouhxdho3/branch/master?svg=true["Build Status", link="https://ci.appveyor.com/project/grafikrobot/ci-playground"]
+=== https://www.appveyor.com/[AppVeyor] image:https://ci.appveyor.com/api/projects/status/hac4wso6ouhxdho3/branch/master?svg=true["Build Status", link="https://ci.appveyor.com/project/grafikrobot/ci-playground"]
 
-https://azure.microsoft.com/en-us/services/devops/pipelines/[Azure Pipelines]::
-image:https://dev.azure.com/grafikrobot/CI%20Playground/_apis/build/status/bfgroup.ci_playground?branchName=master["Build Status", link="https://dev.azure.com/grafikrobot/CI%20Playground/_build/latest?definitionId=11&branchName=master"]
+AppVeyor provides CI resources for Linux, macOS, and Windows. For Windows they
+provide a large array of pre-configured tools. For macOS, and hence Xcode, to
+make use of the `xcode-install` tool you will need to create a
+https://www.appveyor.com/docs/build-configuration/#secure-variables[secure value]
+for both `XCODE_INSTALL_USER` and `XCODE_INSTALL_PASSWORD`. And place the
+secure values in the `appveyor.yml` file.
 
-https://circleci.com/[CircleCI]::
-image:https://circleci.com/gh/bfgroup/ci_playground/tree/master.svg?style=shield["Build Status", link="https://circleci.com/gh/bfgroup/ci_playground/tree/master"]
+=== https://azure.microsoft.com/en-us/services/devops/pipelines/[Azure Pipelines] image:https://dev.azure.com/grafikrobot/CI%20Playground/_apis/build/status/bfgroup.ci_playground?branchName=master["Build Status", link="https://dev.azure.com/grafikrobot/CI%20Playground/_build/latest?definitionId=11&branchName=master"]
 
-https://cloud.drone.io/[Drone]::
-image:https://cloud.drone.io/api/badges/bfgroup/ci_playground/status.svg?ref=refs/heads/master["Build Status", link="https://cloud.drone.io/bfgroup/ci_playground"]
+Microsoft Azure Pipelines offers Linux, macOS, and Windows resources. For using
+`xcode-install` Azure Pipelines doesn't provide for a direct way of setting the
+credential environment variables we need. Instead we need to define
+https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables[secret variables] that we use to set the
+environment variables from. Define `DEV_APPLE_USER` and `DEV_APPLE_PASSWORD`
+secret variables corresponding to `XCODE_INSTALL_USER` and `XCODE_INSTALL_PASSWORD`.
 
-https://help.github.com/en/actions[GitHub Actions]::
-image:https://github.com/bfgroup/ci_playground/workflows/C++%20Tooling/badge.svg?branch=master&event=push["Build Status", link="https://app.circleci.com/pipelines/github/bfgroup/ci_playground?branch=master"]
+=== https://circleci.com/[CircleCI] image:https://circleci.com/gh/bfgroup/ci_playground/tree/master.svg?style=shield["Build Status", link="https://circleci.com/gh/bfgroup/ci_playground/tree/master"]
 
-https://semaphoreci.com/[Semaphore]::
-image:https://bfgroup.semaphoreci.com/badges/ci_playground/branches/master.svg?style=shields["Build Status", link="https://bfgroup.semaphoreci.com/branches/9a7e94b0-124b-47b8-a0e3-3d633533753a"]
+=== https://cloud.drone.io/[Drone] image:https://cloud.drone.io/api/badges/bfgroup/ci_playground/status.svg?ref=refs/heads/master["Build Status", link="https://cloud.drone.io/bfgroup/ci_playground"]
 
-https://azure.microsoft.com/en-us/services/devops/pipelines/[Travis CI]::
-image:https://travis-ci.com/bfgroup/ci_playground.svg?branch=master["Build Status", link="https://travis-ci.com/bfgroup/ci_playground"]
+=== https://help.github.com/en/actions[GitHub Actions] image:https://github.com/bfgroup/ci_playground/workflows/C++%20Tooling/badge.svg?branch=master&event=push["Build Status", link="https://app.circleci.com/pipelines/github/bfgroup/ci_playground?branch=master"]
+
+=== https://semaphoreci.com/[Semaphore] image:https://bfgroup.semaphoreci.com/badges/ci_playground/branches/master.svg?style=shields["Build Status", link="https://bfgroup.semaphoreci.com/branches/9a7e94b0-124b-47b8-a0e3-3d633533753a"]
+
+=== https://azure.microsoft.com/en-us/services/devops/pipelines/[Travis CI] image:https://travis-ci.com/bfgroup/ci_playground.svg?branch=master["Build Status", link="https://travis-ci.com/bfgroup/ci_playground"]
 
 == Copyright
 
