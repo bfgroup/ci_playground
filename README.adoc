@@ -19,7 +19,37 @@ limited.
 working and nothing more. This means there is no build system setup. And the
 few small scripts used are there to minimize duplication.
 
+*DRY*: The configurations try to avoid repeated definitions as much as is
+possible within the restrictions of the particular service.
+
 == General Configuration
+
+All the included services are configured through configuration files included
+in the source repository. Consult the individual service descriptions below
+for what those files are.
+
+=== Setup Scripts
+
+In order to avoid duplication we use some minimal install and setup scripts
+instead of including all the commands in the service configurations themselves.
+
+link:.ci_playground/linux-cxx-install.sh[<root>/.ci_playground/linux-cxx-install.sh]::
+	Will install a set of packages indicated in the service configuration
+	environment variable `PACKAGES`. That can be any set of packages, i.e.
+	both compilers and support packages. Additionally it can set up the LLVM
+	APT repository through `LLVM_OS` and `LLVM_VER` environment variables.
+
+link:.ci_playground/macos-xcode-install.sh[<root>/.ci_playground/macos-xcode-install.sh]::
+	Uses `xcode-install` tool to install and/or setup Xcode as indicated
+	in the `XCODE_VERSION` environment variable. See below for additional
+	setup needed for the install to work.
+
+link:.ci_playground/windows-msvc-setup.sh[<root>/.ci_playground/windows-msvc-setup.sh]::
+	Uses the link:https://github.com/Microsoft/vswhere[`vswhere`] utility to
+	find the indicated, in the `VSWHERE_VERSION` or `VSWHERE_LEGACY`
+	environment variables, and run the the `vcvarsall.bat` setup script. The
+	`vcvarsall.bat` script from Visual Studio will set up the execution
+	environment for call `cl.exe` to compile directly.
 
 === macOS Xcode
 
@@ -41,7 +71,20 @@ Check below for how those variables are defined for specific services.
 
 == Services
 
+The cloud Ci services vary in features from each other but generally they all
+provide equivalent free services. One big difference though is what platforms
+they include in their free offerings. Universally, Linux resources are freely
+available. Some offer Windows resources to some extent. Additional some
+offer macOS resources, but usually this is behind a paid subscription. We also
+only include services that support the GitHub revision control service.
+
+Below we only discuss the resources available in the free tiers of the
+services.
+
 === https://www.appveyor.com/[AppVeyor] image:https://ci.appveyor.com/api/projects/status/hac4wso6ouhxdho3/branch/master?svg=true["Build Status", link="https://ci.appveyor.com/project/grafikrobot/ci-playground"]
+
+Configuration::
+	link:appveyor.yml[`<root>/appveyor.yml`]
 
 AppVeyor provides CI resources for Linux, macOS, and Windows. For Windows they
 provide a large array of pre-configured tools. For macOS, and hence Xcode, to
