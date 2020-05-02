@@ -138,7 +138,12 @@ Configuration::
 GitHub Actions provides Linux, macOS, and Windows host resources to test with.
 There isn't any setup past creating at least one "workflow" configuration file
 Multiple workflows are supported if you want to segregate your builds. For our
-case we only need the one configuration file.
+case we only need the one configuration file. TO use `xcode-install` GitHub
+Actions provides a way to define account global link:https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets[secrets]
+that can be extracted in the YAML configuration. In our case we define
+`dev_apple_user` and `dev_apple_password` secret variables
+corresponding to `XCODE_INSTALL_USER` and `XCODE_INSTALL_PASSWORD` in your
+account.
 
 === https://semaphoreci.com/[Semaphore] image:https://bfgroup.semaphoreci.com/badges/ci_playground/branches/master.svg?style=shields["Build Status", link="https://bfgroup.semaphoreci.com/branches/9a7e94b0-124b-47b8-a0e3-3d633533753a"]
 
@@ -151,7 +156,12 @@ It doesn't support any built-in way to reuse setups (i.e. to stay DRY). And
 the usual YAML method of using the `<<` map merge key is not allowed as the
 configuration is strictly checked against a schema. For our case we create
 some dummy (i.e. skipped) blocks that we can use to apply the `*name` YAML
-expansion with. Which reduces much of the repetition.
+expansion with. Which reduces much of the repetition. TO use `xcode-install`
+one can define global account "Secrets" in the web UI for encrypted
+environment variables.
+Define `DEV_APPLE_USER` and `DEV_APPLE_PASSWORD` encrypted variables
+corresponding to `XCODE_INSTALL_USER` and `XCODE_INSTALL_PASSWORD` in your
+account as a `dev-apple` secret.
 
 === https://travis-ci.com/[Travis CI] image:https://travis-ci.com/bfgroup/ci_playground.svg?branch=master["Build Status", link="https://travis-ci.com/bfgroup/ci_playground"]
 
