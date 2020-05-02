@@ -95,6 +95,9 @@ secure values in the `appveyor.yml` file.
 
 === https://azure.microsoft.com/en-us/services/devops/pipelines/[Azure Pipelines] image:https://dev.azure.com/grafikrobot/CI%20Playground/_apis/build/status/bfgroup.ci_playground?branchName=master["Build Status", link="https://dev.azure.com/grafikrobot/CI%20Playground/_build/latest?definitionId=11&branchName=master"]
 
+Configuration::
+	link:azure-pipelines.yml[`<root>/azure-pipelines.yml`]
+
 Microsoft Azure Pipelines offers Linux, macOS, and Windows resources. For using
 `xcode-install` Azure Pipelines doesn't provide for a direct way of setting the
 credential environment variables we need. Instead we need to define
@@ -104,7 +107,28 @@ secret variables corresponding to `XCODE_INSTALL_USER` and `XCODE_INSTALL_PASSWO
 
 === https://circleci.com/[CircleCI] image:https://circleci.com/gh/bfgroup/ci_playground/tree/master.svg?style=shield["Build Status", link="https://circleci.com/gh/bfgroup/ci_playground/tree/master"]
 
-=== https://cloud.drone.io/[Drone] image:https://cloud.drone.io/api/badges/bfgroup/ci_playground/status.svg?ref=refs/heads/master["Build Status", link="https://cloud.drone.io/bfgroup/ci_playground"]
+Configuration::
+	link:.circleci/config.yml[`<root>/.circleci/config.yml`]
+
+CircleCI only gives us only Linux systems for free. Having the configuration
+file is the only setup needed for CircleCI.
+
+=== https://drone.io/[Drone] image:https://cloud.drone.io/api/badges/bfgroup/ci_playground/status.svg?ref=refs/heads/master["Build Status", link="https://cloud.drone.io/bfgroup/ci_playground"]
+
+Configuration::
+	link:.drone.star[`<root>/.drone.star`]
+
+Free cloud access is available for Linux on Drone. There are a few ways to go
+with the configuration in Drone. The main configuration, like others, is done
+through a yaml file (`<root>/.drone.yml`). But for our use case where we want
+to do the same thing for many different toolsets it means lots of duplication
+as it has no built-in support for DRY. Drone does support alternate,
+programmatic, methods for specifying the configuration with either
+link:https://docs.drone.io/pipeline/scripting/jsonnet/[Jsonnet] or
+link:https://docs.drone.io/pipeline/scripting/starlark/[Starlark] scripting.
+For this we use a Starlark script to create all the toolset variations. To
+make it work one needs to point Drone to the alternate configuration script
+in the project settings.
 
 === https://help.github.com/en/actions[GitHub Actions] image:https://github.com/bfgroup/ci_playground/workflows/C++%20Tooling/badge.svg?branch=master&event=push["Build Status", link="https://app.circleci.com/pipelines/github/bfgroup/ci_playground?branch=master"]
 
