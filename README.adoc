@@ -132,9 +132,36 @@ in the project settings.
 
 === https://help.github.com/en/actions[GitHub Actions] image:https://github.com/bfgroup/ci_playground/workflows/C++%20Tooling/badge.svg?branch=master&event=push["Build Status", link="https://app.circleci.com/pipelines/github/bfgroup/ci_playground?branch=master"]
 
+Configuration::
+	link:.github/workflows/cxx_tooling.yml[`<root>/.github/workflows/cxx_tooling.yml`]
+
+GitHub Actions provides Linux, macOS, and Windows host resources to test with.
+There isn't any setup past creating at least one "workflow" configuration file
+Multiple workflows are supported if you want to segregate your builds. For our
+case we only need the one configuration file.
+
 === https://semaphoreci.com/[Semaphore] image:https://bfgroup.semaphoreci.com/badges/ci_playground/branches/master.svg?style=shields["Build Status", link="https://bfgroup.semaphoreci.com/branches/9a7e94b0-124b-47b8-a0e3-3d633533753a"]
 
+Configuration::
+	link:.semaphore/semaphore.yml[`<root>/.semaphore/semaphore.yml`]
+
+Semaphore gives us Linux and macOS free build capabilities. The configuration
+specification is a bit different than other CI systems in some ways though.
+It doesn't support any built-in way to reuse setups (i.e. to stay DRY). And
+the usual YAML method of using the `<<` map merge key is not allowed as the
+configuration is strictly checked against a schema. For our case we create
+some dummy (i.e. skipped) blocks that we can use to apply the `*name` YAML
+expansion with. Which reduces much of the repetition.
+
 === https://azure.microsoft.com/en-us/services/devops/pipelines/[Travis CI] image:https://travis-ci.com/bfgroup/ci_playground.svg?branch=master["Build Status", link="https://travis-ci.com/bfgroup/ci_playground"]
+
+Configuration::
+	link:.travis.yml[`<root>/.travis.yml`]
+
+Travis CI provides Linux, macOS, and experimental Windows support. Although
+we don't have Windows as part of our configuration yet (soon). The Travis CI
+configuration is perhaps the simples of all the CI systems. As one can
+precisely define each variations to build individually.
 
 == Copyright
 
