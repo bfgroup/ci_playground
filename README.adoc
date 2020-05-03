@@ -130,7 +130,7 @@ For this we use a Starlark script to create all the toolset variations. To
 make it work one needs to point Drone to the alternate configuration script
 in the project settings.
 
-=== https://help.github.com/en/actions[GitHub Actions] image:https://github.com/bfgroup/ci_playground/workflows/C++%20Tooling/badge.svg?branch=master&event=push["Build Status", link="https://app.circleci.com/pipelines/github/bfgroup/ci_playground?branch=master"]
+=== https://help.github.com/en/actions[GitHub Actions] image:https://github.com/bfgroup/ci_playground/workflows/C++%20Tooling/badge.svg?branch=master&event=push["Build Status", link="https://github.com/bfgroup/ci_playground/actions"]
 
 Configuration::
 	link:.github/workflows/cxx_tooling.yml[`<root>/.github/workflows/cxx_tooling.yml`]
