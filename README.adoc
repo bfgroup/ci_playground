@@ -171,7 +171,7 @@ Configuration::
 Travis CI provides Linux, macOS, and experimental Windows support. Although
 we don't have Windows as part of our configuration yet (soon). The Travis CI
 configuration is perhaps the simples of all the CI systems. As one can
-precisely define each variations to build individually. For using
+precisely define each variation to build individually. For using
 `xcode-install` Travis CI allows one to set encrypted environment variables.
 Define `DEV_APPLE_USER` and `DEV_APPLE_PASSWORD` encrypted variables
 corresponding to `XCODE_INSTALL_USER` and `XCODE_INSTALL_PASSWORD` in your
