@@ -47,15 +47,15 @@ link:.ci_playground/macos-xcode-install.sh[<root>/.ci_playground/macos-xcode-ins
 link:.ci_playground/windows-msvc-setup.cmd[<root>/.ci_playground/windows-msvc-setup.cmd]::
 	Uses the link:https://github.com/Microsoft/vswhere[`vswhere`] utility to
 	find the indicated, in the `VSWHERE_VERSION` or `VSWHERE_LEGACY`
-	environment variables, and run the the `vcvarsall.bat` setup script. The
+	environment variables, and to run the `vcvarsall.bat` setup script. The
 	`vcvarsall.bat` script from Visual Studio will set up the execution
-	environment for call `cl.exe` to compile directly.
+	environment for calling `cl.exe` to compile directly.
 
 === macOS Xcode
 
 For Xcode we make use of the great work of the Fastlane developers and the
 https://github.com/xcpretty/xcode-install[`xcode-install`] tool. It makes setting
-up consistent Xcode install easy. Additionally it makes it possible to fresh
+up consistent Xcode installs easy. Additionally it makes it possible to fresh
 install a full Xcode and command line tools.
 
 Without any additional configuration we use `xcode-install` to select which
@@ -74,7 +74,7 @@ Check below for how those variables are defined for specific services.
 The cloud Ci services vary in features from each other but generally they all
 provide equivalent free services. One big difference though is what platforms
 they include in their free offerings. Universally, Linux resources are freely
-available. Some offer Windows resources to some extent. Additional some
+available. Some offer Windows resources to some extent. Additionally some
 offer macOS resources, but usually this is behind a paid subscription. We also
 only include services that support the GitHub revision control service.
 
@@ -120,8 +120,8 @@ Configuration::
 
 Free cloud access is available for Linux on Drone. There are a few ways to go
 with the configuration in Drone. The main configuration, like others, is done
-through a yaml file (`<root>/.drone.yml`). But for our use case where we want
-to do the same thing for many different toolsets it means lots of duplication
+through a yaml file (`<root>/.drone.yml`). But for our use case, where we want
+to do the same thing for many different toolsets, it means lots of duplication
 as it has no built-in support for DRY. Drone does support alternate,
 programmatic, methods for specifying the configuration with either
 link:https://docs.drone.io/pipeline/scripting/jsonnet/[Jsonnet] or
@@ -136,9 +136,9 @@ Configuration::
 	link:.github/workflows/cxx_tooling.yml[`<root>/.github/workflows/cxx_tooling.yml`]
 
 GitHub Actions provides Linux, macOS, and Windows host resources to test with.
-There isn't any setup past creating at least one "workflow" configuration file
+There isn't any setup past creating at least one "workflow" configuration file.
 Multiple workflows are supported if you want to segregate your builds. For our
-case we only need the one configuration file. TO use `xcode-install` GitHub
+case we only need the one configuration file. To use `xcode-install` GitHub
 Actions provides a way to define account global link:https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets[secrets]
 that can be extracted in the YAML configuration. In our case we define
 `dev_apple_user` and `dev_apple_password` secret variables
@@ -156,7 +156,7 @@ It doesn't support any built-in way to reuse setups (i.e. to stay DRY). And
 the usual YAML method of using the `<<` map merge key is not allowed as the
 configuration is strictly checked against a schema. For our case we create
 some dummy (i.e. skipped) blocks that we can use to apply the `*name` YAML
-expansion with. Which reduces much of the repetition. TO use `xcode-install`
+expansion with. Which reduces much of the repetition. To use `xcode-install`
 one can define global account "Secrets" in the web UI for encrypted
 environment variables.
 Define `DEV_APPLE_USER` and `DEV_APPLE_PASSWORD` encrypted variables
@@ -179,5 +179,5 @@ project.
 
 == Copyright
 
-This work is Copyright Rene Rivera 2020. And distributed, abd subject to,
-the Boost Software License, Version 1.0.
+This work is Copyright Rene Rivera 2020. And distributed, and subject to,
+the link:LICENSE.txt[Boost Software License, Version 1.0].
