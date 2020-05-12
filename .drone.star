@@ -52,7 +52,7 @@ def linux_cxx(name, cxx, cxxflags="", packages="", llvm_os="", llvm_ver="", arch
         "commands": [
           # Need some extra container setup.
           "echo '==================================> SETUP'",
-          "apt-get update && apt-get install -y sudo software-properties-common wget apt-transport-https && rm -rf /var/lib/apt/lists/*",
+          "apt-get -o Acquire::Retries=3 update && apt-get -o Acquire::Retries=3 install -y sudo software-properties-common wget apt-transport-https && rm -rf /var/lib/apt/lists/*",
           # The install runs a helper script to do the install and any setup.
           "echo '==================================> INSTALL TOOLSET'",
           "uname -a",

@@ -17,11 +17,11 @@ fi
 echo ">>>>>"
 echo ">>>>> APT: UPDATE.."
 echo ">>>>>"
-sudo -E apt-get update
+sudo -E apt-get -o Acquire::Retries=3 update
 echo ">>>>>"
 echo ">>>>> APT: INSTALL ${PACKAGES}.."
 echo ">>>>>"
-sudo -E apt-get -yq --no-install-suggests --no-install-recommends install ${PACKAGES}
+sudo -E apt-get -o Acquire::Retries=3 -yq --no-install-suggests --no-install-recommends install ${PACKAGES}
 
 # Use, modification, and distribution are
 # subject to the Boost Software License, Version 1.0. (See accompanying
