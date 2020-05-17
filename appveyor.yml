@@ -15,6 +15,7 @@ branches:
 skip_commits:
   files:
     - .circleci/*
+    - .cirrus.yml
     - .drone.star
     - .github/workflows/*
     - .semaphore/*

@@ -113,7 +113,7 @@ Configuration::
 CircleCI only gives us only Linux systems for free. Having the configuration
 file is the only setup needed for CircleCI.
 
-=== https://cirrus-ci.org/[Cirrus CI]
+=== https://cirrus-ci.org/[Cirrus CI] image:https://api.cirrus-ci.com/github/bfgroup/ci_playground.svg?branch=master["Build Status", link="https://cirrus-ci.com/github/bfgroup/ci_playground"]
 
 Configuration::
 	link:.cirrus.yml[`<root>/.cirrus.yml`]
