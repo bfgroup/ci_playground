@@ -48,5 +48,5 @@ xcode_task:
   compile_script: [
     "set -e",
     "${CXX} --version",
-    "${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp"
+    "${CXX} ${CXXFLAGS} -v --sysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk src/main.cpp"
     ]
