@@ -33,9 +33,11 @@ xcode_task:
     - { name: 'macOS, Xcode 11.4.1', env: { CXX: clang++, XCODE_VERSION: 11.4.1 }, osx_instance: { image: 'catalina-xcode-11.4.1' } }
   # Cirrus CI encrypts using a repo specific internal key. These
   # encrypted values are taken from the web UI.
-  env:
+  environment:
     XCODE_INSTALL_USER: ENCRYPTED[!734f624899e14a0ab6f506c8c1ff9b6048b2c90cbe9e38da56b0d7b4f6e23a578a22bddfff24c87e5c93beb87cf036a7!]
     XCODE_INSTALL_PASSWORD: ENCRYPTED[!77deeb752ec174bf3b76acb83171cc419482fdf1d288ba5473dcbf7d8014b33f1573486145429b0e6df1c3779a643d11!]
+  # Restrict to our ORG as encrypted vars are ORG local. Hence forks will fail.
+  only_if: $CIRRUS_REPO_OWNER == 'bfgroup'
   # We just run the common install script, as the env is already set up.
   install_script: [
     "set -e",
