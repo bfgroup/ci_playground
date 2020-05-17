@@ -113,6 +113,11 @@ Configuration::
 CircleCI only gives us only Linux systems for free. Having the configuration
 file is the only setup needed for CircleCI.
 
+=== https://cirrus-ci.org/[Cirrus CI]
+
+Configuration::
+	link:.cirrus.yml[`<root>/.cirrus.yml`]
+
 === https://drone.io/[Drone] image:https://cloud.drone.io/api/badges/bfgroup/ci_playground/status.svg?ref=refs/heads/master["Build Status", link="https://cloud.drone.io/bfgroup/ci_playground"]
 
 Configuration::
