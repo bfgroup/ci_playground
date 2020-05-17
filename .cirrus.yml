@@ -27,3 +27,26 @@ linux_task:
     "${CXX} --version",
     "${CXX} ${CXXFLAGS} -v src/main.cpp"
     ]
+
+xcode_task:
+  matrix:
+    - { name: 'macOS, Xcode 11.4.1', env: { CXX: clang++, XCODE_VERSION: 11.4.1 }, osx_instance: { image: 'catalina-xcode-11.4.1' } }
+  # Cirrus CI encrypts using a repo specific internal key. These
+  # encrypted values are taken from the web UI.
+  env:
+    XCODE_INSTALL_USER: ENCRYPTED[!734f624899e14a0ab6f506c8c1ff9b6048b2c90cbe9e38da56b0d7b4f6e23a578a22bddfff24c87e5c93beb87cf036a7!]
+    XCODE_INSTALL_PASSWORD: ENCRYPTED[!77deeb752ec174bf3b76acb83171cc419482fdf1d288ba5473dcbf7d8014b33f1573486145429b0e6df1c3779a643d11!]
+  # We just run the common install script, as the env is already set up.
+  install_script: [
+    "set -e",
+    "uname -a",
+    "./.ci_playground/macos-xcode-install.sh"
+    ]
+  # For consistent Xcode building we specify the sysroot to point to the
+  # symlink that xcode-install utility created. This was we always build
+  # with the specific SDK for the compiler being used.
+  compile_script: [
+    "set -e",
+    "${CXX} --version",
+    "${CXX} ${CXXFLAGS} -v --sysroot "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" src/main.cpp"
+    ]
