@@ -38,14 +38,16 @@ xcode_task:
   # Cirrus CI encrypts using a repo specific internal key. These
   # encrypted values are taken from the web UI.
   env:
-    XCODE_INSTALL_USER: ENCRYPTED[eaff152791f8f1c1669b0e43a4f4b5227432242c625feaf325aed8b69de58f21e97b62c24e081ec745629b08d97d7b8f]
-    XCODE_INSTALL_PASSWORD: ENCRYPTED[bf21babc88ec2a4a261e292170017c3fb97ff634fead2ed060119220eecb74e0f9ea216256664cbe8f741c39091aa4d1]
+    DEV_APPLE_USER: ENCRYPTED[eaff152791f8f1c1669b0e43a4f4b5227432242c625feaf325aed8b69de58f21e97b62c24e081ec745629b08d97d7b8f]
+    DEV_APPLE_PASSWORD: ENCRYPTED[bf21babc88ec2a4a261e292170017c3fb97ff634fead2ed060119220eecb74e0f9ea216256664cbe8f741c39091aa4d1]
   # Restrict to our ORG as encrypted vars are ORG local. Hence forks will fail.
   only_if: $CIRRUS_REPO_OWNER == 'bfgroup'
   # We just run the common install script, as the env is already set up.
   install_script: [
     "set -e",
     "uname -a",
+    "export XCODE_INSTALL_USER=${DEV_APPLE_USER}",
+    "export XCODE_INSTALL_PASSWORD=${DEV_APPLE_PASSWORD}",
     "./.ci_playground/macos-xcode-install.sh"
     ]
   # For consistent Xcode building we specify the sysroot to point to the
