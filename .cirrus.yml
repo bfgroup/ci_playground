@@ -7,6 +7,8 @@
 # Configuration for https://cirrus-ci.org/.
 
 linux_task:
+  env:
+    ENV_TEST: ENCRYPTED[d1bbfbb409d43214239b325e4269a3e49e60bab030174f4b452d912ce5044f42b229346a785af11bab5e6103e46e9125]
   # All the GCC's and Clang's available for Ubuntu Bionic.
   matrix:
     - { name: 'Linux, GCC 10', env: { CXX: g++-10, PACKAGES: g++-10 }, container: { image: 'ubuntu:18.04' } }
@@ -15,6 +17,8 @@ linux_task:
     - { name: 'Linux, Clang 9', env: { CXX: clang-9, PACKAGES: clang-9, LLVM_OS: bionic, LLVM_VER: 9 }, container: { image: 'ubuntu:18.04' } }
   # Need some extra container setup.
   setup_script: [
+    "echo ${ENV_TEST} > md5sum",
+    "echo 'THIS IS AN ENCRYPTED TEST' > md5sum",
     "apt-get -o Acquire::Retries=3 update && apt-get -o Acquire::Retries=3 install -y sudo software-properties-common wget apt-transport-https && rm -rf /var/lib/apt/lists/*"
     ]
   # The install runs a helper script to do the install and any setup.
