@@ -8,7 +8,7 @@
 
 linux_task:
   env:
-    ENV_TEST: 'THIS IS A TEST'
+    ENV_TEST: ENCRYPTED[d1bbfbb409d43214239b325e4269a3e49e60bab030174f4b452d912ce5044f42b229346a785af11bab5e6103e46e9125]
   # All the GCC's and Clang's available for Ubuntu Bionic.
   matrix:
     - { name: 'Linux, GCC 10', env: { CXX: g++-10, PACKAGES: g++-10 }, container: { image: 'ubuntu:18.04' } }
