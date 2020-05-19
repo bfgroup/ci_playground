@@ -54,10 +54,10 @@ linux_task:
 
 freebsd_task:
   matrix:
-    - { name: 'FreeBSD, GCC 10', env: { CXX: 'g++-10', PACKAGES: 'lang/gcc10' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
+    - { name: 'FreeBSD, GCC 10', env: { CXX: 'g++-10', PACKAGES: 'gcc' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
   install_script: [
     "uname -a",
-    "pkg install ${PACKAGES}"
+    "pkg search ${PACKAGES}"
     ]
   compile_script: [
     "${CXX} --version",
