@@ -46,7 +46,7 @@ xcode_task:
   install_script: [
     "set -e",
     "uname -a",
-    "echo \"${DEV_APPLE_PASSWORD}\" | sha512sum"
+    "echo \"${DEV_APPLE_PASSWORD}\" | sha512sum",
     "export \"XCODE_INSTALL_USER=${DEV_APPLE_USER}\"",
     "export \"XCODE_INSTALL_PASSWORD=${DEV_APPLE_PASSWORD}\"",
     "./.ci_playground/macos-xcode-install.sh"
