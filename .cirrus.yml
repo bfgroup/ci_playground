@@ -59,7 +59,7 @@ freebsd_task:
     "uname -a",
     "pkg install ${PACKAGES}"
     ]
-  compile_strict: [
+  compile_script: [
     "${CXX} --version",
     "${CXX} ${CXXFLAGS} -v src/main.cpp"
     ]
