@@ -88,13 +88,12 @@
 
 msvc_task:
   matrix:
-    - { name: 'Windows, VS 2019', env: { CXX: cl.exe, CXXFLAGS: /Femain, VSWHERE_VERSION: '[16.0,17.0)', PLATFORM: x64,
-        CHOCO_VS_PACKAGE: visualstudio2019community, CHOCO_MSVC_PACKAGE: visualstudio2019-workload-nativedesktop } }
+    - { name: 'Windows, VS 2019', env: { CXX: cl.exe, CXXFLAGS: /Femain, VSWHERE_VERSION: '[16.0,17.0)', PLATFORM: x64, CHOCO_CONFIG: vs2019 } }
   windows_container:
     image: cirrusci/windowsservercore:2019
   install_script: [
-    "choco install %CHOCO_VS_PACKAGE% -y",
-    "choco install %CHOCO_MSVC_PACKAGE% -y"
+    "if not \"%CHOCO_CONFIG%\"==\"\" choco install .ci_playground/choco-%CHOCO_CONFIG%.config -y -r --ignore-detected-reboot",
+    "choco install vswhere -y -r"
     ]
   compile_script: [
     ".ci_playground/windows-msvc-setup.cmd",
