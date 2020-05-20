@@ -92,8 +92,8 @@ msvc_task:
   windows_container:
     image: cirrusci/windowsservercore:2019
   install_script: [
-    "choco install .ci_playground/choco-%CHOCO_CONFIG%.config -y -r --ignore-detected-reboot",
-    "choco install vswhere -y -r"
+    "choco install .ci_playground/choco-%CHOCO_CONFIG%.config -y --ignore-detected-reboot --no-progress",
+    "choco install vswhere -y --no-progress"
     ]
   compile_script: [
     ".ci_playground/windows-msvc-setup.cmd",
