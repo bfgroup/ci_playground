@@ -6,26 +6,26 @@
 
 # Configuration for https://cirrus-ci.org/.
 
-linux_task:
-  # All the GCC's and Clang's available for Ubuntu Bionic.
-  matrix:
-    - { name: 'Linux, GCC 10', env: { CXX: g++-10, PACKAGES: g++-10 }, container: { image: 'ubuntu:18.04' } }
-    - { name: 'Linux, GCC 9', env: { CXX: g++-9, PACKAGES: g++-9 }, container: { image: 'ubuntu:18.04' } }
-    - { name: 'Linux, Clang 10', env: { CXX: clang-10, PACKAGES: clang-10, LLVM_OS: bionic, LLVM_VER: 10 }, container: { image: 'ubuntu:18.04' } }
-    - { name: 'Linux, Clang 9', env: { CXX: clang-9, PACKAGES: clang-9, LLVM_OS: bionic, LLVM_VER: 9 }, container: { image: 'ubuntu:18.04' } }
-  # Need some extra container setup.
-  setup_script: [
-    "apt-get -o Acquire::Retries=3 update && apt-get -o Acquire::Retries=3 install -y sudo software-properties-common wget apt-transport-https && rm -rf /var/lib/apt/lists/*"
-    ]
-  # The install runs a helper script to do the install and any setup.
-  install_script: [
-    "uname -a",
-    "./.ci_playground/linux-cxx-install.sh"
-    ]
-  compile_script: [
-    "${CXX} --version",
-    "${CXX} ${CXXFLAGS} -v src/main.cpp"
-    ]
+# linux_task:
+#   # All the GCC's and Clang's available for Ubuntu Bionic.
+#   matrix:
+#     - { name: 'Linux, GCC 10', env: { CXX: g++-10, PACKAGES: g++-10 }, container: { image: 'ubuntu:18.04' } }
+#     - { name: 'Linux, GCC 9', env: { CXX: g++-9, PACKAGES: g++-9 }, container: { image: 'ubuntu:18.04' } }
+#     - { name: 'Linux, Clang 10', env: { CXX: clang-10, PACKAGES: clang-10, LLVM_OS: bionic, LLVM_VER: 10 }, container: { image: 'ubuntu:18.04' } }
+#     - { name: 'Linux, Clang 9', env: { CXX: clang-9, PACKAGES: clang-9, LLVM_OS: bionic, LLVM_VER: 9 }, container: { image: 'ubuntu:18.04' } }
+#   # Need some extra container setup.
+#   setup_script: [
+#     "apt-get -o Acquire::Retries=3 update && apt-get -o Acquire::Retries=3 install -y sudo software-properties-common wget apt-transport-https && rm -rf /var/lib/apt/lists/*"
+#     ]
+#   # The install runs a helper script to do the install and any setup.
+#   install_script: [
+#     "uname -a",
+#     "./.ci_playground/linux-cxx-install.sh"
+#     ]
+#   compile_script: [
+#     "${CXX} --version",
+#     "${CXX} ${CXXFLAGS} -v src/main.cpp"
+#     ]
 
 # xcode_task:
 #   matrix:
@@ -55,10 +55,11 @@ linux_task:
 freebsd_task:
   matrix:
     - { name: 'FreeBSD, GCC 11', env: { CXX: 'g++11', PACKAGE: 'gcc11-devel' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
-    - { name: 'FreeBSD, GCC 10', env: { CXX: 'g++10', PACKAGE: 'gcc10-devel' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
-    - { name: 'FreeBSD, GCC 9', env: { CXX: 'g++9', PACKAGE: 'gcc9-devel' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
-    - { name: 'FreeBSD, GCC 8', env: { CXX: 'g++8', PACKAGE: 'gcc8-devel' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
-    - { name: 'FreeBSD, GCC 7', env: { CXX: 'g++7', PACKAGE: 'gcc7' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
+    # - { name: 'FreeBSD, GCC 10', env: { CXX: 'g++10', PACKAGE: 'gcc10-devel' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
+    # - { name: 'FreeBSD, GCC 9', env: { CXX: 'g++9', PACKAGE: 'gcc9-devel' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
+    # - { name: 'FreeBSD, GCC 8', env: { CXX: 'g++8', PACKAGE: 'gcc8-devel' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
+    # - { name: 'FreeBSD, GCC 7', env: { CXX: 'g++7', PACKAGE: 'gcc7' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
+    - { name: 'FreeBSD, Clang 10', env: { CXX: 'clang++7', PACKAGE: 'llvm10' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
   install_script: [
     "uname -a",
     "env ASSUME_ALWAYS_YES=YES pkg bootstrap",
