@@ -93,8 +93,8 @@ msvc_task:
   windows_container:
     image: cirrusci/windowsservercore:2019
   install_script: [
-    "choco install %CHOCO_VS_PACKAGE%",
-    "choco install %CHOCO_MSVC_PACKAGE%"
+    "choco install %CHOCO_VS_PACKAGE% -y",
+    "choco install %CHOCO_MSVC_PACKAGE% -y"
     ]
   compile_script: [
     ".ci_playground/windows-msvc-setup.cmd",
