@@ -57,8 +57,8 @@ freebsd_task:
     - { name: 'FreeBSD, GCC 10', env: { CXX: 'g++-10', PACKAGE: 'gcc10-devel' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
   install_script: [
     "uname -a",
-    "cd /usr/ports/lang/${PACKAGE}/ && make install clean",
-    "pkg install ${PACKAGE}"
+    "env ASSUME_ALWAYS_YES=YES pkg bootstrap",
+    "env ASSUME_ALWAYS_YES=YES pkg install ${PACKAGE}"
     ]
   compile_script: [
     "${CXX} --version",
