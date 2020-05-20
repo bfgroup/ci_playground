@@ -59,7 +59,11 @@ freebsd_task:
     # - { name: 'FreeBSD, GCC 9', env: { CXX: 'g++9', PACKAGE: 'gcc9-devel' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
     # - { name: 'FreeBSD, GCC 8', env: { CXX: 'g++8', PACKAGE: 'gcc8-devel' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
     # - { name: 'FreeBSD, GCC 7', env: { CXX: 'g++7', PACKAGE: 'gcc7' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
-    - { name: 'FreeBSD, Clang 10', env: { CXX: 'clang++7', PACKAGE: 'llvm10' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
+    - { name: 'FreeBSD, Clang 10', env: { CXX: 'clang++10', PACKAGE: 'llvm10' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
+    - { name: 'FreeBSD, Clang 9', env: { CXX: 'clang++9', PACKAGE: 'llvm90' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
+    - { name: 'FreeBSD, Clang 8', env: { CXX: 'clang++8', PACKAGE: 'llvm80' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
+    - { name: 'FreeBSD, Clang 7', env: { CXX: 'clang++7', PACKAGE: 'llvm70' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
+    - { name: 'FreeBSD, Clang 6', env: { CXX: 'clang++6', PACKAGE: 'llvm60' }, freebsd_instance: { image_family: 'freebsd-13-0-snap' } }
   install_script: [
     "uname -a",
     "env ASSUME_ALWAYS_YES=YES pkg bootstrap",
