@@ -115,6 +115,11 @@ file is the only setup needed for CircleCI.
 
 === https://cirrus-ci.org/[Cirrus CI] image:https://api.cirrus-ci.com/github/bfgroup/ci_playground.svg?branch=master["Build Status", link="https://cirrus-ci.com/github/bfgroup/ci_playground"]
 
+Of the current cloud CI offerings Cirrus CI is different in that it offers
+FreeBSD public VMs. Cirrus CI provides "community clusters" that also include
+Linux, macOS, and Windows. Unfortunately getting macOS Xcode and Visual Studio
+installed is currently not possible.
+
 Configuration::
 	link:.cirrus.yml[`<root>/.cirrus.yml`]
 
