@@ -44,22 +44,22 @@ jobs:
       env: [ 'CXX=g++-5', 'PACKAGES=g++-5' ]
     - os: linux
       dist: bionic
-      env: [ 'CXX=clang-10', 'PACKAGES=clang-10', 'LLVM_OS=bionic', 'LLVM_VER=10' ]
+      env: [ 'CXX=clang++-10', 'PACKAGES=clang-10', 'LLVM_OS=bionic', 'LLVM_VER=10' ]
     - os: linux
       dist: bionic
-      env: [ 'CXX=clang-9', 'PACKAGES=clang-9', 'LLVM_OS=bionic', 'LLVM_VER=9' ]
+      env: [ 'CXX=clang++-9', 'PACKAGES=clang-9', 'LLVM_OS=bionic', 'LLVM_VER=9' ]
     - os: linux
       dist: bionic
-      env: [ 'CXX=clang-8', 'PACKAGES=clang-8', 'LLVM_OS=bionic', 'LLVM_VER=8' ]
+      env: [ 'CXX=clang++-8', 'PACKAGES=clang-8', 'LLVM_OS=bionic', 'LLVM_VER=8' ]
     - os: linux
       dist: bionic
-      env: [ 'CXX=clang-7', 'PACKAGES=clang-7', 'LLVM_OS=bionic', 'LLVM_VER=7' ]
+      env: [ 'CXX=clang++-7', 'PACKAGES=clang-7', 'LLVM_OS=bionic', 'LLVM_VER=7' ]
     - os: linux
       dist: bionic
-      env: [ 'CXX=clang-6.0', 'PACKAGES=clang-6.0', 'LLVM_OS=bionic', 'LLVM_VER=6.0' ]
+      env: [ 'CXX=clang++-6.0', 'PACKAGES=clang-6.0', 'LLVM_OS=bionic', 'LLVM_VER=6.0' ]
     - os: linux
       dist: bionic
-      env: [ 'CXX=clang-5.0', 'PACKAGES=clang-5.0', 'LLVM_OS=bionic', 'LLVM_VER=5.0' ]
+      env: [ 'CXX=clang++-5.0', 'PACKAGES=clang-5.0', 'LLVM_OS=bionic', 'LLVM_VER=5.0' ]
     # Key Xcode versions pre-installed on TravisCI images.
     - os: osx
       osx_image: xcode11.3

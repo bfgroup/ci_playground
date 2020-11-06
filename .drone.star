@@ -18,12 +18,12 @@ def main(ctx):
     linux_cxx("GCC 7", "g++-7", packages="g++-7"),
     linux_cxx("GCC 6", "g++-6", packages="g++-6"),
     linux_cxx("GCC 5", "g++-5", packages="g++-5"),
-    linux_cxx("Clang 10", "clang-10", packages="clang-10", llvm_os="bionic", llvm_ver="10"),
-    linux_cxx("Clang 9", "clang-9", packages="clang-9", llvm_os="bionic", llvm_ver="9"),
-    linux_cxx("Clang 8", "clang-8", packages="clang-8", llvm_os="bionic", llvm_ver="8"),
-    linux_cxx("Clang 7", "clang-7", packages="clang-7", llvm_os="bionic", llvm_ver="7"),
-    linux_cxx("Clang 6.0", "clang-6.0", packages="clang-6.0", llvm_os="bionic", llvm_ver="6.0"),
-    linux_cxx("Clang 5.0", "clang-5.0", packages="clang-5.0", llvm_os="bionic", llvm_ver="5.0")
+    linux_cxx("Clang 10", "clang++-10", packages="clang-10", llvm_os="bionic", llvm_ver="10"),
+    linux_cxx("Clang 9", "clang++-9", packages="clang-9", llvm_os="bionic", llvm_ver="9"),
+    linux_cxx("Clang 8", "clang++-8", packages="clang-8", llvm_os="bionic", llvm_ver="8"),
+    linux_cxx("Clang 7", "clang++-7", packages="clang-7", llvm_os="bionic", llvm_ver="7"),
+    linux_cxx("Clang 6.0", "clang++-6.0", packages="clang-6.0", llvm_os="bionic", llvm_ver="6.0"),
+    linux_cxx("Clang 5.0", "clang++-5.0", packages="clang-5.0", llvm_os="bionic", llvm_ver="5.0")
   ]
 
 # Generate pipeline for Linux platform compilers.

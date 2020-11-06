@@ -141,42 +141,42 @@ blocks:
     dependencies: ["Linux"]
     task: {
       env_vars: [
-        {name: CXX, value: clang-10}, {name: PACKAGES, value: clang-10},
+        {name: CXX, value: clang++-10}, {name: PACKAGES, value: clang-10},
         {name: LLVM_VER, value: '10'}, {name: LLVM_OS, value: bionic}],
       prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
   - name: Linux Clang 9
     dependencies: ["Linux"]
     task: {
       env_vars: [
-        {name: CXX, value: clang-9}, {name: PACKAGES, value: clang-9},
+        {name: CXX, value: clang++-9}, {name: PACKAGES, value: clang-9},
         {name: LLVM_VER, value: '9'}, {name: LLVM_OS, value: bionic}],
       prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
   - name: Linux Clang 8
     dependencies: ["Linux"]
     task: {
       env_vars: [
-        {name: CXX, value: clang-8}, {name: PACKAGES, value: clang-8},
+        {name: CXX, value: clang++-8}, {name: PACKAGES, value: clang-8},
         {name: LLVM_VER, value: '8'}, {name: LLVM_OS, value: bionic}],
       prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
   - name: Linux Clang 7
     dependencies: ["Linux"]
     task: {
       env_vars: [
-        {name: CXX, value: clang-7}, {name: PACKAGES, value: clang-7},
+        {name: CXX, value: clang++-7}, {name: PACKAGES, value: clang-7},
         {name: LLVM_VER, value: '7'}, {name: LLVM_OS, value: bionic}],
       prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
   - name: Linux Clang 6.0
     dependencies: ["Linux"]
     task: {
       env_vars: [
-        {name: CXX, value: clang-6.0}, {name: PACKAGES, value: clang-6.0},
+        {name: CXX, value: clang++-6.0}, {name: PACKAGES, value: clang-6.0},
         {name: LLVM_VER, value: '6.0'}, {name: LLVM_OS, value: bionic}],
       prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
   - name: Linux Clang 5.0
     dependencies: ["Linux"]
     task: {
       env_vars: [
-        {name: CXX, value: clang-5.0}, {name: PACKAGES, value: clang-5.0},
+        {name: CXX, value: clang++-5.0}, {name: PACKAGES, value: clang-5.0},
         {name: LLVM_VER, value: '5.0'}, {name: LLVM_OS, value: bionic}],
       prologue: *linux_prologue, jobs: *linux_jobs, agent: *linux_agent }
 
