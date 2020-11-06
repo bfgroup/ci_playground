@@ -42,6 +42,7 @@ stages:
         GCC 7: { CXX: g++-7, PACKAGES: g++-7, VM_IMAGE: 'ubuntu-18.04' }
         GCC 6: { CXX: g++-6, PACKAGES: g++-6, VM_IMAGE: 'ubuntu-18.04' }
         GCC 5: { CXX: g++-5, PACKAGES: g++-5, VM_IMAGE: 'ubuntu-18.04' }
+        Clang 11: { CXX: clang-11, PACKAGES: clang-11, LLVM_OS: bionic, LLVM_VER: 11, VM_IMAGE: 'ubuntu-18.04' }
         Clang 10: { CXX: clang-10, PACKAGES: clang-10, LLVM_OS: bionic, LLVM_VER: 10, VM_IMAGE: 'ubuntu-18.04' }
         Clang 9: { CXX: clang-9, PACKAGES: clang-9, LLVM_OS: bionic, LLVM_VER: 9, VM_IMAGE: 'ubuntu-18.04' }
         Clang 8: { CXX: clang-8, PACKAGES: clang-8, LLVM_OS: bionic, LLVM_VER: 8, VM_IMAGE: 'ubuntu-18.04' }
@@ -69,7 +70,12 @@ stages:
   - job: 'macOS'
     strategy:
       matrix:
-        Xcode 11.4: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 11.4 }
+        Xcode 12.2: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 12.2 }
+        Xcode 12.0: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 12.0 }
+        Xcode 11.7: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 11.7 }
+        Xcode 11.6: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 11.6 }
+        Xcode 11.5: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 11.5 }
+        Xcode 11.4.1: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 11.4.1 }
         Xcode 11.3.1: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 11.3.1 }
         Xcode 11.2.1: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 11.2.1 }
         Xcode 11.1: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 11.1 }
