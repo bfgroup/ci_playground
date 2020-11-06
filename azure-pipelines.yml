@@ -70,8 +70,8 @@ stages:
   - job: 'macOS'
     strategy:
       matrix:
-        Xcode 12.2: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 12.2 }
-        Xcode 12.0: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 12.0 }
+        Xcode 12.1: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 12.1 }
+        Xcode 12.0.1: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 12.0.1 }
         Xcode 11.7: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 11.7 }
         Xcode 11.6: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 11.6 }
         Xcode 11.5: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 11.5 }
@@ -79,10 +79,6 @@ stages:
         Xcode 11.3.1: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 11.3.1 }
         Xcode 11.2.1: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 11.2.1 }
         Xcode 11.1: { CXX: clang++, VM_IMAGE: 'macOS-10.15', XCODE_VERSION: 11.1 }
-        Xcode 10.3: { CXX: clang++, VM_IMAGE: 'macOS-10.14', XCODE_VERSION: 10.3 }
-        Xcode 10.2.1: { CXX: clang++, VM_IMAGE: 'macOS-10.14', XCODE_VERSION: 10.2.1 }
-        Xcode 10.1: { CXX: clang++, VM_IMAGE: 'macOS-10.14', XCODE_VERSION: 10.1 }
-        Xcode 9.4.1: { CXX: clang++, VM_IMAGE: 'macOS-10.14', XCODE_VERSION: 9.4.1 }
 
     pool:
       vmImage: $(VM_IMAGE)
