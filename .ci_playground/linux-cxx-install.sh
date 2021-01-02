@@ -10,7 +10,7 @@ echo ">>>>>"
 echo ">>>>> APT: REPO.."
 echo ">>>>>"
 sudo -E apt-add-repository -y "ppa:ubuntu-toolchain-r/test"
-if test -n "${LLVM_OS}" ; then
+if test -n "${LLVM_OS}" -a -n "${LLVM_VER}" ; then
 	wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
 	sudo -E apt-add-repository "deb http://apt.llvm.org/${LLVM_OS}/ llvm-toolchain-${LLVM_OS}-${LLVM_VER} main"
 fi
