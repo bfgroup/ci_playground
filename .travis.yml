@@ -67,9 +67,6 @@ jobs:
     - os: osx
       osx_image: xcode9.4
       env: [ 'CXX=clang++', 'XCODE_VERSION=9.4.1' ]
-    - os: osx
-      osx_image: xcode8.3
-      env: [ 'CXX=clang++', 'XCODE_VERSION=8.3.3' ]
 
 # We need to handle the various OSs in the one install step ourselves.
 # For each OS we run our utility scripts that does all the work.
