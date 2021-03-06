@@ -9,12 +9,12 @@ set -e
 
 xc_versions ()
 {
-	grep -E -e '[>]([[:digit:]]+[.]){1,2}([[:digit:]]+)' ${PWD}/Xcode*/Contents/version.plist | sed -r -e 's/^([^:]+)[:][^>]+[>]([^<]+).*/\1 \2/g'
+	grep -E -e '[>]([[:digit:]]+[.]){1,2}([[:digit:]]+)' ${PWD}/Xcode*/Contents/version.plist | sed -E -e 's/^([^:]+)[:][^>]+[>]([^<]+).*/\1 \2/g'
 }
 
 xc_path ()
 {
-	xc_versions | grep -F "$1" | sed -r -e 's/[[:space:]]+[0-9.]+$//g'
+	xc_versions | grep -F "$1" | sed -E -e 's/[[:space:]]+[0-9.]+$//g'
 }
 
 if test -n "${XCODE_INSTALL_USER}" ; then
