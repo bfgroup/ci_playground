@@ -189,5 +189,5 @@ project.
 
 == Copyright
 
-This work is Copyright Rene Rivera 2020. And distributed, and subject to,
+This work is Copyright René Ferdinand Rivera Morell 2020-2021. And distributed, and subject to,
 the link:LICENSE.txt[Boost Software License, Version 1.0].
