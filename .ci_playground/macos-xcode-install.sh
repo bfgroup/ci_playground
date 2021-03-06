@@ -14,7 +14,7 @@ xc_versions ()
 
 xc_path ()
 {
-	xc_versions | grep -F "$1" | sed -E -e 's/[[:space:]]+[0-9.]+$//g'
+	xc_versions | grep -F "$1" | head --lines=1 | sed -E -e 's/[[:space:]]+[0-9.]+$//g'
 }
 
 if test -n "${XCODE_INSTALL_USER}" ; then
@@ -55,7 +55,7 @@ else
 	echo "Xcode ${XCODE_VERSION} @ ${XC_PATH}"
 	sudo mv -f "${PWD}/Xcode.app" "${PWD}/Xcode-Unknown.app"
 	sudo ln -s "${XC_PATH}" Xcode.app
-	sudo xcode-select -s "${PWD}/Xcode.app"
+	sudo xcode-select -s "${XC_PATH}"
 fi
 
 # Use, modification, and distribution are
