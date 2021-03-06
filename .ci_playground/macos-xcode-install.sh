@@ -14,7 +14,7 @@ xc_versions ()
 
 xc_path ()
 {
-	xc_versions | grep -F "$1" | head --lines=1 | sed -E -e 's/[[:space:]]+[0-9.]+$//g'
+	xc_versions | grep -F "$1" | head -n 1 | sed -E -e 's/[[:space:]]+[0-9.]+$//g'
 }
 
 if test -n "${XCODE_INSTALL_USER}" ; then
