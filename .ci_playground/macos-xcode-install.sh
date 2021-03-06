@@ -9,7 +9,7 @@ set -e
 
 xc_versions ()
 {
-	grep -E -e '[>]([[:digit:]]+[.]){1,2}([[:digit:]]+)' ${PWD}/Xcode*/Contents/version.plist | sed -E -e 's/^([^:]+)[:][^>]+[>]([^<]+).*/\1 \2/g'
+	grep -E -e '[>]([[:digit:]]{1,3}[.]){1,2}([[:digit:]]+)' ${PWD}/Xcode*/Contents/version.plist | sed -E -e 's/^([[:graph:]]+)[/]Contents[/]version.plist[^>]+[>]([^<]+).*/\1 \2/g'
 }
 
 xc_path ()
@@ -52,6 +52,8 @@ else
 	echo ">>>>> SELECT: Xcode ${XCODE_VERSION}.."
 	echo ">>>>>"
 	XC_PATH=`xc_path "${XCODE_VERSION}"`
+	echo "Xcode ${XCODE_VERSION} @ ${XC_PATH}"
+	sudo mv -f "${PWD}/Xcode.app" "${PWD}/Xcode-Unknown.app"
 	sudo ln -s "${XC_PATH}" Xcode.app
 	sudo xcode-select -s "${PWD}/Xcode.app"
 fi
