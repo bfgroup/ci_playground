@@ -42,6 +42,8 @@ xcode_task:
   install_script: [
     "set -e",
     "uname -a",
+    "ls -laF /Applications/",
+    "cat /Applications/Xcode*/Contents/version.plist",
     "./.ci_playground/macos-xcode-install.sh"
     ]
   # For consistent Xcode building we specify the sysroot to point to the
