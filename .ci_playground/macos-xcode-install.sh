@@ -75,6 +75,7 @@ else
 		sudo ln -s "${XC_PATH}" Xcode.app
 	fi
 	sudo xcode-select -s "${XC_PATH}"
+	popd
 fi
 
 # Use, modification, and distribution are
