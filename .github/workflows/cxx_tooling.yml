@@ -86,8 +86,6 @@ jobs:
       CXX: ${{ matrix.cxx }}
       CXXFLAGS: ${{ matrix.cxxflags }}
       XCODE_VERSION: ${{ matrix.xcode_version }}
-      XCODE_INSTALL_USER: ${{ secrets.dev_apple_user }}
-      XCODE_INSTALL_PASSWORD: ${{ secrets.dev_apple_password }}
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master

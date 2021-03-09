@@ -98,13 +98,9 @@ stages:
     pool:
       vmImage: $(VM_IMAGE)
     steps:
-    # The setup step on macOS includes reflecting the Apple developer
-    # credentials to the install script.
     - bash: |
         set -e
         uname -a
-        export 'XCODE_INSTALL_USER=$(DEV_APPLE_USER)'
-        export 'XCODE_INSTALL_PASSWORD=$(DEV_APPLE_PASSWORD)'
         ./.ci_playground/macos-xcode-install.sh
       displayName: Install Toolset
     # For consistent Xcode building we specify the sysroot to point to the
