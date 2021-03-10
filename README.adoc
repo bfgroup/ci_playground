@@ -53,10 +53,14 @@ link:.ci_playground/windows-msvc-setup.cmd[<root>/.ci_playground/windows-msvc-se
 
 === macOS Xcode
 
-For Xcode we make use of the great work of the Fastlane developers and the
-https://github.com/xcpretty/xcode-install[`xcode-install`] tool. It makes setting
-up consistent Xcode installs easy. Additionally it makes it possible to fresh
-install a full Xcode and command line tools.
+Setting up Xcode is simply a matter of setting the `XCODE_VERSION` env variable
+to the version to be tested. The setup script will search through the
+pre-installed Xcode installations in the `/Applications` directory.
+
+Optionally there's support for using the great work of the Fastlane developers
+and the https://github.com/xcpretty/xcode-install[`xcode-install`] tool. It
+makes setting up consistent Xcode installs easy. Additionally it makes it
+possible to fresh install a full Xcode and command line tools.
 
 Without any additional configuration we use `xcode-install` to select which
 Xcode version to use. But, by setting up Apple Developer credentials we can use
@@ -68,6 +72,10 @@ environment variables:
 `XCODE_INSTALL_PASSWORD`:: Password, or token, for the account.
 
 Check below for how those variables are defined for specific services.
+
+WARNING: The support for using `xcode-install` is no longer tested as Apple
+has made it almost impossible to access their services within automation
+programs.
 
 == Services
 
