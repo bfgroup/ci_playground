@@ -10,7 +10,7 @@ set -e
 xc_versions ()
 {
 	IFS=$'\n'
-	XC_VERSIONS=`grep -E -e '[>]([[:digit:]]{1,3}[.]){1,2}([[:digit:]]+)' ${PWD}/Xcode*/Contents/version.plist | sed -E -e 's/^([[:graph:]]+)[/]Contents[/]version.plist[^>]+[>]([^<]+).*/\1 \2/g'`
+	XC_VERSIONS=`grep -H -E -e '[>]([[:digit:]]{1,3}[.]){1,2}([[:digit:]]+)' ${PWD}/Xcode*/Contents/version.plist | sed -E -e 's/^([[:graph:]]+)[/]Contents[/]version.plist[^>]+[>]([^<]+).*/\1 \2/g'`
 	for XC in ${XC_VERSIONS}
 	do
 		XC_PATH=`echo ${XC} | sed -E -e 's/[[:space:]]+[0-9.]+$//g'`
