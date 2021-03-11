@@ -91,7 +91,7 @@ only include services that support the GitHub revision control service.
 Below we only discuss the resources available in the free tiers of the
 services.
 
-=== https://www.appveyor.com/[AppVeyor] image:https://ci.appveyor.com/api/projects/status/hac4wso6ouhxdho3/branch/master?svg=true["Build Status", link="https://ci.appveyor.com/project/grafikrobot/ci-playground"]
+=== https://www.appveyor.com/[AppVeyor] image:https://ci.appveyor.com/api/projects/status/ig1acmghu4we5be2/branch/master?svg=true["Build Status", link="https://ci.appveyor.com/project/bfgroup/ci-playground"]
 
 Configuration::
 	link:appveyor.yml[`<root>/appveyor.yml`]
@@ -103,7 +103,7 @@ https://www.appveyor.com/docs/build-configuration/#secure-variables[secure value
 for both `XCODE_INSTALL_USER` and `XCODE_INSTALL_PASSWORD`. And place the
 secure values in the `appveyor.yml` file.
 
-=== https://azure.microsoft.com/en-us/services/devops/pipelines/[Azure Pipelines] image:https://dev.azure.com/grafikrobot/CI%20Playground/_apis/build/status/bfgroup.ci_playground?branchName=master["Build Status", link="https://dev.azure.com/grafikrobot/CI%20Playground/_build/latest?definitionId=11&branchName=master"]
+=== https://azure.microsoft.com/en-us/services/devops/pipelines/[Azure Pipelines] image:https://dev.azure.com/bfgroup/CI%20Playground/_apis/build/status/bfgroup.ci_playground?branchName=master["Build Status", link="https://dev.azure.com/bfgroup/CI%20Playground/_build/latest?definitionId=4&branchName=master"]
 
 Configuration::
 	link:azure-pipelines.yml[`<root>/azure-pipelines.yml`]
