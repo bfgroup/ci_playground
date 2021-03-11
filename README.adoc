@@ -40,9 +40,11 @@ link:.ci_playground/linux-cxx-install.sh[<root>/.ci_playground/linux-cxx-install
 	APT repository through `LLVM_OS` and `LLVM_VER` environment variables.
 
 link:.ci_playground/macos-xcode-install.sh[<root>/.ci_playground/macos-xcode-install.sh]::
-	Uses `xcode-install` tool to install and/or setup Xcode as indicated
-	in the `XCODE_VERSION` environment variable. See below for additional
-	setup needed for the install to work.
+	Finds the indicated Xcode, in the `XCODE_VERSION` environment variable,
+	present in the `/Applications` directory and sets it as the active Xcode.
+	Alternatively, uses `xcode-install` tool to install and/or setup Xcode as
+	indicated in the `XCODE_VERSION` environment variable. See below for
+	additional setup needed for the install to work.
 
 link:.ci_playground/windows-msvc-setup.cmd[<root>/.ci_playground/windows-msvc-setup.cmd]::
 	Uses the link:https://github.com/Microsoft/vswhere[`vswhere`] utility to
