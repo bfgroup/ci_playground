@@ -28,7 +28,7 @@ jobs:
       # APT packages from LLVM_REPO to install for the compiler.
       packages: { default: "", type: string }
     docker:
-      image: << parameters.image >>
+      - image: << parameters.image >>
     environment:
       LLVM_OS: << parameters.llvm_os >>
       LLVM_VER: << parameters.llvm_ver >>
