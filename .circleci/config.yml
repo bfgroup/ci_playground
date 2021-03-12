@@ -27,7 +27,7 @@ jobs:
       cxxflags: { default: "", type: string }
       # APT packages from LLVM_REPO to install for the compiler.
       packages: { default: "", type: string }
-    machine:
+    docker:
       image: << parameters.image >>
     environment:
       LLVM_OS: << parameters.llvm_os >>
