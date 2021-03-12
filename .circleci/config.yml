@@ -14,7 +14,7 @@ jobs:
   linux-job:
     parameters:
       # The, optional, Linux OS image to run in.
-      image: { default: "ubuntu-1604:201903-01", type: string }
+      image: { default: "cimg/base:2020.01", type: string }
       # The, optional, LLVM OS to obtain clang builds for. This needs to
       # match the Linux OS image.
       llvm_os: { default: "", type: string }
